@@ -10,15 +10,14 @@ class SongsController {
     }
 
     public function list() {
+
         $data["canciones"] = $this->songsModel->getSongs();
         $this->renderer->render("songs", $data);
-    }
 
-    public function add(){
-        die("llame a add");
-    }
 
-    public function delete() {
-        die('llame a delete');
-    }
+		}
+
+
+
+
 }
