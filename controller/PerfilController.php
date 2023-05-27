@@ -13,7 +13,11 @@
 
 		public function perfil()
 		{
-			$this->renderer->render('perfil');
+            session_start();
+            $idUser = $_SESSION['actualUser'];
+            $data["perfil"] = $this->perfilModel->getUserById($idUser);
+			$this->renderer->render('perfil', $data);
+            exit();
 		}
 
 		public function verPerfil()
