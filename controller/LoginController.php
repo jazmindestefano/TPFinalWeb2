@@ -24,7 +24,7 @@
             $usuario = $this->loginModel->getUser($username, $password);
 
             if (!empty($usuario)) {
-                echo "usuario y contraseña correcta";
+                header('location: ../index.php');
             } else {
                 echo "usuario o contraseña incorrecta";
             }
