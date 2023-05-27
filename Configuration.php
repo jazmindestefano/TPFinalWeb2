@@ -7,6 +7,7 @@
     include_once('model/SongsModel.php');
     include_once('model/LoginModel.php');
     include_once('model/RegisterModel.php');
+    include_once('model/PerfilModel.php');
 
 
     include_once('controller/ToursController.php');
@@ -14,6 +15,7 @@
     include_once('controller/LaBandaController.php');
     include_once('controller/LoginController.php');
     include_once('controller/RegisterController.php');
+    include_once('controller/PerfilController.php');
 
     include_once('third-party/mustache/src/Mustache/Autoloader.php');
 
@@ -88,4 +90,14 @@
 			    $this->getRenderer()
 		    );
 	    }
+
+	    public function getPerfilController()
+	    {
+		    return new PerfilController(
+			    new PerfilModel($this->getDatabase()),
+			    $this->getRenderer()
+		    );
+	    }
+
+
     }
