@@ -12,7 +12,7 @@
 			$this->renderer = $renderer;
 		}
 
-		public function list()
+		public function register()
 		{
 			$this->renderer->render('register');
 		}
