@@ -20,11 +20,14 @@
         {
             $username = $_POST['username'];
             $password = $_POST['password'];
-
             $usuario = $this->loginModel->getUser($username, $password);
 
             if (!empty($usuario)) {
+                session_start();
+                $_SESSION['actualUser'] = $usuario[0]['idUsuario'];
+                echo  $_SESSION['actualUser'];
                 header('location: ../index.php');
+                exit();
             } else {
                 echo "usuario o contraseña incorrecta";
             }

@@ -11,12 +11,16 @@
 			$this->renderer = $renderer;
 		}
 
-		public function login()
+		public function perfil()
 		{
 			$this->renderer->render('perfil');
 		}
 
 		public function verPerfil()
 		{
+            session_start();
+            $idUser = $_SESSION['actualUser'];
+            $this->perfilModel->getUserById($idUser);
+            exit();
 		}
 	}
