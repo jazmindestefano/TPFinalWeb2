@@ -35,9 +35,9 @@
 					$nombreCompleto,
 					$fechaDeNacimiento,
 					$sexo,
-					$email,
 					$password,
 					$ubicacion,
+					$email,
 					$foto,
 					$rol);
 

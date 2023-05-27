@@ -33,13 +33,4 @@
             call_user_func(array($controller, $validMethod));
         }
 
-
-        public function getLoginController()
-        {
-            return new LoginController(
-                new LoginModel($this->configuration->getDatabase()),
-                $this->configuration->getRenderer()
-            );
-        }
-
     }
