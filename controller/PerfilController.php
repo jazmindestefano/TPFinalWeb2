@@ -19,12 +19,4 @@
 			$this->renderer->render('perfil', $data);
             exit();
 		}
-
-		public function verPerfil()
-		{
-            session_start();
-            $idUser = $_SESSION['actualUser'];
-            $this->perfilModel->getUserById($idUser);
-            exit();
-		}
 	}
