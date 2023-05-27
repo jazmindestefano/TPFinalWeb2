@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registro</title>
+</head>
+<body>
+<form action="index.php?module=register&action=userRegistration" method="post" enctype="multipart/form-data">
+    <label for="nombre-completo">Nombre Completo</label>
+    <input type="text" id="nombre-completo" name="nombre-completo" required>
+
+    <label for="fecha-nacimiento">Fecha de Nacimiento</label>
+    <input type="date" id="fecha-nacimiento" name="fecha-nacimiento" required>
+
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="confirm-password">Repetir Password</label>
+    <input type="password" id="confirm-password" name="confirm-password" required>
+
+    <label for="ubicacion">Ubicación</label>
+    <input type="text" id="ubicacion" name="ubicacion" required>
+
+    <label for="foto">Foto</label>
+    <input type="text" id="foto" name="foto" accept="image/*">
+
+    <label for="sexo">Sexo</label>
+    <select id="sexo" name="sexo" required>
+        <option value="masculino">Masculino</option>
+        <option value="femenino">Femenino</option>
+        <option value="otro">Otro</option>
+    </select>
+
+    <button type="submit">Registrarse</button>
+</form>
+</body>
+</html>

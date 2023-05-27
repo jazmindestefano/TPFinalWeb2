@@ -6,12 +6,14 @@
     include_once("model/ToursModel.php");
     include_once('model/SongsModel.php');
     include_once('model/LoginModel.php');
+    include_once('model/RegisterModel.php');
 
 
     include_once('controller/ToursController.php');
     include_once('controller/SongsController.php');
     include_once('controller/LaBandaController.php');
     include_once('controller/LoginController.php');
+    include_once('controller/RegisterController.php');
 
     include_once('third-party/mustache/src/Mustache/Autoloader.php');
 
@@ -78,4 +80,12 @@
                 $this->getRenderer()
             );
         }
+
+	    public function getRegisterController()
+	    {
+		    return new RegisterController(
+			    new RegisterModel($this->getDatabase()),
+			    $this->getRenderer()
+		    );
+	    }
     }
