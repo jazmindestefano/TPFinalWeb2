@@ -1,19 +1,106 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Iniciar sesión</title>
+    <title>Iniciar sesión</title>
 </head>
 <body>
-  <h2>Iniciar sesión</h2>
-  <form action="index.php?module=login&action=ingresarlogin" method="POST">
-    <label for="username">username:</label>
-    <input type="text" id="username" name="username"><br><br>
 
-    <label for="password">password:</label>
-    <input type="text" id="password" name="password" ><br><br>
 
-    <input type="submit" value="Iniciar sesión">
-  </form>
+<div class="login-page">
+    <div class="login-side">
+        <form action="index.php?module=login&action=ingresarlogin" method="POST" class="login-box">
+            <div class="brand">Iniciar Sesión</div>
+            <div class="line-form">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username">
+            </div>
+            <div class="line-form">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password">
+            </div>
+
+            <button type="submit" class="btn-gral">Iniciar sesión</button>
+        </form>
+    </div>
+    <div class="lateral">
+
+
+
+    </div>
+</div>
+
+<style>
+
+    body{
+        margin:0
+    }
+    .login-page {
+        display: flex;
+        height: 100vh;
+    }
+    .login-side {
+        width: 40%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .login-page .login-side .login-box {
+        width: 55%;
+    }
+    .brand {
+        width: 100%;
+        height: 1.7rem;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 2rem;
+        font-family: Arial;
+    }
+    .lateral {
+        width: 60%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: #ff0054;
+    }
+    .line-form input {
+        border: 1px solid #bbb;
+        border-radius: 5px;
+        padding: 0.5rem 0rem;
+        width: 100%;
+        background-color: transparent;
+        resize: vertical;
+        min-height: 2rem;
+    }
+    .login-page .login-side .login-box .btn-gral {
+        width: 100%;
+        margin-top: 1rem;
+        text-transform: uppercase;
+        color:white
+    }
+    .btn-gral {
+        border: none;
+        padding: 1rem 1.6rem;
+        border-radius: 0.6rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        background-color: #ff0054;
+        transition: all .15s ease-in-out;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    .line-form {
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+</style>
 </body>
 </html>
+
