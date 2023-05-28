@@ -30,7 +30,13 @@
 			$foto = $_POST['foto'];
 			$sexo = $_POST['sexo'];
 			$rol = 'jugador';
+            $duplicado= $this->registerModel->estaDuplicado($email, $username);
 
+            if(!empty($duplicado)){
+
+                $data["duplicado"]= $duplicado;
+                $this->renderer->render('register', $data);
+            } else{
 				$method = $this->registerModel->userRegistration(
 					$username,
 					$nombreCompleto,
@@ -41,7 +47,8 @@
 					$email,
 					$foto,
 					$rol);
-
+                $this->renderer->render('login');
+            }
 				//como redireccionar al login, me inserta dos veces en register/register, problemas con rutas
 
 		/*		if($method) {
