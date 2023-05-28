@@ -6,6 +6,8 @@
 		private $registerModel;
 		private $renderer;
 
+
+
 		public function __construct($registerModel, $renderer)
 		{
 			$this->registerModel = $registerModel;
@@ -33,9 +35,9 @@
             $duplicado= $this->registerModel->estaDuplicado($email, $username);
 
             if(!empty($duplicado)){
-
                 $data["duplicado"]= $duplicado;
                 $this->renderer->render('register', $data);
+
             } else{
 				$method = $this->registerModel->userRegistration(
 					$username,
@@ -47,7 +49,7 @@
 					$email,
 					$foto,
 					$rol);
-                $this->renderer->render('login');
+                header('location: /login/login');
             }
 				//como redireccionar al login, me inserta dos veces en register/register, problemas con rutas
 
@@ -59,5 +61,6 @@
 
  */
 		}
+
 
 	}
