@@ -32,14 +32,15 @@
 			$foto = $_POST['foto'];
 			$sexo = $_POST['sexo'];
 			$rol = 'jugador';
+            $verify_token = md5(rand());
             $duplicado= $this->registerModel->estaDuplicado($email, $username);
 
-            if(!empty($duplicado)){
+      if(!empty($duplicado)){
                 $data["duplicado"]= $duplicado;
                 $this->renderer->render('register', $data);
 
             } else{
-				$method = $this->registerModel->userRegistration(
+                $this->registerModel->userRegistration(
 					$username,
 					$nombreCompleto,
 					$fechaDeNacimiento,
@@ -48,19 +49,9 @@
 					$ubicacion,
 					$email,
 					$foto,
-					$rol);
+					$rol,
+                    $verify_token);
                 header('location: /login/login');
             }
-				//como redireccionar al login, me inserta dos veces en register/register, problemas con rutas
-
-		/*		if($method) {
-					header("Location: login");
-				} else {
-					echo "no";
-				}
-
- */
 		}
-
-
 	}
