@@ -25,7 +25,6 @@
             if (!empty($usuario)) {
                 session_start();
                 $_SESSION['actualUser'] = $usuario[0]['idUsuario'];
-                echo  $_SESSION['actualUser'];
                 header('location: ../index.php');
                 exit();
             } else {
