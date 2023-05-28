@@ -20,7 +20,8 @@
         {
             $username = $_POST['username'];
             $password = $_POST['password'];
-            $usuario = $this->loginModel->getUser($username, $password);
+            $hashPassword= md5($password);
+            $usuario = $this->loginModel->getUser($username, $hashPassword);
 
             if (!empty($usuario)) {
                 session_start();
