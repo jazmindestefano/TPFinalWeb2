@@ -25,6 +25,7 @@
 			$username = $_POST['username'];
 			$email = $_POST['email'];
 			$password = $_POST['password'];
+            $hashPassword= md5($password);
 			$ubicacion = $_POST['ubicacion'];
 			$foto = $_POST['foto'];
 			$sexo = $_POST['sexo'];
@@ -35,7 +36,7 @@
 					$nombreCompleto,
 					$fechaDeNacimiento,
 					$sexo,
-					$password,
+                    $hashPassword,
 					$ubicacion,
 					$email,
 					$foto,
