@@ -16,6 +16,7 @@
     include_once('controller/LoginController.php');
     include_once('controller/RegisterController.php');
     include_once('controller/PerfilController.php');
+    include_once('controller/LogoutController.php');
 
     include_once('third-party/mustache/src/Mustache/Autoloader.php');
 
@@ -74,6 +75,10 @@
                 "getLaBandaController",
                 "list");
         }
+
+        public function getLogoutController() {
+             return new LogoutController();
+    }
 
         public function getLoginController()
         {
