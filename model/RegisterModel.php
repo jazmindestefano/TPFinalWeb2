@@ -48,7 +48,17 @@ require 'vendor/autoload.php';
             $mail->send();
         }
 
-		public function userRegistration($username, $nombreCompleto, $fechaDeNacimiento, $sexo, $password, $ubicacion, $email, $foto, $rol,$verify_token) {
+		public function validarContrasenas($password, $confirmPassword)
+		{
+			if ($password !== $confirmPassword) {
+				$data["error"] = "Las contraseñas no coinciden";
+			}
+
+			return $data ?? "";
+		}
+
+		public function userRegistration($username, $nombreCompleto, $fechaDeNacimiento, $sexo, $password, $confirmPassword,$ubicacion, $email, $foto, $rol,$verify_token) {
+
 			$sql = "INSERT INTO usuarios (username, nombreCompleto, fechaDeNacimiento, sexo, password, ubicacion, mail, fotoDePerfil, rol,   verify_token)
             VALUES ('$username', '$nombreCompleto', '$fechaDeNacimiento', '$sexo', '$password', '$ubicacion', '$email', '$foto', '$rol', '$verify_token')";
             $this->sendemail_verify($nombreCompleto,$email,$verify_token);
