@@ -20,7 +20,9 @@
             $validarUsuarioLogeado = new ValidarUsuarioLogeado();
             $validarUsuarioLogeado->validarUsuarioLogeado();
 
-            session_start();
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
             $idUser = $_SESSION['actualUser'];
             $data["perfil"] = $this->perfilModel->getUserById($idUser);
             $this->renderer->render('perfil', $data);
