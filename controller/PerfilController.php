@@ -2,7 +2,7 @@
 
     include_once("./helpers/ValidarUsuarioLogeado.php");
 
-    class PerfilController
+    class PerfilController extends ValidarUsuarioLogeado
     {
         private $perfilModel;
         private $renderer;
@@ -14,18 +14,15 @@
             $this->renderer = $renderer;
         }
 
+	    public function perfil() {
+		    $this->validarUsuarioLogeado();
 
-        public function perfil()
-        {
-            $validarUsuarioLogeado = new ValidarUsuarioLogeado();
-            $validarUsuarioLogeado->validarUsuarioLogeado();
-
-            session_start();
-            $idUser = $_SESSION['actualUser'];
-            $data["perfil"] = $this->perfilModel->getUserById($idUser);
-            $this->renderer->render('perfil', $data);
-            exit();
-        }
+		    session_start();
+		    $idUser = $_SESSION['actualUser'];
+		    $data["perfil"] = $this->perfilModel->getUserById($idUser);
+		    $this->renderer->render('perfil', $data);
+		    exit();
+	    }
     }
 
 

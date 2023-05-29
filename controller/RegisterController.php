@@ -27,30 +27,31 @@
 			$username = $_POST['username'];
 			$email = $_POST['email'];
 			$password = $_POST['password'];
-            $hashPassword= md5($password);
+			$confirmPassword = $_POST['confirm-password'];
+			$hashPassword= md5($password);
 			$ubicacion = $_POST['ubicacion'];
 			$foto = $_POST['foto'];
 			$sexo = $_POST['sexo'];
 			$rol = 'jugador';
-            $verify_token = md5(rand());
-            $duplicado= $this->registerModel->estaDuplicado($email, $username);
+			$verify_token = md5(rand());
+			$duplicado= $this->registerModel->estaDuplicado($email, $username);
 
       if(!empty($duplicado)){
                 $data["duplicado"]= $duplicado;
                 $this->renderer->render('register', $data);
 
             } else{
-               $method = $this->registerModel->userRegistration(
-					$username,
-					$nombreCompleto,
-					$fechaDeNacimiento,
-					$sexo,
-                    $hashPassword,
-					$ubicacion,
-					$email,
-					$foto,
-					$rol,
-                    $verify_token);
+							$method = $this->registerModel->userRegistration(
+							$username,
+							$nombreCompleto,
+							$fechaDeNacimiento,
+							$sexo,
+							$hashPassword,
+							$ubicacion,
+							$email,
+							$foto,
+							$rol,
+			        $verify_token);
                if($method){
                    $data['statusEmail'] = 'Registro Exitoso! Verifique su mail';
                    $this->renderer->render('register', $data);
