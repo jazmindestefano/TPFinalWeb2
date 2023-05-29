@@ -1,17 +1,64 @@
 {{> header}}
 <main>
+    <div class="header">
+        <img class="avatar" src="{{fotoDePerfil}}" alt="">
     {{#perfil}}
-        <p>usuario: {{username}}</p>
-        <p>nombre: {{nombreCompleto}}</p>
-        <p>fecha de nacimiento: {{fechaDeNacimiento}}</p>
-        <p>sexo: {{sexo}}</p>
-        <p>password: {{password}}</p>
-        <p>ubicacion: {{ubicacion}}</p>
-        <p>mail: {{mail}}</p>
-        <p>foto de perfil: {{fotoDePerfil}}</p>
-        <p>rol: {{rol}}</p>
+
+        <h1 class="user-name"> {{username}}</h1>
+        <p class="rol">rol: {{rol}}</p>
+        </div>
+    <div class="data-profile">
+        <p>Nombre: {{nombreCompleto}}</p>
+        <p>Fecha de nacimiento: {{fechaDeNacimiento}}</p>
+        <p>Sexo: {{sexo}}</p>
+        <p>Contraseña: {{password}}</p>
+        <p>Ubicación: {{ubicacion}}</p>
+        <p>Email: {{mail}}</p>
+
+    </div>
 
     {{/perfil}}
 
 </main>
+
+<style>
+  .header{
+      text-align: center;
+      padding: 12px;
+      background: #ff0054;
+
+  }
+    .avatar{
+        width: 200px;
+        height: 200px;
+        border-radius:50%;
+        background: white;
+        border: 4px solid black;
+    }
+
+    .data-profile{
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .user-name{
+        font-size: 18px;
+        margin-top:14px;
+        color:#fff;
+    }
+
+    .rol{
+        color: white;
+        background: #000;
+        border-radius: 55px;
+        display: inline;
+        padding:  5px 25px;
+
+    }
+
+
+</style>
 {{> footer}}
