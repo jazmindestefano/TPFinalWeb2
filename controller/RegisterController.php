@@ -36,6 +36,12 @@
 			$verify_token = md5(rand());
 			$duplicado= $this->registerModel->estaDuplicado($email, $username);
 
+			if ($password !== $confirmPassword) {
+				$data["error"] = "Las contraseñas no coinciden.";
+				$this->renderer->render('register', $data);
+				return;
+			}
+
       if(!empty($duplicado)){
                 $data["duplicado"]= $duplicado;
                 $this->renderer->render('register', $data);
