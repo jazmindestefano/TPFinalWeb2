@@ -14,39 +14,92 @@ require 'vendor/autoload.php';
 			$this->database = $database;
 		}
 
-        public function sendemail_verify($nombreCompleto,$email,$verify_token) {
+		public function sendemail_verify($nombreCompleto, $email, $verify_token)
+		{
+			//Create an instance; passing `true` enables exceptions
+			$mail = new PHPMailer(true);
 
-            //Create an instance; passing `true` enables exceptions
-            $mail = new PHPMailer(true);
+			//Server settings
+			$mail->isSMTP();                                            //Send using SMTP
+			// $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+			$mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
+			$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+			$mail->Username   = 'jazminisabeldestefano@gmail.com';       //SMTP username
+			$mail->Password   = 'kpojehupdgrzhyeg';                     //SMTP password
+			$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+			$mail->Port       = 465;
 
-            //Server settings
-            $mail->isSMTP();                                            //Send using SMTP
-          //  $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-            $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'jazminisabeldestefano@gmail.com';                     //SMTP username
-            $mail->Password   = 'kpojehupdgrzhyeg';                               //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            $mail->Port       = 465;
-            //Recipients
-            $mail->setFrom('jazminisabeldestefano@gmail.com', $nombreCompleto);
-            $mail->addAddress($email);
+			//Recipients
+			$mail->setFrom('jazminisabeldestefano@gmail.com', "KnowItAll");
+			$mail->addAddress($email);
 
-            //Content
-            $mail->isHTML(true);
-            $mail->Subject = 'Email verification from KnowItAll';
+			//Content
+			$mail->isHTML(true);
+			$mail->Subject = 'Email verification from KnowItAll';
 
-            $email_template= "
-                   <h2>Te has registrado en KnowItAll</h2>
-                   <h5>Verifica tu mail con el link de aqui abajo</h5>
-                   <br></br>
-                   <a href='http://localhost/login/login?token=$verify_token'>Link para verificarte</a>
-            ";
+			// CSS styles for the email template
+			$email_template = "
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                }
 
-            $mail->Body = $email_template;
+                .container {
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background-color: #f7f7f7;
+                    border-radius: 5px;
+                    text-align: center;
+                }
 
-            $mail->send();
-        }
+                h2 {
+                    color: #333333;
+                }
+
+                h5 {
+                    color: #666666;
+                }
+                
+                p {
+                color: black !important;
+                font-size: 18px;
+                }
+
+                a {
+                    display: inline-block;
+                    margin-top: 10px;
+                    padding: 10px 20px;
+                    background-color: #ffd0f6;
+                    color: black !important;
+                    text-decoration: none;
+                    border-radius: 5px;
+                }
+                
+                a:hover {
+                color: black !important;
+                background-color: #ffbaf7;
+                }
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <h2>Hola $nombreCompleto! Te has registrado en KnowItAll</h2>
+                <p>Verifica tu correo electrónico con el siguiente enlace:</p>
+                <a href='http://localhost/login/login?token=$verify_token'>Verificar correo electrónico</a>
+            </div>
+        </body>
+        </html>
+    ";
+
+			$mail->Body = $email_template;
+
+			$mail->send();
+		}
+
+
 
 		public function validarContrasenas($password, $confirmPassword)
 		{
