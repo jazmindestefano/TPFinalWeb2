@@ -21,7 +21,7 @@ require 'vendor/autoload.php';
 
             //Server settings
             $mail->isSMTP();                                            //Send using SMTP
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+          //  $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
             $mail->Username   = 'jazminisabeldestefano@gmail.com';                     //SMTP username
@@ -46,7 +46,6 @@ require 'vendor/autoload.php';
             $mail->Body = $email_template;
 
             $mail->send();
-            // echo 'Message has been sent';
         }
 
 		public function userRegistration($username, $nombreCompleto, $fechaDeNacimiento, $sexo, $password, $ubicacion, $email, $foto, $rol,$verify_token) {
@@ -55,8 +54,6 @@ require 'vendor/autoload.php';
             $this->sendemail_verify($nombreCompleto,$email,$verify_token);
             return $this->database->insert($sql);
 		}
-
-
 
         public function consultarTodosLosMailDeUsuarios()
         {

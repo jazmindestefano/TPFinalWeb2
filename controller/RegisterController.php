@@ -40,7 +40,7 @@
                 $this->renderer->render('register', $data);
 
             } else{
-                $this->registerModel->userRegistration(
+               $method = $this->registerModel->userRegistration(
 					$username,
 					$nombreCompleto,
 					$fechaDeNacimiento,
@@ -51,7 +51,10 @@
 					$foto,
 					$rol,
                     $verify_token);
-                header('location: /login/login');
+               if($method){
+                   $data['statusEmail'] = 'Registro Exitoso! Verifique su mail';
+                   $this->renderer->render('register', $data);
+               }
             }
 		}
 	}

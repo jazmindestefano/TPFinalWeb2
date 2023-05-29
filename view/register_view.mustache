@@ -9,6 +9,11 @@
 <div class="login-page">
     <div class="login-side">
         <form action="/register/userRegistration" method="post" enctype="multipart/form-data" class="login-box">
+            <h4 style="color: green">
+                {{
+                statusEmail
+                }}
+            </h4>
             <div class="line-form">
             <label for="nombre-completo">Nombre Completo</label>
             <input type="text" id="nombre-completo" name="nombre-completo" required>
