@@ -27,4 +27,8 @@ class MySqlDatabase {
 		public function insert($sql) {
 			return mysqli_query($this->connection, $sql);
 		}
+
+        public function update($sql){
+            return mysqli_query($this->connection, $sql);
+        }
 }

@@ -15,4 +15,10 @@
             return $this->database->query($query);
         }
 
+        public function setUserVerified($token) {
+            $query =  "UPDATE usuarios SET esta_verificado = 'true' WHERE verify_token = '$token'";
+            return $this->database->update($query);
+
+    }
+
     }
