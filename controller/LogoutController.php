@@ -9,7 +9,6 @@ class LogoutController
 
     public function logout()
     {
-        session_encode();
         session_destroy();
         header('location: /login/login');
     }
