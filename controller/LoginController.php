@@ -33,7 +33,7 @@
 
                 if (!empty($usuario) && $usuarioVerificado == 'true') {
                     $_SESSION['actualUser'] =  $idUsuario;
-                    header('location: /index.php');
+                    header('location: ../index.php');
                     exit();
                 } else {
                     header('location: /login/login');

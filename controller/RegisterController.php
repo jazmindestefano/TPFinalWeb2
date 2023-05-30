@@ -14,6 +14,7 @@
 
 		public function register()
 		{
+
 			$this->renderer->render('register');
 		}
 
