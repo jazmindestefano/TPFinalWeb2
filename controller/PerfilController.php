@@ -1,7 +1,5 @@
 <?php
 
-    include_once("./helpers/ValidarUsuarioLogeado.php");
-
     class PerfilController
     {
         private $perfilModel;
