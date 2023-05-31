@@ -27,8 +27,8 @@
             $password = $_POST['password'];
             $hashPassword= md5($password);
             $usuario = $this->loginModel->getUser($username, $hashPassword);
-            $idUsuario = $usuario[0]['idUsuario'];
-            $usuarioVerificado = $usuario[0]['esta_verificado'];
+            $idUsuario = $usuario[0]['idUsuario'] ?? "";
+            $usuarioVerificado = $usuario[0]['esta_verificado'] ?? "";
 
 
                 if (!empty($usuario) && $usuarioVerificado == 'true') {
@@ -36,7 +36,8 @@
                     header('location: ../index.php');
                     exit();
                 } else {
-                    header('location: /login/login');
+										$error['errorDatos'] = "El username o contraseña son incorrectos";
+                    $this->renderer->render('login', $error);
                 }
 
 
