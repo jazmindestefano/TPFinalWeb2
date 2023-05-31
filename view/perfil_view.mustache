@@ -7,13 +7,34 @@
         <h1 class="user-name"> {{username}}</h1>
         <p class="rol">rol: {{rol}}</p>
     </div>
+
         <div class="data-profile">
+            <div class="mapa">
+                <p>Ubicación: </p>
+                <iframe
+                        width="300"
+                        height="200"
+                        style="border:0"
+                        loading="lazy"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxP6xiQEPFAMcksSmK-ZmzUdGZbo5rukI&q={{ubicacion}}
+                ">
+                </iframe>
+            </div>
+            <div>
             <p>Nombre: {{nombreCompleto}}</p>
             <p>Fecha de nacimiento: {{fechaDeNacimiento}}</p>
             <p>Sexo: {{sexo}}</p>
-            <p>Ubicación: {{ubicacion}}</p>
             <p>Email: {{mail}}</p>
-            <img src="/public/qr.php?id={{idUsuario}}" />
+
+            </div>
+
+
+            <div class="qrCont">
+                <img src="/public/qr.php?id={{idUsuario}}" />
+            </div>
+
         </div>
 
     {{/miPerfil}}
@@ -23,13 +44,34 @@
         <h1 class="user-name"> {{username}}</h1>
         <p class="rol">rol: {{rol}}</p>
         </div>
+
         <div class="data-profile">
-            <p>Nombre: {{nombreCompleto}}</p>
-            <p>Fecha de nacimiento: {{fechaDeNacimiento}}</p>
-            <p>Sexo: {{sexo}}</p>
-            <p>Ubicación: {{ubicacion}}</p>
-            <p>Email: {{mail}}</p>
-            <img src="/public/qr.php?id={{idUsuario}}" />
+            <div class="mapa">
+                <p>Ubicación: </p>
+                <iframe
+                        width="300"
+                        height="200"
+                        style="border:0"
+                        loading="lazy"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxP6xiQEPFAMcksSmK-ZmzUdGZbo5rukI&q={{ubicacion}}
+                ">
+                </iframe>
+            </div>
+            <div>
+                <p>Nombre: {{nombreCompleto}}</p>
+                <p>Fecha de nacimiento: {{fechaDeNacimiento}}</p>
+                <p>Sexo: {{sexo}}</p>
+                <p>Email: {{mail}}</p>
+
+            </div>
+
+
+            <div class="qrCont">
+                <img src="/public/qr.php?id={{idUsuario}}" />
+            </div>
+
         </div>
 
     {{/otroPerfil}}
@@ -46,6 +88,16 @@
 
     }
 
+    .mapa{
+        padding:2rem 0rem;
+
+    }
+
+    .qrCont{
+        width: 300px;
+        height: 200px;
+    }
+
     .avatar {
         width: 200px;
         height: 200px;
@@ -57,8 +109,9 @@
     .data-profile {
 
         display: flex;
-        flex-direction: column;
+        justify-content: space-around;
         align-items: center;
+        flex-direction: row;
 
     }
 
