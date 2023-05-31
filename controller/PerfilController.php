@@ -15,10 +15,16 @@
 
         public function perfil()
         {
-            $idUser = $_SESSION['actualUser'];
-            $data["perfil"] = $this->perfilModel->getUserById($idUser);
+            if(empty($_GET['idUsuario'])){
+                $idUser = $_SESSION['actualUser'];
+                $data["miPerfil"] = $this->perfilModel->getUserById($idUser);
+             }else{
+                $data["otroPerfil"] = $this->perfilModel->getUserById($_GET['idUsuario']);
+            }
+
             $this->renderer->render('perfil', $data);
             exit();
+
         }
     }
 
