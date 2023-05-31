@@ -2,7 +2,7 @@
 <main>
 <div class="header">
     <img class="avatar" src="{{fotoDePerfil}}" alt="">
-    {{#perfil}}
+    {{#miPerfil}}
 
         <h1 class="user-name"> {{username}}</h1>
         <p class="rol">rol: {{rol}}</p>
@@ -13,10 +13,26 @@
             <p>Sexo: {{sexo}}</p>
             <p>Ubicación: {{ubicacion}}</p>
             <p>Email: {{mail}}</p>
-
+            <img src="/public/qr.php?id={{idUsuario}}" />
         </div>
 
-    {{/perfil}}
+    {{/miPerfil}}
+
+    {{#otroPerfil}}
+
+        <h1 class="user-name"> {{username}}</h1>
+        <p class="rol">rol: {{rol}}</p>
+        </div>
+        <div class="data-profile">
+            <p>Nombre: {{nombreCompleto}}</p>
+            <p>Fecha de nacimiento: {{fechaDeNacimiento}}</p>
+            <p>Sexo: {{sexo}}</p>
+            <p>Ubicación: {{ubicacion}}</p>
+            <p>Email: {{mail}}</p>
+            <img src="/public/qr.php?id={{idUsuario}}" />
+        </div>
+
+    {{/otroPerfil}}
 
 </main>
 
