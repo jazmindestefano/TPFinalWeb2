@@ -87,8 +87,8 @@ require 'vendor/autoload.php';
         <body>
             <div class='container'>
                 <h2>Hola $nombreCompleto! Te has registrado en KnowItAll</h2>
-                <p>Verifica tu correo electrónico con el siguiente enlace:</p>
-                <a href='http://localhost/login/login?token=$verify_token'>Verificar correo electrónico</a>
+                <p>Verifica tu correo electr&oacute;nico con el siguiente enlace:</p>
+                <a href='http://localhost/login/login?token=$verify_token'>Verificar correo electr&oacute;nico</a>
             </div>
         </body>
         </html>
