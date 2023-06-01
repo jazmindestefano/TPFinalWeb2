@@ -3,37 +3,34 @@
 <div class="header">
     <img class="avatar" src="{{fotoDePerfil}}" alt="">
     {{#miPerfil}}
-
         <h1 class="user-name"> {{username}}</h1>
         <p class="rol">rol: {{rol}}</p>
     </div>
 
         <div class="data-profile">
-            <div class="mapa">
-                <p>Ubicación: </p>
-                <iframe
-                        width="300"
-                        height="200"
-                        style="border:0"
-                        loading="lazy"
-                        allowfullscreen
-                        referrerpolicy="no-referrer-when-downgrade"
-                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxP6xiQEPFAMcksSmK-ZmzUdGZbo5rukI&q={{ubicacion}}
-                ">
-                </iframe>
-            </div>
-            <div>
-                <p>Nombre: {{nombreCompleto}}</p>
-                <p>Fecha de nacimiento: {{fechaDeNacimiento}}</p>
-                <p>Sexo: {{sexo}}</p>
-                <p>Email: {{mail}}</p>
-
+            <div style="display: flex; flex-direction: column; gap: 15px; width: 25%">
+                <input class="inputInfo" readonly value="Nombre: {{nombreCompleto}}"/>
+                <input class="inputInfo" readonly value="Fecha de nacimiento: {{fechaDeNacimiento}}"/>
+                <input class="inputInfo" readonly value="Sexo: {{sexo}}"/>
+                <input class="inputInfo" readonly value="Email: {{mail}}"/>
             </div>
 
+                <div class="qrCont">
+                    <img src="/public/qr.php?id={{idUsuario}}" />
+                </div>
+                <div class="mapa">
+                    <iframe
+                            width="500"
+                            height="400"
+                            style="border:0"
+                            loading="lazy"
+                            allowfullscreen
+                            referrerpolicy="no-referrer-when-downgrade"
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxP6xiQEPFAMcksSmK-ZmzUdGZbo5rukI&q={{ubicacion}}
+                    ">
+                    </iframe>
+                </div>
 
-            <div class="qrCont">
-                <img src="/public/qr.php?id={{idUsuario}}" />
-            </div>
 
         </div>
 
@@ -46,12 +43,20 @@
         </div>
 
         <div class="data-profile">
+            <div style="display: flex; flex-direction: column; gap: 30px; width: 20%">
+                <input class="inputInfo" readonly value="Nombre: {{nombreCompleto}}"/>
+                <input class="inputInfo" readonly value="Fecha de nacimiento: {{fechaDeNacimiento}}"/>
+                <input class="inputInfo" readonly value="Sexo: {{sexo}}"/>
+                <input class="inputInfo" readonly value="Email: {{mail}}"/>
+            </div>
+            <div class="qrCont">
+                <img src="/public/qr.php?id={{idUsuario}}" />
+            </div>
             <div class="mapa">
-                <p>Ubicación: </p>
                 <iframe
-                        width="300"
-                        height="200"
-                        style="border:0"
+                        width="500"
+                        height="500"
+                        style="border:0; width: 500px; height: 500px"
                         loading="lazy"
                         allowfullscreen
                         referrerpolicy="no-referrer-when-downgrade"
@@ -59,19 +64,6 @@
                 ">
                 </iframe>
             </div>
-            <div>
-                <p>Nombre: {{nombreCompleto}}</p>
-                <p>Fecha de nacimiento: {{fechaDeNacimiento}}</p>
-                <p>Sexo: {{sexo}}</p>
-                <p>Email: {{mail}}</p>
-
-            </div>
-
-
-            <div class="qrCont">
-                <img src="/public/qr.php?id={{idUsuario}}" />
-            </div>
-
         </div>
 
     {{/otroPerfil}}
@@ -80,22 +72,30 @@
 
 <style>
 
+    .inputInfo {
+        border: 1px solid darkgray;
+        border-radius: 6px;
+        padding: 20px 5px 20px 5px;
+        font-size: large
+    }
 
     .header {
         text-align: center;
         padding: 12px;
-        background: #ff0054;
+        background: #F44335;
 
     }
 
     .mapa {
-        padding: 2rem 0rem;
-
+        margin-top: 50px;
+        width: 500px;
+        height: 500px;
     }
 
     .qrCont {
-        width: 300px;
-        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .avatar {
@@ -107,12 +107,10 @@
     }
 
     .data-profile {
-
         display: flex;
         justify-content: space-around;
         align-items: center;
         flex-direction: row;
-
     }
 
     .user-name {
