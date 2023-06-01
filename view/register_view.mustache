@@ -40,7 +40,30 @@
 </div>
             <div class="line-form">
             <label for="ubicacion">Ubicación</label>
-            <input type="text" id="ubicacion" name="ubicacion" required>
+            <select id="ubicacion" name="ubicacion" required>
+                <option value="buenos aires">Buenos Aires</option>
+                <option value="catamarca">Catamarca</option>
+                <option value="chubut">Chubut</option>
+                <option value="córdoba">Córdoba</option>
+                <option value="corrientes">Corrientes</option>
+                <option value="entre rios">Entre Ríos</option>
+                <option value="formosa">Formosa</option>
+                <option value="jujuy">Jujuy</option>
+                <option value="la pampa">La Pampa</option>
+                <option value="la rioja">La Rioja</option>
+                <option value="mendoza">Mendoza</option>
+                <option value="misiones">Misiones</option>
+                <option value="neuquen">Neuquén</option>
+                <option value="rio negro">Río Negro</option>
+                <option value="salta">Salta</option>
+                <option value="san juan">San Juan</option>
+                <option value="san luis">San Luis</option>
+                <option value="santa cruz">Santa Cruz</option>
+                <option value="santa fe">Santa Fe</option>
+                <option value="santiago del estero">Santiago del Estero</option>
+                <option value="tierra del fuego">Tierra del fuego</option>
+                <option value="tucuman">Tucumán</option>
+            </select>
 </div>
             <div class="line-form">
             <label for="foto">Foto</label>
@@ -56,6 +79,11 @@
 </div>
 
             <button type="submit" class="btn-gral">Registrarse</button>
+            <h4>
+                {{
+                error
+                }}
+            </h4>
              {{#duplicado}}
         <p>{{duplicado}}</p>
     {{/duplicado}}
@@ -114,6 +142,17 @@
         resize: vertical;
         min-height: 2rem;
     }
+
+    .line-form select{
+        border: 1px solid #bbb;
+        border-radius: 5px;
+        padding:  0rem;
+        width: 100%;
+        background-color: transparent;
+        resize: vertical;
+        min-height: 2rem;
+    }
+
     .login-page .login-side .login-box .btn-gral {
         width: 100%;
         margin-top: 1rem;

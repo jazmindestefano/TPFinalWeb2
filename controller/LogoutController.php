@@ -1,6 +1,6 @@
 <?php
-
-    class LogoutController
+	include_once("./helpers/ValidarUsuarioLogeado.php");
+    class LogoutController extends ValidarUsuarioLogeado
     {
         public function __construct()
         {
