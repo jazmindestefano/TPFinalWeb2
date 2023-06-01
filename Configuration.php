@@ -3,16 +3,13 @@
     include_once("helpers/MustacheRender.php");
     include_once('helpers/Router.php');
 
-    include_once("model/ToursModel.php");
-    include_once('model/SongsModel.php');
+
     include_once('model/LoginModel.php');
     include_once('model/RegisterModel.php');
     include_once('model/PerfilModel.php');
 
 
-    include_once('controller/ToursController.php');
-    include_once('controller/SongsController.php');
-    include_once('controller/LaBandaController.php');
+    include_once('controller/HomeController.php');
     include_once('controller/LoginController.php');
     include_once('controller/RegisterController.php');
     include_once('controller/PerfilController.php');
@@ -29,23 +26,9 @@
         {
         }
 
-        public function getToursController()
+        public function getHomeController()
         {
-            return new ToursController(
-                new ToursModel($this->getDatabase()),
-                $this->getRenderer());
-        }
-
-        public function getSongsController()
-        {
-            return new SongsController(
-                new SongsModel($this->getDatabase()),
-                $this->getRenderer());
-        }
-
-        public function getLaBandaController()
-        {
-            return new LaBandaController($this->getRenderer());
+            return new HomeController($this->getRenderer());
         }
 
         private function getArrayConfig()
@@ -72,13 +55,14 @@
         {
             return new Router(
                 $this,
-                "getLaBandaController",
+                "getHomeController",
                 "list");
         }
 
-        public function getLogoutController() {
-             return new LogoutController();
-    }
+        public function getLogoutController()
+        {
+            return new LogoutController();
+        }
 
         public function getLoginController()
         {
@@ -88,21 +72,21 @@
             );
         }
 
-	    public function getRegisterController()
-	    {
-		    return new RegisterController(
-			    new RegisterModel($this->getDatabase()),
-			    $this->getRenderer()
-		    );
-	    }
+        public function getRegisterController()
+        {
+            return new RegisterController(
+                new RegisterModel($this->getDatabase()),
+                $this->getRenderer()
+            );
+        }
 
-	    public function getPerfilController()
-	    {
-		    return new PerfilController(
-			    new PerfilModel($this->getDatabase()),
-			    $this->getRenderer()
-		    );
-	    }
+        public function getPerfilController()
+        {
+            return new PerfilController(
+                new PerfilModel($this->getDatabase()),
+                $this->getRenderer()
+            );
+        }
 
 
     }
