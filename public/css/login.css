@@ -82,9 +82,18 @@ body{
 
 .lateral-title{
     font-size: 70px;
-    color:white
+    color:white;
+
 }
 
+@media (max-width: 900px) {
+    .login-page {
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+        width: 100%;
+    }
+}
 
 
 
