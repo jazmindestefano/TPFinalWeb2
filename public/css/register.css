@@ -1,0 +1,80 @@
+body{
+    margin:0;
+    font-family: 'Assistant', sans-serif;
+}
+.login-page {
+    display: flex;
+    height: 100vh;
+}
+.login-side {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.login-page .login-side .login-box {
+    width: 55%;
+}
+.brand {
+    width: 100%;
+    height: 1.7rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 2rem;
+    font-family: Arial;
+}
+.lateral {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #F44335;
+}
+.line-form input {
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    padding:  0rem;
+    width: 100%;
+    background-color: transparent;
+    resize: vertical;
+    min-height: 2rem;
+}
+
+.line-form select{
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    padding:  0rem;
+    width: 100%;
+    background-color: transparent;
+    resize: vertical;
+    min-height: 2rem;
+}
+
+.login-page .login-side .login-box .btn-gral {
+    width: 100%;
+    margin-top: 1rem;
+    text-transform: uppercase;
+    color:white
+}
+.btn-gral {
+    border: none;
+    padding: 1rem 1.6rem;
+    border-radius: 0.6rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background-color:  #F44335;
+    transition: all .15s ease-in-out;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.line-form {
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
