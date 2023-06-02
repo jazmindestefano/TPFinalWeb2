@@ -78,3 +78,21 @@ body{
     margin-bottom: 0.5rem;
     width: 100%;
 }
+
+.txtReg{
+    text-align: center;
+}
+.txtReg2{
+    color:  #F44335;
+}
+
+.brain{
+    width: 30%;
+    height: 30%;
+}
+
+.lateral-title{
+    font-size: 70px;
+    color:white;
+
+}

@@ -1,3 +1,4 @@
+
 body{
     margin:0;
     font-family: 'Assistant', sans-serif;
@@ -73,3 +74,26 @@ body{
 .txtReg2{
     color:  #F44335;
 }
+
+.brain{
+    width: 30%;
+    height: 30%;
+}
+
+.lateral-title{
+    font-size: 70px;
+    color:white;
+
+}
+
+@media (max-width: 900px) {
+    .login-page {
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+
+

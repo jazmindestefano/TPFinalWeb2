@@ -16,23 +16,21 @@
                 <input class="inputInfo" readonly value="Email: {{mail}}"/>
             </div>
 
-                <div class="qrCont">
-                    <img src="/public/qr.php?id={{idUsuario}}" />
-                </div>
-                <div class="mapa">
-                    <iframe
-                            width="500"
-                            height="400"
-                            style="border:0"
-                            loading="lazy"
-                            allowfullscreen
-                            referrerpolicy="no-referrer-when-downgrade"
-                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxP6xiQEPFAMcksSmK-ZmzUdGZbo5rukI&q={{ubicacion}}
-                    ">
-                    </iframe>
-                </div>
-
-
+            <div class="qrCont">
+                <img src="/public/qr.php?id={{idUsuario}}" />
+            </div>
+            <div class="mapa">
+                <iframe
+                        width="500"
+                        height="400"
+                        style="border:0"
+                        loading="lazy"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxP6xiQEPFAMcksSmK-ZmzUdGZbo5rukI&q={{ubicacion}}
+                ">
+                </iframe>
+            </div>
         </div>
 
     {{/miPerfil}}
