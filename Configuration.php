@@ -7,6 +7,7 @@
     include_once('model/LoginModel.php');
     include_once('model/RegisterModel.php');
     include_once('model/PerfilModel.php');
+    include_once('model/RankingModel.php');
 
 
     include_once('controller/HomeController.php');
@@ -14,6 +15,7 @@
     include_once('controller/RegisterController.php');
     include_once('controller/PerfilController.php');
     include_once('controller/LogoutController.php');
+    include_once('controller/RankingController.php');
 
     include_once('third-party/mustache/src/Mustache/Autoloader.php');
 
@@ -84,6 +86,14 @@
         {
             return new PerfilController(
                 new PerfilModel($this->getDatabase()),
+                $this->getRenderer()
+            );
+        }
+
+        public function getRankingController()
+        {
+            return new RankingController(
+                new RankingModel($this->getDatabase()),
                 $this->getRenderer()
             );
         }
