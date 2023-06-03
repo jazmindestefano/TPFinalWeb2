@@ -1,13 +1,16 @@
 {{> header}}
+<link rel="stylesheet" href="../public/css/ranking.css">
 <body>
 
+<main class="ranking-main">
+    <h3>RANKING</h3>
 
-<h1>RANKING</h1>
+    <ul class="ranking-list">
+        {{#users}}
+            <li>{{username}}</li>
+        {{/users}}
+    </ul>
+</main>
 
-<ul>
-    {{#users}}
-        <li>{{username}}</li>
-    {{/users}}
-</ul>
 </body>
 </html>
