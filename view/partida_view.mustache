@@ -46,14 +46,15 @@
     </form>
     {{/preguntas}}
 
-    <div class="mensaje">
-        {{#mensaje}}
-            {{mensaje}}
-        {{/mensaje}}
-    </div>
+</div>
+
+<div class="mensaje">
+{{#mensajeDeLaPartida}}
+  <p> {{mensajeDePartida}}  </p>
+{{/mensajeDeLaPartida}}
 
 </div>
 
 <!-- End Page Content -->
-</div>
+
 {{> footer}}

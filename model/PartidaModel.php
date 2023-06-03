@@ -29,4 +29,21 @@ class PartidaModel
 			$query = "SELECT RespuestaCorrecta FROM preguntas WHERE ID= '$id' ";
 			return $this->database->query($query);
 		}
+
+		public function respuestaIncorrecta($respuestaCorrecta, $respuestaDelUsuario) {
+			if($respuestaCorrecta !== $respuestaDelUsuario) {
+				return true;
+			}
+		}
+
+
+		public function respuestaMensaje($respuestaCorrecta, $respuestaDelUsuario) {
+			if($respuestaCorrecta !== $respuestaDelUsuario) {
+				$data["mensajeDePartida"] = "Incorrecto";
+			} else {
+				$data["mensajeDePartida"] = "Correcto";
+			}
+
+			return $data;
+}
 }
