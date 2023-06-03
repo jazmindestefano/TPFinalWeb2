@@ -1,0 +1,44 @@
+.partida-pregunta {
+    width: 500px;
+    height: 70px;
+    background: lightsalmon;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.partida-pregunta p {
+    font-size: larger;
+}
+
+.partida-button {
+    width: 300px;
+    height: 50px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.partida-siguiente-button {
+    background: green;
+    width: 200px;
+    height: 50px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.partida-button:hover {
+    background: #F9796D;
+}
+
+.pregunta-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
