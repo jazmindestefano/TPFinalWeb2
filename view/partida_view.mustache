@@ -1,6 +1,7 @@
 {{> header}}
 <!-- The Band Section -->
 <link rel="stylesheet" href="../public/css/partida.css">
+
 <div class='w3-container w3-center'
      style='display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 10px 0'
      id='band'>
@@ -11,14 +12,35 @@
         <p>{{Pregunta}}</p>
     </div>
 
-    <form action="#" method="post" class="pregunta-form">
+    <form action="/partida/empezar" method="post" class="pregunta-form">
 
-        <ul>
-                <li><input type="radio" name="respuestaDelUsuario" value="A">{{RespuestaA}}</li>
-                <li><input type="radio" name="respuestaDelUsuario" value="B">{{RespuestaB}}</li>
-                <li><input type="radio" name="respuestaDelUsuario" value="C">{{RespuestaC}}</li>
-                <li><input type="radio" name="respuestaDelUsuario" value="D">{{RespuestaD}}</li>
+        <ul class="pregunta-respuestas">
+            <li>
+                <label class="opcion-respuesta">
+                    <input type="radio" name="respuestaDelUsuario" value="A">
+                    <span class="respuesta-texto">{{RespuestaA}}</span>
+                </label>
+            </li>
+            <li>
+                <label class="opcion-respuesta">
+                    <input type="radio" name="respuestaDelUsuario" value="B">
+                    <span class="respuesta-texto">{{RespuestaB}}</span>
+                </label>
+            </li>
+            <li>
+                <label class="opcion-respuesta">
+                    <input type="radio" name="respuestaDelUsuario" value="C">
+                    <span class="respuesta-texto">{{RespuestaC}}</span>
+                </label>
+            </li>
+            <li>
+                <label class="opcion-respuesta">
+                    <input type="radio" name="respuestaDelUsuario" value="D">
+                    <span class="respuesta-texto">{{RespuestaD}}</span>
+                </label>
+            </li>
         </ul>
+
 
         <button type="submit" class="partida-siguiente-button">Siguiente</button>
     </form>

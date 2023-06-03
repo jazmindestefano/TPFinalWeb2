@@ -23,12 +23,13 @@ class PartidaController
         $cantidadDePreguntas= Count($this->partidaModel->getCantidadDePreguntas());
         $id= rand(1, $cantidadDePreguntas);
         $pregunta = $this->partidaModel->getPregunta($id);
-				$respuestaCorrecta = $this->partidaModel->getPreguntaCorrectaByIdDePregunta($id);
-				$respuestaDelUsuario = isset($_POST['respuestaDelUsuario']) ?? "";
+	      $respuestaCorrecta= $this->partidaModel->getPreguntaCorrectaByIdDePregunta($id)[0]['RespuestaCorrecta'];
+	      $respuestaDelUsuario = $_POST['respuestaDelUsuario'];
 
-        $data = array('preguntas'=>$pregunta) ;
-
+	    $data = array('preguntas' => $pregunta);
 
 	    $this->renderer->render('partida', $data);
+
     }
+
 }
