@@ -12,30 +12,21 @@
 
     <form action="#" method="post" class="pregunta-form">
 
-        <button class="partida-button" value="Argentina">
-            Argentina
-        </button>
-        <button class="partida-button" value="Francia">
-            Francia
-        </button>
-        <button class="partida-button" value="Inglaterra">
-            Inglaterra
-        </button>
-        <button class="partida-button" value="Croacia">
-            Croacia
-        </button>
-
+        <ul>
+            {{#preguntas}}
+                <li>{{Pregunta}}</li>
+                <li>{{RespuestaA}}</li>
+                <li>{{RespuestaB}}</li>
+                <li>{{RespuestaC}}</li>
+                <li>{{RespuestaD}}</li>
+                <li>{{RespuestaCorrecta}}</li>
+            {{/preguntas}}
+        </ul>
 
         <button type="submit" class="partida-siguiente-button">Siguiente</button>
     </form>
 
 </div>
-
-<ul>
-    {{#preguntas}}
-        <li>{{Pregunta}}</li>
-    {{/preguntas}}
-</ul>
 
 <!-- End Page Content -->
 </div>
