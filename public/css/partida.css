@@ -1,7 +1,8 @@
 .partida-pregunta {
     width: 500px;
-    height: 70px;
+    height: fit-content;
     background: lightsalmon;
+    padding: 10px;
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -55,6 +56,7 @@
 
 .opcion-respuesta {
     display: flex;
+    width: 500px;
     background-color: #ff9b92;
     padding: 10px 12px 10px 12px;
     border-radius: 10px;
