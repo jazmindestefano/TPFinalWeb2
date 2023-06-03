@@ -26,7 +26,7 @@ class PartidaModel
     }
 
 		public function getPreguntaCorrectaByIdDePregunta($id) {
-			$query = "SELECT RespuestaCorrecta FROM preguntas WHERE ID='$id'";
+			$query = "SELECT RespuestaCorrecta FROM preguntas WHERE ID= '$id' ";
 			return $this->database->query($query);
 		}
 }

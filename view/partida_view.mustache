@@ -6,25 +6,29 @@
      id='band'>
     <h3 class='w3-wide'>JUGA TU PARTIDA</h3>
 
+    {{#preguntas}}
     <div class="partida-pregunta">
-        <p>¿Cuál fue el último campeón del mundo?</p>
+        <p>{{Pregunta}}</p>
     </div>
 
     <form action="#" method="post" class="pregunta-form">
 
         <ul>
-            {{#preguntas}}
-                <li>{{Pregunta}}</li>
-                <li>{{RespuestaA}}</li>
-                <li>{{RespuestaB}}</li>
-                <li>{{RespuestaC}}</li>
-                <li>{{RespuestaD}}</li>
-                <li>{{RespuestaCorrecta}}</li>
-            {{/preguntas}}
+                <li><input type="radio" name="respuestaDelUsuario" value="A">{{RespuestaA}}</li>
+                <li><input type="radio" name="respuestaDelUsuario" value="B">{{RespuestaB}}</li>
+                <li><input type="radio" name="respuestaDelUsuario" value="C">{{RespuestaC}}</li>
+                <li><input type="radio" name="respuestaDelUsuario" value="D">{{RespuestaD}}</li>
         </ul>
 
         <button type="submit" class="partida-siguiente-button">Siguiente</button>
     </form>
+    {{/preguntas}}
+
+    <div class="mensaje">
+        {{#mensaje}}
+            {{mensaje}}
+        {{/mensaje}}
+    </div>
 
 </div>
 
