@@ -30,16 +30,9 @@ class PartidaModel
 			return $this->database->query($query);
 		}
 
-		public function respuestaIncorrecta($respuestaCorrecta, $respuestaDelUsuario) {
-			if($respuestaCorrecta !== $respuestaDelUsuario) {
-				return true;
-			}
-		}
-
-
 		public function respuestaMensaje($respuestaCorrecta, $respuestaDelUsuario) {
-			if($respuestaCorrecta !== $respuestaDelUsuario) {
-				$data["mensajeDePartida"] = "Incorrecto";
+			if($respuestaCorrecta != $respuestaDelUsuario) {
+				$data["mensajeDePartida"] = "Incorrecto, la respuesta correcta es "  . $respuestaCorrecta . $respuestaDelUsuario;
 			} else {
 				$data["mensajeDePartida"] = "Correcto";
 			}

@@ -25,16 +25,12 @@
 			$id = rand(1, $cantidadDePreguntas);
 			$pregunta = $this->partidaModel->getPregunta($id);
 			$respuestaCorrecta = $this->partidaModel->getPreguntaCorrectaByIdDePregunta($id)[0]['RespuestaCorrecta'];
-			$respuestaDelUsuario = isset($_POST['respuestaDelUsuario']);
+			$respuestaDelUsuario = $_POST['respuestaDelUsuario'];
 
 			$mensaje = $this->partidaModel->respuestaMensaje($respuestaCorrecta, $respuestaDelUsuario);
 
-			$respuestaIncorrecta = $this->partidaModel->respuestaIncorrecta($respuestaCorrecta, $respuestaDelUsuario);
-			if($respuestaIncorrecta && $respuestaDelUsuario) {
-				header('Location: /partidaPerdida/list');
-			}
 
-			if(isset($respuestaDelUsuario)) {
+			if($respuestaDelUsuario) {
 				$data = array('preguntas' => $pregunta,
 					'mensajeDeLaPartida' => $mensaje);
 
