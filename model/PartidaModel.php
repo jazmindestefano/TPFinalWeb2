@@ -51,7 +51,8 @@
 
         public function getPreguntaSinResponder($preguntasSinResponder)
         {
-            return $preguntasSinResponder[rand(1, count($preguntasSinResponder))];
+	        return $preguntasSinResponder[rand(0, count($preguntasSinResponder) -1)];
+
         }
 
 
