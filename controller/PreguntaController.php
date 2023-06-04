@@ -17,4 +17,9 @@ class PreguntaController
         $data = [];
         $this->renderer->render('crearpregunta', $data);
     }
+
+    public function insertar(){
+        var_dump($_POST['pregunta']);
+        exit();
+    }
 }
