@@ -19,7 +19,19 @@ class PreguntaController
     }
 
     public function insertar(){
-        var_dump($_POST['pregunta']);
-        exit();
+       $preguntaInsertar = null;
+        if(isset($_POST['pregunta'])) {
+            if(count($this->preguntaModel->validarQueNoHayaDosPreguntasIguales($_POST['pregunta'])) === 0) {
+                $preguntaInsertar = $this->preguntaModel->crearPregunta($_POST['pregunta']);
+                if($preguntaInsertar) {
+                    header('location: /');
+                } else {
+                    header('location: /pregunta/crear');
+                }
+            } else {
+                header('location: /pregunta/crear'); // deberia mostrar mensaje de que pregunta ya existe
+            }
+        }
     }
 }
+
