@@ -1,4 +1,9 @@
-.partida-pregunta {
+.Quimica,
+.Historia,
+.General,
+.Arte,
+.Geografia
+{
     width: 500px;
     height: fit-content;
     background: lightsalmon;
@@ -67,6 +72,26 @@
 
 .respuesta-texto {
     font-weight: bold;
+}
+
+.Geografia {
+    background-color: #ceceff;
+}
+
+.Historia{
+    background-color: #ffe4ac;
+}
+
+.General {
+    background-color: #f0f0f0;
+}
+
+.Quimica {
+    background-color: #d3ffd3;
+}
+
+.Arte {
+    background-color: #ffd0d9;
 }
 
 .opcion-respuesta:hover {

@@ -96,5 +96,10 @@
 					return $this->database->insert($query);
 				}
 
+				public function getCategoriaByIdDePregunta($id) {
+					$query = "SELECT categoria FROM preguntas WHERE idPregunta= '$id'";
+					return $this->database->query($query);
+				}
+
 
     }

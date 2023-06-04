@@ -26,9 +26,11 @@
 
             $respuestas = $this->partidaModel->getRespuestas($pregunta[0]);
 
+						$categoria = $this->partidaModel->getCategoriaByIdDePregunta($pregunta[0])[0]["categoria"];
 
             $data = array('preguntas' => $pregunta,
-                'respuestas' => $respuestas);
+                'respuestas' => $respuestas,
+	              'categoria' => $categoria);
             $this->renderer->render('partida', $data);
         }
 
@@ -57,10 +59,13 @@
 
 						$puntajeTotal = $this->partidaModel->getPuntajeActualByIdUser($idUsuario)[0]['puntaje'];
 
+	          $categoria = $this->partidaModel->getCategoriaByIdDePregunta($preguntaNueva[0])[0]["categoria"];
+
             if($respuestaDelUsuario == $respuestaCorrecta) {
 
                 $data = array('preguntas' => $preguntaNueva,
-                    'respuestas' => $respuestas);
+                    'respuestas' => $respuestas,
+	                  'categoria' => $categoria);
 
 	            $_SESSION['puntajeDePartida']++;
 							$puntajeTotal++;
