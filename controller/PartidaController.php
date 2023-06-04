@@ -17,6 +17,9 @@
 
             $idUsuario = $_SESSION['actualUser'];
 
+	          $puntajeDePartida = 0;
+	          $_SESSION['puntajeDePartida'] = $puntajeDePartida;
+
             $preguntasSinResponder = $this->partidaModel->getPreguntaSinRepetir($idUsuario);
 
             $pregunta = $this->partidaModel->getPreguntaSinResponder($preguntasSinResponder);
@@ -52,25 +55,23 @@
 
             $respuestas = $this->partidaModel->getRespuestas($preguntaNueva[0]);
 
-						$puntaje = $this->partidaModel->getPuntajeActualByIdUser($idUsuario)[0]['puntaje'];
+						$puntajeTotal = $this->partidaModel->getPuntajeActualByIdUser($idUsuario)[0]['puntaje'];
 
             if($respuestaDelUsuario == $respuestaCorrecta) {
+
                 $data = array('preguntas' => $preguntaNueva,
                     'respuestas' => $respuestas);
 
-							$puntaje++;
-							$this->partidaModel->updatePuntajeActual($idUsuario,$puntaje);
+	            $_SESSION['puntajeDePartida']++;
+							$puntajeTotal++;
 
-                //aca capaz se puede usar un render y pasarle una nueva pregunta con
-                // nuevas respuestas para no ir moviendonos de metodo a metodo
-                //capas esto nos ayuda para el tema de los puntos
-
-                $this->renderer->render('partida', $data);
-//                header('location: /partida/empezar');
+							$this->partidaModel->updatePuntajeTotal($idUsuario,$puntajeTotal);
+	            $this->renderer->render('partida', $data);
             } else {
+
                 $data = array('preguntas' => $preguntaRespondida,
                     'mensajeDeLaPartida' => $mensaje,
-                    'puntaje' => $puntaje);
+                    'puntaje' => $_SESSION['puntajeDePartida']);
 
                 $this->renderer->render('partida', $data);
 

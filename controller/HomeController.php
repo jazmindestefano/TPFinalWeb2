@@ -13,6 +13,7 @@
 
         public function list()
         {
+
             $this->renderer->render('home');
         }
     }

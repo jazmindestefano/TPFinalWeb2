@@ -7,6 +7,9 @@
     <h2 class='w3-wide'>KnowItAll</h2>
     <br>
     <br>
+    {{#user}}
+    <p>Hola {{nombreCompleto}} ! Tu puntaje m&aacute;ximo es de {{puntaje}}</p>
+        {{/user}}
     <a href="/partida/empezar" class="w3-button w3-red w3-round-large">Jugar Partida</a>
     <br>
     <a href="/pregunta/crear" class="w3-button w3-red w3-round-large">Crear Pregunta</a>

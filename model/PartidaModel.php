@@ -90,7 +90,7 @@
 					return $this->database->query($query);
 				}
 
-				public function updatePuntajeActual($idUsuario, $puntaje) {
+				public function updatePuntajeTotal($idUsuario, $puntaje) {
 
 					$query = "UPDATE usuarios SET puntaje = '$puntaje' WHERE idUsuario = '$idUsuario'";
 					return $this->database->insert($query);
