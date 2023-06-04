@@ -52,10 +52,14 @@
 
             $respuestas = $this->partidaModel->getRespuestas($preguntaNueva[0]);
 
+						$puntaje = $this->partidaModel->getPuntajeActualByIdUser($idUsuario)[0]['puntaje'];
 
-            if ($respuestaDelUsuario == $respuestaCorrecta) {
+            if($respuestaDelUsuario == $respuestaCorrecta) {
                 $data = array('preguntas' => $preguntaNueva,
                     'respuestas' => $respuestas);
+
+							$puntaje++;
+							$this->partidaModel->updatePuntajeActual($idUsuario,$puntaje);
 
                 //aca capaz se puede usar un render y pasarle una nueva pregunta con
                 // nuevas respuestas para no ir moviendonos de metodo a metodo
@@ -65,7 +69,9 @@
 //                header('location: /partida/empezar');
             } else {
                 $data = array('preguntas' => $preguntaRespondida,
-                    'mensajeDeLaPartida' => $mensaje);
+                    'mensajeDeLaPartida' => $mensaje,
+                    'puntaje' => $puntaje);
+
                 $this->renderer->render('partida', $data);
 
             }

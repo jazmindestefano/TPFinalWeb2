@@ -85,5 +85,16 @@
             return $this->database->insert($sql);
         }
 
+				public function getPuntajeActualByIdUser($id) {
+					$query = "SELECT puntaje FROM usuarios WHERE idUsuario = '$id'";
+					return $this->database->query($query);
+				}
+
+				public function updatePuntajeActual($idUsuario, $puntaje) {
+
+					$query = "UPDATE usuarios SET puntaje = '$puntaje' WHERE idUsuario = '$idUsuario'";
+					return $this->database->insert($query);
+				}
+
 
     }
