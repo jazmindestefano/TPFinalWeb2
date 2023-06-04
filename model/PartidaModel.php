@@ -31,7 +31,7 @@
         }
 
 
-        public function getRespuesta($idPregunta)
+        public function getRespuestas($idPregunta)
         {
             $query = "SELECT * FROM respuestas WHERE idPregunta= '$idPregunta' ";
             return $this->database->query($query);
@@ -55,7 +55,7 @@
         }
 
 
-        public function getPreguntaByIdRespuesta($id)
+        public function getIdPreguntaByIdRespuesta($id)
         {
             $query = "SELECT idPregunta FROM respuestas WHERE  idRespuesta= '$id' ";
             return $this->database->query($query);
