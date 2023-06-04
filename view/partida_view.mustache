@@ -9,42 +9,20 @@
 
     {{#preguntas}}
     <div class="partida-pregunta">
-        <p>{{Pregunta}}</p>
+        <p>{{pregunta}}</p>
     </div>
-
-    <form action="/partida/empezar" method="post" class="pregunta-form">
-
+    {{/preguntas}}
         <ul class="pregunta-respuestas">
+            {{#respuestas}}
             <li>
                 <label class="opcion-respuesta">
                     <input type="radio" name="respuestaDelUsuario" value="A">
-                    <span class="respuesta-texto">{{RespuestaA}}</span>
+                    <a href="/partida/validar&id={{idRespuesta}}"  class="respuesta-texto">{{respuesta}}</a>
                 </label>
             </li>
-            <li>
-                <label class="opcion-respuesta">
-                    <input type="radio" name="respuestaDelUsuario" value="B">
-                    <span class="respuesta-texto">{{RespuestaB}}</span>
-                </label>
-            </li>
-            <li>
-                <label class="opcion-respuesta">
-                    <input type="radio" name="respuestaDelUsuario" value="C">
-                    <span class="respuesta-texto">{{RespuestaC}}</span>
-                </label>
-            </li>
-            <li>
-                <label class="opcion-respuesta">
-                    <input type="radio" name="respuestaDelUsuario" value="D">
-                    <span class="respuesta-texto">{{RespuestaD}}</span>
-                </label>
-            </li>
+            {{/respuestas}}
         </ul>
 
-
-        <button type="submit" class="partida-siguiente-button">Siguiente</button>
-    </form>
-    {{/preguntas}}
 
 </div>
 

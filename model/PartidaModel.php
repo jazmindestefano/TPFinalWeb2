@@ -15,19 +15,19 @@
 
         public function getCantidadDePreguntas()
         {
-            $query = "SELECT Pregunta FROM preguntas";
+            $query = "SELECT pregunta FROM preguntas";
             return $this->database->query($query);
         }
 
         public function getPregunta($id)
         {
-            $query = "SELECT * FROM preguntas WHERE ID= '$id' ";
+            $query = "SELECT * FROM preguntas WHERE idPregunta= '$id' ";
             return $this->database->query($query);
         }
 
-        public function getPreguntaCorrectaByIdDePregunta($id)
+        public function getRespuestaCorrectaByIdDePregunta($id)
         {
-            $query = "SELECT RespuestaCorrecta FROM preguntas WHERE ID= '$id' ";
+            $query = "SELECT respuesta FROM respuestas WHERE isCorrecta= 1 AND idPregunta= '$id' ";
             return $this->database->query($query);
         }
 
@@ -42,5 +42,23 @@
             return $data;
         }
 
+
+        public function getRespuesta($idPregunta)
+        {
+            $query = "SELECT * FROM respuestas WHERE idPregunta= '$idPregunta' ";
+            return $this->database->query($query);
+        }
+
+        public function getRespuestaPorId($idRespuesta)
+        {
+            $query = "SELECT respuesta FROM respuestas WHERE idRespuesta= '$idRespuesta' ";
+            return $this->database->query($query);
+        }
+
+        public function getPreguntaByIdRespuesta($id)
+        {
+            $query = "SELECT idPregunta FROM respuestas WHERE  idRespuesta= '$id' ";
+            return $this->database->query($query);
+        }
 
     }
