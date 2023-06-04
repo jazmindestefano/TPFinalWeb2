@@ -20,6 +20,11 @@ class PreguntaModel
         return $this->database->query($sql);
     }
 
+    public function getIdPregunta($pregunta){
+        $sql = "SELECT idPregunta FROM preguntas WHERE pregunta = '$pregunta'";
+        return $this->database->query($sql);
+    }
+
 
 
 }
