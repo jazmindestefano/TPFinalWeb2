@@ -19,18 +19,6 @@
             return $this->database->query($query);
         }
 
-        public function getPregunta($id)
-        {
-            $query = "SELECT * FROM preguntas WHERE idPregunta= '$id' ";
-            return $this->database->query($query);
-        }
-
-        public function getRespuestaCorrectaByIdDePregunta($id)
-        {
-            $query = "SELECT respuesta FROM respuestas WHERE isCorrecta= 1 AND idPregunta= '$id' ";
-            return $this->database->query($query);
-        }
-
         public function respuestaMensaje($respuestaCorrecta, $respuestaDelUsuario)
         {
             if ($respuestaCorrecta != $respuestaDelUsuario) {
@@ -55,10 +43,46 @@
             return $this->database->query($query);
         }
 
+        public function getPregunta($id)
+        {
+            $query = "SELECT * FROM preguntas WHERE idPregunta= '$id' ";
+            return $this->database->query($query);
+        }
+
+        public function getPreguntaSinResponder($preguntasSinResponder)
+        {
+            return $preguntasSinResponder[rand(1, count($preguntasSinResponder))];
+        }
+
+
         public function getPreguntaByIdRespuesta($id)
         {
             $query = "SELECT idPregunta FROM respuestas WHERE  idRespuesta= '$id' ";
             return $this->database->query($query);
         }
+
+        public function getRespuestaCorrectaByIdDePregunta($id)
+        {
+            $query = "SELECT respuesta FROM respuestas WHERE isCorrecta= 1 AND idPregunta= '$id' ";
+            return $this->database->query($query);
+        }
+
+        public function getPreguntaSinRepetir($idUsuario)
+        {
+            $query = "SELECT p.*
+                        FROM Preguntas p
+                        WHERE p.idPregunta NOT IN (
+                             SELECT pr.idPregunta
+                              FROM preguntasRespondidas pr
+                            WHERE pr.idUsuario = $idUsuario)";
+            return $this->database->query($query);
+        }
+
+        public function insertarPreguntaEnPreguntaRespondida($idDePregunta, $idUsuario)
+        {
+            $sql = "INSERT INTO `preguntasrespondidas` ( `idUsuario`, `idPregunta`) VALUES ( '$idUsuario', '$idDePregunta')";
+            return $this->database->insert($sql);
+        }
+
 
     }
