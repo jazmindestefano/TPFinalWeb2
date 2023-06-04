@@ -4,6 +4,7 @@ include_once("helpers/MustacheRender.php");
 include_once('helpers/Router.php');
 
 
+include_once('model/HomeModel.php');
 include_once('model/LoginModel.php');
 include_once('model/RegisterModel.php');
 include_once('model/PerfilModel.php');
@@ -36,7 +37,10 @@ class Configuration
 
     public function getHomeController()
     {
-        return new HomeController($this->getRenderer());
+	    return new HomeController(
+		    new HomeModel($this->getDatabase()),
+		    $this->getRenderer()
+	    );
     }
 
     private function getArrayConfig()
