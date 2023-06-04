@@ -42,11 +42,8 @@
 }
 
 .pregunta-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 30px;
+
+ margin: 20px;
 }
 
 .pregunta-respuestas {
@@ -55,13 +52,12 @@
 }
 
 .opcion-respuesta {
-    display: flex;
-    width: 500px;
-    background-color: #ff9b92;
+    text-decoration: none;
+    margin: 50px;
+    background-color: #dedede;
     padding: 10px 12px 10px 12px;
     border-radius: 10px;
-    align-items: center;
-    margin-bottom: 20px;
+    text-align: center;
     cursor: pointer;
 }
 
@@ -74,6 +70,6 @@
 }
 
 .opcion-respuesta:hover {
-    background-color: #fe8a7d;
+    background-color: #b9b9b9;
 }
 

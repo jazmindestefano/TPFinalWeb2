@@ -14,12 +14,11 @@
     {{/preguntas}}
     <ul class="pregunta-respuestas">
         {{#respuestas}}
-            <li>
 
-                <a href="/partida/validar&id={{idRespuesta}}" class="w3-btn w3-round w3-grey
-                w3-margin-small">{{respuesta}}</a>
-
+            <li class="pregunta-form">
+                <a href="/partida/validar&id={{idRespuesta}}" class="opcion-respuesta">{{respuesta}}</a>
             </li>
+
         {{/respuestas}}
     </ul>
 
