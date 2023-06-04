@@ -25,6 +25,11 @@ class PreguntaModel
         return $this->database->query($sql);
     }
 
+    public function insertarRespuesta($respuesta, $isCorrecta, $idPregunta){
+        $sql = "INSERT INTO respuestas(respuesta, isCorrecta, idPregunta) VALUES('$respuesta', '$isCorrecta', '$idPregunta')";
+        return $this->database->insert($sql);
+    }
+
 
 
 }
