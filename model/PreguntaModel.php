@@ -29,7 +29,7 @@
 
         public function insertarRespuesta($respuesta, $idPregunta)
         {
-            $sql = "INSERT INTO respuestas(respuesta, isCorrecta, idPregunta) VALUES('$respuesta', '0', '$idPregunta')";
+            $sql = "INSERT INTO respuestas(respuesta, isCorrecta, idPregunta) VALUES('$respuesta', 0 , '$idPregunta')";
             return $this->database->insert($sql);
         }
 

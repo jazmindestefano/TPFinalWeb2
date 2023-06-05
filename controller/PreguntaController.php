@@ -38,7 +38,13 @@
         {
 
             $idPregunta = $_GET['idPregunta'];
+            $data["idPregunta"] = $idPregunta;
+            $this->renderer->render('crearRespuestas', $data);
+        }
 
+        public function insertarRespuestas() {
+
+            $idPregunta = $_POST['idPregunta'];
             $respuesta_a = $_POST['respuesta_a'];
             $respuesta_b = $_POST['respuesta_b'];
             $respuesta_c = $_POST['respuesta_c'];
@@ -47,14 +53,18 @@
 
 
             if ($respuesta_a && $respuesta_b && $respuesta_c && $respuesta_d && $respuestaCorrecta) {
+
+
+
                 $this->preguntaModel->insertarRespuesta($respuesta_a, $idPregunta);
                 $this->preguntaModel->insertarRespuesta($respuesta_b, $idPregunta);
                 $this->preguntaModel->insertarRespuesta($respuesta_c, $idPregunta);
                 $this->preguntaModel->insertarRespuesta($respuesta_d, $idPregunta);
-                /* `$.$respuestaCorrecta.= $this->preguntaModel->setearTrue($.$respuestaCorrecta)`;*/
+               $this->preguntaModel->setearTrue(`$`.`$respuestaCorrecta`);
+
             }
-            $this->renderer->render('crearRespuestas', []);
         }
+
 
     }
 

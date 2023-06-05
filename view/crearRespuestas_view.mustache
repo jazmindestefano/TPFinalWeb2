@@ -8,7 +8,8 @@
     <title>Crear Respuestas</title>
 </head>
 <body>
-<form action="/pregunta/crearRespuesta/" method="post">
+<form action="/pregunta/insertarRespuestas" method="post">
+    <input type="hidden" value="{{idPregunta}}" name="idPregunta" id="idPregunta"/>
     <div class="input-form">
         <label for="respuesta_a" id="respuesta_a">Respuesta A:</label>
         <input required name="respuesta_a" id="respuesta_a"/>
