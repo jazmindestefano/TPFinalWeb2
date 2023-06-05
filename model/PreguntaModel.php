@@ -9,9 +9,9 @@ class PreguntaModel
         $this->database = $database;
     }
 
-    public function crearPregunta($pregunta)
+    public function crearPregunta($pregunta, $categoria)
     {
-        $sql = "INSERT INTO preguntas(pregunta) VALUES('$pregunta')";
+        $sql = "INSERT INTO preguntas(pregunta, categoria) VALUES('$pregunta','$categoria')";
         return $this->database->insert($sql);
     }
 
@@ -29,6 +29,14 @@ class PreguntaModel
         $sql = "INSERT INTO respuestas(respuesta, isCorrecta, idPregunta) VALUES('$respuesta', '$isCorrecta', '$idPregunta')";
         return $this->database->insert($sql);
     }
+
+		public function getLastPreguntaInsertada() {
+				$query = "SELECT *
+									FROM preguntas
+									WHERE idPregunta = (SELECT MAX(idPregunta) FROM preguntas);";
+				return $this->database->query($query);
+
+		}
 
 
 

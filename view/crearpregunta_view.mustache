@@ -9,32 +9,7 @@
     <form action="/pregunta/insertar" method="post" class="pregunta-form">
         <div class="input-form">
             <label for="pregunta" id="pregunta">Pregunta:</label>
-            <input name="pregunta" id="pregunta"/>
-        </div>
-        <div class="input-form">
-            <label for="respuesta_a" id="respuesta_a">Respuesta A:</label>
-            <input name="respuesta_a" id="respuesta_a"/>
-        </div>
-        <div class="input-form">
-            <label for="respuesta_b" id="respuesta_b">Respuesta B:</label>
-            <input name="respuesta_b" id="respuesta_b"/>
-        </div>
-        <div class="input-form">
-            <label for="respuesta_c" id="respuesta_c">Respuesta C:</label>
-            <input name="respuesta_c" id="respuesta_c"/>
-        </div>
-        <div class="input-form">
-            <label for="respuesta_d" id="respuesta_d">Respuesta D:</label>
-            <input name="respuesta_d" id="respuesta_d"/>
-        </div>
-        <div class="input-form">
-            <label for="respuesta_correcta" id="respuesta_correcta">Respuesta Correcta:</label>
-            <select name="respuesta_correcta" id="respuesta_correcta" class="select-form">
-                <option value="respuesta_a">Respuesta A</option>
-                <option value="respuesta_b">Respuesta B</option>
-                <option value="respuesta_c">Respuesta C</option>
-                <option value="respuesta_d">Respuesta D</option>
-            </select>
+            <input required name="pregunta" id="pregunta"/>
         </div>
         <div class="input-form">
             <label for="categoria" id="categoria">Categoria:</label>
@@ -50,7 +25,7 @@
                 style="align-self: end; margin-right: 30%; margin-top: 10px">Crear Pregunta
         </button>
     </form>
-
+{{mensaje}}
 </div>
 
 <!-- End Page Content -->
