@@ -51,8 +51,7 @@
 
         public function getPreguntaSinResponder($preguntasSinResponder)
         {
-	        return $preguntasSinResponder[rand(0, count($preguntasSinResponder) -1)];
-
+            return $preguntasSinResponder[rand(0, count($preguntasSinResponder) - 1)];
         }
 
 
@@ -85,21 +84,27 @@
             return $this->database->insert($sql);
         }
 
-				public function getPuntajeActualByIdUser($id) {
-					$query = "SELECT puntaje FROM usuarios WHERE idUsuario = '$id'";
-					return $this->database->query($query);
-				}
+        public function getPuntajeActualByIdUser($id)
+        {
+            $query = "SELECT puntaje FROM usuarios WHERE idUsuario = '$id'";
+            return $this->database->query($query);
+        }
 
-				public function updatePuntajeTotal($idUsuario, $puntaje) {
+        public function updatePuntajeTotal($idUsuario, $puntaje)
+        {
+            $query = "UPDATE usuarios SET puntaje = '$puntaje' WHERE idUsuario = '$idUsuario'";
+            return $this->database->insert($query);
+        }
 
-					$query = "UPDATE usuarios SET puntaje = '$puntaje' WHERE idUsuario = '$idUsuario'";
-					return $this->database->insert($query);
-				}
+        public function getCategoriaByIdDePregunta($id)
+        {
+            $query = "SELECT categoria FROM preguntas WHERE idPregunta= '$id'";
+            return $this->database->query($query);
+        }
 
-				public function getCategoriaByIdDePregunta($id) {
-					$query = "SELECT categoria FROM preguntas WHERE idPregunta= '$id'";
-					return $this->database->query($query);
-				}
-
-
+        public function borrarPreguntasRespondidasByIdUsuario($idUsuario)
+        {
+            $query = "DELETE FROM preguntasRespondidas WHERE idUsuario = $idUsuario;";
+            return $this->database->insert($query);
+        }
     }
