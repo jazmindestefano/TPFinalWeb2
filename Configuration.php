@@ -120,12 +120,6 @@ class Configuration
             new PartidaModel($this->getDatabase()),
             $this->getRenderer()
         );
-    }   public function getPartidaPerdidaController()
-    {
-        return new PartidaPerdidaController(
-            new PartidaPerdidaModel($this->getDatabase()),
-            $this->getRenderer()
-        );
     }
 
 }
