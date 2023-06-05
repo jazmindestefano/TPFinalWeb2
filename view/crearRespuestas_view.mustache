@@ -8,7 +8,7 @@
     <title>Crear Respuestas</title>
 </head>
 <body>
-<form action="">
+<form action="/pregunta/crearRespuesta/" method="post">
     <div class="input-form">
         <label for="respuesta_a" id="respuesta_a">Respuesta A:</label>
         <input required name="respuesta_a" id="respuesta_a"/>
@@ -20,10 +20,12 @@
     <div class="input-form">
         <label for="respuesta_c" id="respuesta_c">Respuesta C:</label>
         <input required name="respuesta_c" id="respuesta_c"/>
+
     </div>
     <div class="input-form">
         <label for="respuesta_d" id="respuesta_d">Respuesta D:</label>
         <input required name="respuesta_d" id="respuesta_d"/>
+
     </div>
     <div class="input-form">
         <label for="respuesta_correcta" id="respuesta_correcta">Respuesta Correcta:</label>
@@ -34,6 +36,7 @@
             <option value="respuesta_d">Respuesta D</option>
         </select>
     </div>
+    <input type="submit" value="enviar">
 </form>
 </body>
 </html>

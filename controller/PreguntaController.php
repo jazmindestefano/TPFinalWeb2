@@ -1,59 +1,60 @@
 <?php
 
-	class PreguntaController
-	{
+    class PreguntaController
+    {
 
-		private $renderer;
-		private $preguntaModel;
+        private $renderer;
+        private $preguntaModel;
 
-		public function __construct($preguntaModel, $renderer)
-		{
-			$this->preguntaModel = $preguntaModel;
-			$this->renderer = $renderer;
-		}
+        public function __construct($preguntaModel, $renderer)
+        {
+            $this->preguntaModel = $preguntaModel;
+            $this->renderer = $renderer;
+        }
 
-		public function crear()
-		{
-			$data = [];
-			$this->renderer->render('crearpregunta', $data);
-		}
+        public function crear()
+        {
+            $data = [];
+            $this->renderer->render('crearpregunta', $data);
+        }
 
-		public function insertar()
-		{
+        public function insertar()
+        {
+            $pregunta = $_POST['pregunta'];
+            $categoria = $_POST['categoria'];
+            $noExisteOtraPreguntaIgual = count($this->preguntaModel->validarQueNoHayaDosPreguntasIguales($pregunta)) === 0;
 
-			$pregunta = isset($_POST['pregunta']);
-			$categoria = isset($_POST['categoria']);
-			$noExisteOtraPreguntaIgual = count($this->preguntaModel->validarQueNoHayaDosPreguntasIguales($pregunta)) === 0;
+            if (!empty($pregunta) && $noExisteOtraPreguntaIgual) {
+                $preguntaInsertar = $this->preguntaModel->crearPregunta($pregunta, $categoria);
+                $idLastPregunta = $this->preguntaModel->getLastPreguntaInsertada()[0]["idPregunta"];
+                header("Location: /pregunta/crearRespuesta&idPregunta=" . $idLastPregunta);
+            } else {
+                header("Location: /pregunta/crear");
+            }
 
-			if (!empty($pregunta) && $noExisteOtraPreguntaIgual) {
-				$preguntaInsertar = $this->preguntaModel->crearPregunta($pregunta, $categoria);
-				$idLastPregunta = $this->preguntaModel->getLastPreguntaInsertada()[0]["idPregunta"];
-				header("Location: /pregunta/crearRespuesta&idPregunta=".$idLastPregunta);
-			} else {
-				$mensaje["mensaje"] = "La pregunta ya existe, por favor ingresa otra!";
-				$this->renderer->render('/crearpregunta', $mensaje);
-			}
+        }
 
-		}
+        public function crearRespuesta()
+        {
 
-		public function crearRespuesta() {
+            $idPregunta = $_GET['idPregunta'];
 
-			$idPregunta = $_GET['idPregunta'];
-
-			$respuesta_a = isset($_POST['respuesta_a']);
-			$respuesta_b = isset($_POST['respuesta_b']);
-			$respuesta_c = isset($_POST['respuesta_c']);
-			$respuesta_d = isset($_POST['respuesta_d']);
-			$respuestaCorrecta = isset($_POST['respuesta_correcta']);
-
+            $respuesta_a = $_POST['respuesta_a'];
+            $respuesta_b = $_POST['respuesta_b'];
+            $respuesta_c = $_POST['respuesta_c'];
+            $respuesta_d = $_POST['respuesta_d'];
+            $respuestaCorrecta = $_POST['respuesta_correcta'];
 
 
-			if($respuesta_a && $respuesta_b && $respuesta_c && $respuesta_d && $respuestaCorrecta) {
+            if ($respuesta_a && $respuesta_b && $respuesta_c && $respuesta_d && $respuestaCorrecta) {
+                $this->preguntaModel->insertarRespuesta($respuesta_a, $idPregunta);
+                $this->preguntaModel->insertarRespuesta($respuesta_b, $idPregunta);
+                $this->preguntaModel->insertarRespuesta($respuesta_c, $idPregunta);
+                $this->preguntaModel->insertarRespuesta($respuesta_d, $idPregunta);
+                /* `$.$respuestaCorrecta.= $this->preguntaModel->setearTrue($.$respuestaCorrecta)`;*/
+            }
+            $this->renderer->render('crearRespuestas', []);
+        }
 
-			}
-
-			$this->renderer->render('crearRespuestas', []);
-		}
-
-	}
+    }
 
