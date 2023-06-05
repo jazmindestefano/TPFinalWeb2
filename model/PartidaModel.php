@@ -23,11 +23,9 @@
         {
             if ($respuestaCorrecta != $respuestaDelUsuario) {
                 $data["mensajeDePartida"] = "Incorrecto, la respuesta correcta es " . $respuestaCorrecta;
-            } else {
-                $data["mensajeDePartida"] = "Correcto";
             }
 
-            return $data;
+            return $data ?? "";
         }
 
 
