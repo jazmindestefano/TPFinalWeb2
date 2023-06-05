@@ -8,7 +8,7 @@
 .header {
     text-align: center;
     padding: 12px;
-    background: #F44335;
+    background: #ffddf6;
 
 }
 
@@ -40,9 +40,10 @@
 }
 
 .user-name {
+    font-weight: bold;
     font-size: 18px;
     margin-top: 14px;
-    color: #fff;
+    color: #000000;
 }
 
 .rol {
@@ -50,6 +51,6 @@
     background: #000;
     border-radius: 55px;
     display: inline;
-    padding: 5px 25px;
+    padding: 7px 28px;
 
 }

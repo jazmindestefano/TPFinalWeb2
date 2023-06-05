@@ -36,6 +36,7 @@ body{
     background: #F44335;
 }
 .line-form input {
+    text-indent: 10px;
     border: 1px solid #bbb;
     border-radius: 5px;
     padding: 0.5rem 0rem;

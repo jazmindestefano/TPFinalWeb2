@@ -8,24 +8,27 @@
     flex-direction: column;
 }
 
-.ranking-list {
-    list-style: none;
-    align-self: center;
+
+.ranking-table {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    border-collapse: collapse;
 }
 
-.ranking-list li {
-    font-size: large;
-    width: 400px;
-    height: 50px;
-    background: pink;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 6px;
-    cursor: pointer;
+.ranking-table th,
+.ranking-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.ranking-table th {
+    background-color: #ffddf6;
+}
+
+.ranking-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.ranking-table tbody tr:hover {
+    background-color: #e5e5e5;
 }

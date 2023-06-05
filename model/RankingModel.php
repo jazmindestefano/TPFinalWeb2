@@ -11,7 +11,7 @@
 
         public function getUsers()
         {
-            $query = "SELECT * FROM usuarios";
+            $query = "SELECT * FROM usuarios ORDER BY puntaje DESC";
             return $this->database->query($query);
         }
     }

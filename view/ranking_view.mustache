@@ -4,13 +4,28 @@
 
 <main class="ranking-main">
     <h3>RANKING</h3>
+    <br>
 
-    <ul class="ranking-list">
+    <table class="ranking-table">
+        <thead>
+        <tr>
+            <th>Posición</th>
+            <th>Nombre</th>
+            <th>Puntaje</th>
+        </tr>
+        </thead>
+        <tbody>
         {{#users}}
-            <li>{{username}} {{puntaje}}</li>
+            <tr>
+                <td>{{posicion}}</td>
+                <td>{{username}}</td>
+                <td>{{puntaje}}</td>
+            </tr>
         {{/users}}
-    </ul>
+        </tbody>
+    </table>
 </main>
+
 
 </body>
 </html>
