@@ -36,13 +36,16 @@ body{
     background: #F44335;
 }
 .line-form input {
+    text-indent: 5px;
     border: 1px solid #bbb;
     border-radius: 5px;
     padding:  0rem;
     width: 100%;
     background-color: transparent;
-    resize: vertical;
+    resize: none;
     min-height: 2rem;
+    margin-bottom: 10px;
+    height: 35px;
 }
 
 .line-form select{
@@ -51,8 +54,9 @@ body{
     padding:  0rem;
     width: 100%;
     background-color: transparent;
-    resize: vertical;
+    resize: none;
     min-height: 2rem;
+    height: 35px;
 }
 
 .login-page .login-side .login-box .btn-gral {
