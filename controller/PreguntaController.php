@@ -63,6 +63,7 @@
                $this->preguntaModel->setearTrue(`$`.`$respuestaCorrecta`);
 
             }
+
         }
 
 
