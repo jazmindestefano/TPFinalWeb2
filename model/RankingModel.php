@@ -9,9 +9,17 @@
             $this->database = $database;
         }
 
-        public function getUsers()
-        {
-            $query = "SELECT * FROM usuarios ORDER BY puntaje DESC";
-            return $this->database->query($query);
-        }
+	    public function getUsersByOrderDesc()
+	    {
+		    $query = "SELECT * FROM usuarios ORDER BY puntaje DESC";
+		    $users = $this->database->query($query);
+
+		    $posicion = 1;
+		    foreach ($users as &$user) {
+			    $user['posicion'] = $posicion;
+			    $posicion++;
+		    }
+
+		    return $users;
+	    }
     }
