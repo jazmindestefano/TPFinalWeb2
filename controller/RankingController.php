@@ -13,7 +13,15 @@
 
         public function ver()
         {
-            $users = $this->rankingModel->getUsersByOrderDesc();
+	        $filtro = isset($_POST['filtro']) ? $_POST['filtro'] : 'desc';
+
+
+
+						if($filtro == 'desc') {
+							$users = $this->rankingModel->getUsersByOrderDesc();
+						} else {
+							$users = $this->rankingModel->getUsersByOrderAsc();
+						}
 
             $data = array('users' => $users);
             $this->renderer->render('ranking', $data);

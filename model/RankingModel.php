@@ -22,4 +22,22 @@
 
 		    return $users;
 	    }
+
+	    public function getUsersByOrderAsc()
+	    {
+		    $query = "SELECT * FROM usuarios ORDER BY puntaje ASC";
+		    $users = $this->database->query($query);
+
+		    $totalUsers = count($users);
+
+		    foreach ($users as &$user) {
+			    $user['posicion'] = $totalUsers;
+			    $totalUsers--;
+		    }
+
+		    return $users;
+	    }
+
+
     }
+

@@ -4,8 +4,39 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     flex-direction: column;
+}
+.ranking-form {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.flechas {
+    font-size: 30px;
+    font-weight: bold;
+}
+.button-filtrar {
+    display: inline-block;
+    padding: 10px 16px;
+    background-color: #ffddf6;
+    color: black;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.button-filtrar:hover {
+    background-color: #ffccf4;
+}
+
+.ranking-select {
+    height: 35px;
 }
 
 
@@ -32,3 +63,5 @@
 .ranking-table tbody tr:hover {
     background-color: #e5e5e5;
 }
+
+

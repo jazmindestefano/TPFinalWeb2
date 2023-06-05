@@ -1,9 +1,21 @@
 {{> header}}
 <link rel="stylesheet" href="../public/css/ranking.css">
 <body>
-
+<br>
+<h1 style="text-align: center">RANKING</h1>
 <main class="ranking-main">
-    <h3>RANKING</h3>
+    <br>
+
+    <form class="ranking-form" action="/ranking/ver" method="post">
+        <label for="filtro" class="flechas">&#129045;&#129047;</label>
+        <select class="ranking-select" id="filtro" name="filtro">
+            <option selected  disabled>Seleccione una opcion</option>
+            <option value="desc">Descendente</option>
+            <option value="asc">Ascendente</option>
+        </select>
+        <button type="submit" class="button-filtrar">Filtrar</button>
+    </form>
+
     <br>
 
     <table class="ranking-table">
