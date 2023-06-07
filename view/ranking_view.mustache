@@ -35,36 +35,6 @@
 </main>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    function filtrar() {
-        let filtro = $("#filtro").val();
-        if (filtro) {
-            $.ajax({
-                url: 'http://localhost/ranking/filtrar',
-                method: "GET",
-                data: { filtro: filtro },
-                success: function(response) {
-                    console.log("Respuesta del AJAX:", response);
-
-                    // Limpiar la tabla existente
-                    $("#ranking-table tbody").empty();
-
-                    // Recorrer el array de usuarios y agregar filas a la tabla
-                    response.users.forEach(function(user) {
-                        let fila = `<tr>
-                                <td>${user.posicion}</td>
-                                <td><a href="/perfil/perfil&idUsuario=${user.idUsuario}">${user.username}</a></td>
-                                <td>${user.puntaje}</td>
-                            </tr>`;
-                        $("#ranking-table tbody").append(fila);
-                    });
-                },
-                error: function() {
-                    alert("Error");
-                }
-            });
-        }
-    }
-</script>
+<script src="../public/js/ajaxRanking.js"></script>
 </body>
 </html>
