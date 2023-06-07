@@ -5,20 +5,16 @@
 <h1 style="text-align: center">RANKING</h1>
 <main class="ranking-main">
     <br>
-
-    <form class="ranking-form" action="/ranking/ver" method="post">
+    <div class="ranking-filtro">
         <label for="filtro" class="flechas">&#129045;&#129047;</label>
-        <select class="ranking-select" id="filtro" name="filtro">
-            <option selected  disabled>Seleccione una opcion</option>
+        <select class="ranking-select" id="filtro" name="filtro" onchange="filtrar()">
+            <option selected disabled>Seleccione una opción</option>
             <option value="desc">Descendente</option>
             <option value="asc">Ascendente</option>
         </select>
-        <button type="submit" class="button-filtrar">Filtrar</button>
-    </form>
-
+    </div>
     <br>
-
-    <table class="ranking-table">
+    <table class="ranking-table" id="ranking-table">
         <thead>
         <tr>
             <th>Posición</th>
@@ -38,6 +34,37 @@
     </table>
 </main>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function filtrar() {
+        let filtro = $("#filtro").val();
+        if (filtro) {
+            $.ajax({
+                url: 'http://localhost/ranking/filtrar',
+                method: "GET",
+                data: { filtro: filtro },
+                success: function(response) {
+                    console.log("Respuesta del AJAX:", response);
 
+                    // Limpiar la tabla existente
+                    $("#ranking-table tbody").empty();
+
+                    // Recorrer el array de usuarios y agregar filas a la tabla
+                    response.users.forEach(function(user) {
+                        let fila = `<tr>
+                                <td>${user.posicion}</td>
+                                <td><a href="/perfil/perfil&idUsuario=${user.idUsuario}">${user.username}</a></td>
+                                <td>${user.puntaje}</td>
+                            </tr>`;
+                        $("#ranking-table tbody").append(fila);
+                    });
+                },
+                error: function() {
+                    alert("Error");
+                }
+            });
+        }
+    }
+</script>
 </body>
 </html>
