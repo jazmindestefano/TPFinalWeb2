@@ -36,13 +36,13 @@
 
         public function crearRespuesta()
         {
-
             $idPregunta = $_GET['idPregunta'];
             $data["idPregunta"] = $idPregunta;
             $this->renderer->render('crearRespuestas', $data);
         }
 
-        public function insertarRespuestas() {
+        public function insertarRespuestas()
+        {
 
             $idPregunta = $_POST['idPregunta'];
             $respuesta_a = $_POST['respuesta_a'];
@@ -53,15 +53,37 @@
 
 
             if ($respuesta_a && $respuesta_b && $respuesta_c && $respuesta_d && $respuestaCorrecta) {
-
-
-
                 $this->preguntaModel->insertarRespuesta($respuesta_a, $idPregunta);
                 $this->preguntaModel->insertarRespuesta($respuesta_b, $idPregunta);
                 $this->preguntaModel->insertarRespuesta($respuesta_c, $idPregunta);
                 $this->preguntaModel->insertarRespuesta($respuesta_d, $idPregunta);
-               $this->preguntaModel->setearTrue(`$`.`$respuestaCorrecta`);
 
+                switch ($respuestaCorrecta) {
+                    case "respuesta_a":
+                        $this->preguntaModel->setearTrue($respuesta_a, $idPregunta);
+                        break;
+                    case "respuesta_b":
+                        $this->preguntaModel->setearTrue($respuesta_b, $idPregunta);
+                        break;
+                    case "respuesta_c":
+                        $this->preguntaModel->setearTrue($respuesta_c, $idPregunta);
+                        break;
+                    case "respuesta_d":
+                        $this->preguntaModel->setearTrue($respuesta_d, $idPregunta);
+                        break;
+                    default:
+                        //falta manejar bien los errores
+                        $mensaje = "Elegi una pregunta correcta";
+                        $data = array('mensaje' => $mensaje);
+                        $this->renderer->render('crearRespuestas', $data);
+                        break;
+                }
+                header("Location: /");
+            } else {
+                //falta manejar bien los errores
+                $mensaje = "no puede haber una respuesta vacia";
+                $data = array('mensaje' => $mensaje);
+                $this->renderer->render('crearRespuestas', $data);
             }
 
         }

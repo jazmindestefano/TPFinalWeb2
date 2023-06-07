@@ -39,9 +39,9 @@
             return $this->database->query($query);
         }
 
-        public function setearTrue($respuesta)
+        public function setearTrue($respuesta, $idPregunta)
         {
-            $sql = "UPDATE respuestas SET isCorrecta = 1 WHERE respuesta = '$respuesta'";
+            $sql = "UPDATE respuestas SET isCorrecta = 1 WHERE respuesta = '$respuesta' AND idPregunta = $idPregunta";
             return $this->database->insert($sql);
         }
 
