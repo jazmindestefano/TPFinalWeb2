@@ -2,16 +2,16 @@
 include_once('helpers/MySqlDatabase.php');
 include_once("helpers/MustacheRender.php");
 include_once('helpers/Router.php');
+include_once('helpers/Logger.php');
 
 
+include_once('model/HomeModel.php');
 include_once('model/LoginModel.php');
 include_once('model/RegisterModel.php');
 include_once('model/PerfilModel.php');
 include_once('model/RankingModel.php');
 include_once('model/PreguntaModel.php');
 include_once('model/PartidaModel.php');
-include_once('model/PartidaPerdidaModel.php');
-
 
 include_once('controller/HomeController.php');
 include_once('controller/LoginController.php');
@@ -21,7 +21,6 @@ include_once('controller/LogoutController.php');
 include_once('controller/RankingController.php');
 include_once('controller/PreguntaController.php');
 include_once('controller/PartidaController.php');
-include_once('controller/PartidaPerdidaController.php');
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 
@@ -36,7 +35,10 @@ class Configuration
 
     public function getHomeController()
     {
-        return new HomeController($this->getRenderer());
+	    return new HomeController(
+		    new HomeModel($this->getDatabase()),
+		    $this->getRenderer()
+	    );
     }
 
     private function getArrayConfig()
@@ -116,12 +118,6 @@ class Configuration
     {
         return new PartidaController(
             new PartidaModel($this->getDatabase()),
-            $this->getRenderer()
-        );
-    }   public function getPartidaPerdidaController()
-    {
-        return new PartidaPerdidaController(
-            new PartidaPerdidaModel($this->getDatabase()),
             $this->getRenderer()
         );
     }
