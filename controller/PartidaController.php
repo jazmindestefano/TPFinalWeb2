@@ -49,6 +49,7 @@
             $preguntaNueva = $this->partidaModel->getPreguntaSinResponder($preguntasSinResponder);
             $respuestas = $this->partidaModel->getRespuestas($preguntaNueva[0]);
             $puntajeTotal = $this->partidaModel->getPuntajeActualByIdUser($idUsuario)[0]['puntaje'];
+						$partidasJugadas = $this->partidaModel->getPartidasJugadas($idUsuario)[0]['partidasJugadas'];
             $categoria = $this->partidaModel->getCategoriaByIdDePregunta($preguntaNueva[0])[0]["categoria"];
 
             if ($respuestaDelUsuario == $respuestaCorrecta) {
@@ -62,6 +63,8 @@
                 $this->partidaModel->updatePuntajeTotal($idUsuario, $puntajeTotal);
                 $this->renderer->render('partida', $data);
             } else {
+								$partidasJugadas++;
+								$this->partidaModel->updatePartidasJugadas($idUsuario, $partidasJugadas);
                 $data = array('preguntas' => $preguntaRespondida,
                     'mensajeDeLaPartida' => $mensaje,
                     'puntaje' => $_SESSION['puntajeDePartida']);

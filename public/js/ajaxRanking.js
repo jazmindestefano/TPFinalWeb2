@@ -17,6 +17,7 @@ function filtrar() {
                                 <td>${user.posicion}</td>
                                 <td><a href="/perfil/perfil&idUsuario=${user.idUsuario}">${user.username}</a></td>
                                 <td>${user.puntaje}</td>
+                                <td>${user.partidasJugadas}</td>
                             </tr>`;
                     $("#ranking-table tbody").append(fila);
                 });

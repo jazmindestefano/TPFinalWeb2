@@ -88,9 +88,19 @@
             return $this->database->query($query);
         }
 
+				public function getPartidasJugadas($id) {
+					$query = "SELECT partidasJugadas FROM usuarios WHERE idUsuario = '$id'";
+					return $this->database->query($query);
+				}
+
         public function updatePuntajeTotal($idUsuario, $puntaje)
         {
             $query = "UPDATE usuarios SET puntaje = '$puntaje' WHERE idUsuario = '$idUsuario'";
+            return $this->database->insert($query);
+        }
+				public function updatePartidasJugadas($idUsuario, $partidas)
+        {
+            $query = "UPDATE usuarios SET partidasJugadas = '$partidas' WHERE idUsuario = '$idUsuario'";
             return $this->database->insert($query);
         }
 
