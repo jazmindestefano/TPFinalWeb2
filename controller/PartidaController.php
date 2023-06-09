@@ -22,10 +22,11 @@
                 $this->partidaModel->borrarPreguntasRespondidasByIdUsuario($idUsuario);
             }
             $preguntasSinResponder = $this->partidaModel->getPreguntaSinRepetir($idUsuario);
-
             $pregunta = $this->partidaModel->getPreguntaSinResponder($preguntasSinResponder);
             $respuestas = $this->partidaModel->getRespuestas($pregunta[0]);
             $categoria = $this->partidaModel->getCategoriaByIdDePregunta($pregunta[0])[0]["categoria"];
+
+
 
             $data = array('preguntas' => $pregunta,
                 'respuestas' => $respuestas,
@@ -49,9 +50,9 @@
             $preguntaNueva = $this->partidaModel->getPreguntaSinResponder($preguntasSinResponder);
             $respuestas = $this->partidaModel->getRespuestas($preguntaNueva[0]);
             $puntajeTotal = $this->partidaModel->getPuntajeActualByIdUser($idUsuario)[0]['puntaje'];
-						$partidasJugadas = $this->partidaModel->getPartidasJugadas($idUsuario)[0]['partidasJugadas'];
+            $partidasJugadas = $this->partidaModel->getPartidasJugadas($idUsuario)[0]['partidasJugadas'];
             $categoria = $this->partidaModel->getCategoriaByIdDePregunta($preguntaNueva[0])[0]["categoria"];
-
+            $this->partidaModel->updateDificultadPregunta($idDePregunta);
             if ($respuestaDelUsuario == $respuestaCorrecta) {
 
                 $data = array('preguntas' => $preguntaNueva,
@@ -60,11 +61,12 @@
 
                 $_SESSION['puntajeDePartida']++;
                 $puntajeTotal++;
+                $this->partidaModel->updatePreguntaRespondida($idDePregunta, $idUsuario);
                 $this->partidaModel->updatePuntajeTotal($idUsuario, $puntajeTotal);
                 $this->renderer->render('partida', $data);
             } else {
-								$partidasJugadas++;
-								$this->partidaModel->updatePartidasJugadas($idUsuario, $partidasJugadas);
+                $partidasJugadas++;
+                $this->partidaModel->updatePartidasJugadas($idUsuario, $partidasJugadas);
                 $data = array('preguntas' => $preguntaRespondida,
                     'mensajeDeLaPartida' => $mensaje,
                     'puntaje' => $_SESSION['puntajeDePartida']);
