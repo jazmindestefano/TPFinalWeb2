@@ -22,16 +22,28 @@
 
 		public function filtrar()
 		{
-			$filtro = $_GET['filtro'] ?? 'desc';
-			$users = $filtro == 'desc' ? $this->rankingModel->getUsersByOrderDesc() : $this->rankingModel->getUsersByOrderAsc();
+
+			$filtro = $_GET['filtro'];
+
+			switch ($filtro) {
+				case 'ascPuntos':
+					$users = $this->rankingModel->getUsersByOrderAsc();
+					break;
+				case 'descPartidas':
+					$users = $this->rankingModel->getUsersByPartidasDesc();
+					break;
+				case 'ascPartidas':
+					$users = $this->rankingModel->getUsersByPartidasAsc();
+					break;
+				default:
+					$users = $this->rankingModel->getUsersByOrderDesc();
+					break;
+			}
+
 			$response = ['users' => $users];
 
 			header('Content-Type: application/json');
 			echo json_encode($response);
 		}
-
-
-
-
 
 	}

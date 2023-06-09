@@ -4,15 +4,12 @@ function filtrar() {
         $.ajax({
             url: 'http://localhost/ranking/filtrar',
             method: "GET",
-            data: { filtro: filtro },
-            success: function(response) {
-
-
+            data: {filtro: filtro},
+            success: function (response) {
 
                 $("#ranking-table tbody").empty();
 
-
-                response.users.forEach(function(user) {
+                response.users.forEach(function (user) {
                     let fila = `<tr>
                                 <td>${user.posicion}</td>
                                 <td><a href="/perfil/perfil&idUsuario=${user.idUsuario}">${user.username}</a></td>
@@ -22,7 +19,8 @@ function filtrar() {
                     $("#ranking-table tbody").append(fila);
                 });
             },
-            error: function() {
+
+            error: function () {
                 alert("Error");
             }
         });
