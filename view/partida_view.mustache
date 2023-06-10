@@ -11,7 +11,7 @@
     {{#preguntas}}
         <h3 style="text-align: center">{{categoria}}</h3>
         <div class="{{categoria}}">
-            <p style="font-weight: bold">{{pregunta}}</p>
+            <p style="font-weight: bold" id="pregunta">{{pregunta}}</p>
         </div>
     {{/preguntas}}
     <ul class="pregunta-respuestas">
@@ -35,6 +35,17 @@
 
 
 </div>
+
+<h1>Juego de preguntas y respuestas</h1>
+<div id="question"></div>
+<ul id="answers"></ul>
+<button id="next" name="next" onclick="loadQuestion()">Siguiente</button>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../public/js/preguntas.js"></script>
 </body>
+</html>
 <!-- End Page Content -->
 
