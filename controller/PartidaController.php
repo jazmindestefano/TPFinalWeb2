@@ -76,12 +76,14 @@ class PartidaController
     public function pasarPregunta()
     {
 
-        $pregunta = $_GET['pregunta'];
+        $idPregunta = $_GET['idPregunta'];
 
-        $preguntaRta = $pregunta;
+        if($idPregunta){
+            $respuesta =$this->partidaModel->getPregunta($idPregunta);
+        }
 
 
-        $response = ['pregunta' => $preguntaRta];
+        $response = ['pregunta' => $respuesta];
 
         header('Content-Type: application/json');
         echo json_encode($response);
