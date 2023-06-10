@@ -95,7 +95,8 @@
             return $this->database->query($query);
         }
 
-        public function getPartidasJugadas($id) {
+        public function getPartidasJugadas($id)
+        {
             $query = "SELECT partidasJugadas FROM usuarios WHERE idUsuario = '$id'";
             return $this->database->query($query);
         }
@@ -105,7 +106,8 @@
             $query = "UPDATE usuarios SET puntaje = '$puntaje' WHERE idUsuario = '$idUsuario'";
             return $this->database->insert($query);
         }
-				public function updatePartidasJugadas($idUsuario, $partidas)
+
+        public function updatePartidasJugadas($idUsuario, $partidas)
         {
             $query = "UPDATE usuarios SET partidasJugadas = '$partidas' WHERE idUsuario = '$idUsuario'";
             return $this->database->insert($query);
@@ -123,19 +125,21 @@
             return $this->database->insert($query);
         }
 
-        public function updateDificultadPregunta($idDePregunta){
+        public function updateDificultadPregunta($idDePregunta)
+        {
 
-            $vecesRespondida= count($this->vecesRespondida($idDePregunta));
-            $vecesAcertada=count($this->vecesAcertada($idDePregunta));
-            if($vecesAcertada!=0) {
-                $porcentaje = ($vecesRespondida * 100) / $vecesAcertada;
+            $vecesRespondida = count($this->vecesRespondida($idDePregunta));
+            $vecesAcertada = count($this->vecesAcertada($idDePregunta));
+            if ($vecesAcertada != 0) {
+                $porcentaje = ($vecesRespondida / 100) * $vecesAcertada;
             }
-            if($porcentaje<35 ){
-                $dificultad="dificil";
-            } else if($porcentaje>67){
-                $dificultad="facil";
-            }else{
-                $dificultad="media";
+
+            if ($porcentaje < 35) {
+                $dificultad = "dificil";
+            } else if ($porcentaje > 67) {
+                $dificultad = "facil";
+            } else {
+                $dificultad = "media";
             }
 
             $query = "UPDATE preguntas SET dificultad='$dificultad' WHERE idPregunta= '$idDePregunta'";
@@ -143,20 +147,17 @@
             return $this->database->insert($query);
         }
 
-        public function vecesRespondida($idDePregunta){
-            $query="SELECT * FROM preguntasrespondidas WHERE idPregunta= '$idDePregunta'";
-             return $this->database->query($query);
-        }
-
-        public function vecesAcertada($idDePregunta){
-            $query="SELECT * FROM preguntasrespondidas WHERE idPregunta= '$idDePregunta' AND acertada= 1";
+        public function vecesRespondida($idDePregunta)
+        {
+            $query = "SELECT * FROM preguntasrespondidas WHERE idPregunta= '$idDePregunta'";
             return $this->database->query($query);
         }
 
-
-
-
-
+        public function vecesAcertada($idDePregunta)
+        {
+            $query = "SELECT * FROM preguntasrespondidas WHERE idPregunta= '$idDePregunta' AND acertada= 1";
+            return $this->database->query($query);
+        }
 
 
     }

@@ -25,7 +25,7 @@
             $pregunta = $this->partidaModel->getPreguntaSinResponder($preguntasSinResponder);
             $respuestas = $this->partidaModel->getRespuestas($pregunta[0]);
             $categoria = $this->partidaModel->getCategoriaByIdDePregunta($pregunta[0])[0]["categoria"];
-
+            $this->partidaModel->updateDificultadPregunta($pregunta[0]);
 
 
             $data = array('preguntas' => $pregunta,
