@@ -1,21 +1,24 @@
 .inputInfo {
-    border: 1px solid darkgray;
+    border: 1px solid #d4b2d4;
     border-radius: 6px;
     padding: 20px 5px 20px 5px;
-    font-size: large
+    font-size: large;
+    text-align: center;
+    background: #d4b2d4;
+    font-weight: bold;
 }
 
 .header {
     text-align: center;
     padding: 12px;
-    background: #ffddf6;
-
+    background-image: url("../../public/images/r.png");
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.mapa {
-    margin-top: 50px;
-    width: 500px;
-    height: 500px;
+.qr {
+    height: 100%;
 }
 
 .qrCont {
@@ -41,9 +44,9 @@
 
 .user-name {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 25px;
     margin-top: 14px;
-    color: #000000;
+    color: black
 }
 
 .rol {
@@ -53,4 +56,64 @@
     display: inline;
     padding: 7px 28px;
 
+}
+
+.infoCont {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 30%;
+    background: #ffddf6;
+    padding: 1rem;
+    border-radius: 10px;
+    height: auto;
+    margin-top: 2rem;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.mapContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 30%;
+    background: #ffddf6;
+    padding: 1rem;
+    border-radius: 10px;
+    height: 350px;
+    margin-top: 2rem;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+
+}
+
+.qrContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 30%;
+    background: #ffddf6;
+    padding: 1rem;
+    border-radius: 10px;
+    height: 350px;
+    margin-top: 2rem;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+@media (max-width: 768px) {
+    .data-profile {
+        flex-direction: column;
+    }
+
+    .infoCont {
+        width: 100%;
+    }
+
+    .mapContainer {
+        width: 100%;
+    }
+
+    .qrContainer {
+        width: 50%;
+        height: 50%;
+    }
 }
