@@ -38,24 +38,25 @@
     {{#otroPerfil}}
 
         <h1 class="user-name"> {{username}}</h1>
-        <p class="rol">rol: {{rol}}</p>
+        <p class="rol">Rol: {{rol}}</p>
         </div>
 
         <div class="data-profile">
-            <div style="display: flex; flex-direction: column; gap: 30px; width: 20%">
+            <div class="qrContainer">
+                <img class="qr" src="/public/qr.php?id={{idUsuario}}" />
+            </div>
+            <div class="infoCont">
                 <input class="inputInfo" readonly value="Nombre: {{nombreCompleto}}"/>
                 <input class="inputInfo" readonly value="Fecha de nacimiento: {{fechaDeNacimiento}}"/>
                 <input class="inputInfo" readonly value="Sexo: {{sexo}}"/>
                 <input class="inputInfo" readonly value="Email: {{mail}}"/>
             </div>
-            <div class="qrCont">
-                <img src="/public/qr.php?id={{idUsuario}}" />
-            </div>
-            <div>
+
+            <div class="mapContainer">
                 <iframe
-                        width="500"
-                        height="500"
-                        style="border:0; width: 500px; height: 500px"
+                        width="100%"
+                        height="400"
+                        style="border:0"
                         loading="lazy"
                         allowfullscreen
                         referrerpolicy="no-referrer-when-downgrade"
