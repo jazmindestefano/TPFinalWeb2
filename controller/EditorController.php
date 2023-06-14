@@ -52,6 +52,33 @@
         }
 
 
+        public function filtrar()
+        {
+
+            $filtro = $_GET['filtroEditor'];
+
+            switch ($filtro) {
+                case 'aprobadas':
+                    $preguntas = $this->editorModel->getPreguntasPorAprobadas();
+                    break;
+                case 'reportadas':
+                    $preguntas = $this->editorModel->getPreguntasPorDesaprobado();
+                    break;
+                case 'sugeridas':
+                    $preguntas = $this->editorModel->getPreguntasPorSugeridas();
+                    break;
+                default:
+                    $preguntas = $this->editorModel->getPreguntasById();
+                    break;
+            }
+
+            $response = ['preguntas' => $preguntas];
+
+            header('Content-Type: application/json');
+            echo json_encode($response);
+        }
+
+
     }
 
 

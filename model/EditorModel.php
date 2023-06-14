@@ -30,4 +30,37 @@
             return $this->database->insert($query);
         }
 
+
+        public function getPreguntasPorAprobadas()
+        {
+            $query = "SELECT * FROM preguntas GROUP BY estado='aprobado' ";
+            $preguntas = $this->database->query($query);
+
+            return $preguntas;
+        }
+
+        public function getPreguntasPorDesaprobado()
+        {
+            $query = "SELECT * FROM preguntas GROUP BY estado='desaprobado' ";
+            $preguntas = $this->database->query($query);
+
+            return $preguntas;
+        }
+
+        public function getPreguntasPorSugeridas()
+        {
+            $query = "SELECT * FROM preguntas GROUP BY estado='sugerida' ";
+            $preguntas = $this->database->query($query);
+
+            return $preguntas;
+        }
+
+        public function getPreguntasById()
+        {
+            $query = "SELECT * FROM preguntas ORDER BY idPregunta ASC";
+            $preguntas = $this->database->query($query);
+
+            return $preguntas;
+        }
+
 	}
