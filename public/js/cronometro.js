@@ -1,18 +1,23 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const preguntaElemento = document.querySelector('.w3-container .w3-wide');
 
-window.addEventListener("load", contarAtras);
+    const contadorElemento = document.createElement("p");
+    contadorElemento.id = "contador";
+    preguntaElemento.insertAdjacentElement('afterend', contadorElemento);
+
+    contarAtras();
+});
 
 function contarAtras() {
-
-    console.log('por favor, dame algo');
-
+    const contador = document.getElementById("contador");
     let segundos = 10;
 
     const intervalo = setInterval(() => {
         if (segundos > 0) {
-            console.log(segundos);
+            contador.textContent = segundos;
             segundos--;
         } else {
-            console.log("¡Tiempo terminado!");
+            contador.textContent = "¡Tiempo terminado!";
             clearInterval(intervalo);
         }
     }, 1000);
