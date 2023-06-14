@@ -37,6 +37,13 @@
         }
 
 
+        public function editarPregunta($idPregunta)
+        {
+            $query = "UPDATE preguntas SET  WHERE idPregunta='$idPregunta'";
+            return $this->database->insert($query);
+        }
+
+
         public function getPreguntasPorAprobadas()
         {
             $query = "SELECT * FROM preguntas where estado='aprobado' ";
@@ -61,12 +68,25 @@
             return $preguntas;
         }
 
-        public function getPreguntasById()
+        public function getPreguntasByIdASC()
         {
             $query = "SELECT * FROM preguntas where idPregunta ASC";
             $preguntas = $this->database->query($query);
 
             return $preguntas;
+        }
+
+
+        public function getPreguntaById($id)
+        {
+            $query = "SELECT * FROM preguntas WHERE idPregunta= '$id' ";
+            return $this->database->query($query);
+        }
+
+        public function getRespuestasByIdDePregunta($idPregunta)
+        {
+            $query = "SELECT * FROM respuestas WHERE idPregunta= '$idPregunta' ";
+            return $this->database->query($query);
         }
 
     }

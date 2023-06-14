@@ -13,7 +13,7 @@
         }
 
 
-        public function editor()
+        public function list()
         {
 
             $listaDePreguntas = $this->editorModel->listaDePreguntas();
@@ -27,7 +27,7 @@
         {
             $idPregunta = $_GET["id_pregunta"];
             $this->editorModel->aprobarPregunta($idPregunta);
-            header("Location: /editor/editor");
+            header("Location: /editor");
 
 
         }
@@ -36,7 +36,7 @@
         {
             $idPregunta = $_GET["id_pregunta"];
             $this->editorModel->desaprobarPregunta($idPregunta);
-            header("Location: /editor/editor");
+            header("Location: /editor");
 
 
         }
@@ -46,11 +46,34 @@
         {
             $idPregunta = $_GET["id_pregunta"];
             $this->editorModel->eliminarPregunta($idPregunta);
-            header("Location: /editor/editor");
+            header("Location: /editor");
 
 
         }
 
+        public function editar()
+        {
+            $idPregunta = $_GET["id_pregunta"];
+            $this->editorModel->editarPregunta($idPregunta);
+            header("Location: /editor");
+
+
+        }
+
+        public function preguntaDetalle()
+        {
+            $idPregunta = $_GET["idPregunta"];
+            $pregunta= $this->editorModel->getPreguntaById($idPregunta);
+            $respuestas=$this->editorModel->getRespuestasByIdDePregunta($idPregunta);
+
+            $data= array("pregunta"=>$pregunta,
+                "respuestas"=>$respuestas);
+
+            $this->renderer->render('preguntaDetalle', $data);
+
+
+
+        }
 
         public function filtrar()
         {
@@ -68,7 +91,7 @@
                     $preguntas = $this->editorModel->getPreguntasPorSugeridas();
                     break;
                 default:
-                    $preguntas = $this->editorModel->getPreguntasById();
+                    $preguntas = $this->editorModel->getPreguntasByIdASC();
                     break;
             }
 

@@ -10,8 +10,9 @@
         <select class="ranking-select" id="filtro" name="filtro" onchange="filtrar()">
             <option selected disabled>Filtrar por...</option>
             <option value="aprobadas">Aprobadas</option>
-            <option value="reportadas">Reportadas</option>
             <option value="sugeridas">Sugeridas</option>
+            <option value="reportadas">Reportadas</option>
+
         </select>
 
     </div>
@@ -27,7 +28,7 @@
         <tbody>
         {{#preguntas}}
             <tr>
-                <td><a href="#">{{pregunta}}</a></td>
+                <td><a href="editor/preguntaDetalle&idPregunta={{idPregunta}}">{{pregunta}}</a></td>
                 <td><p>{{estado}}</p></td>
                 <td><a href="/editor/aprobar&id_pregunta={{idPregunta}}">
                     <button type="submit" class="btn-gral">Aprobar</button>

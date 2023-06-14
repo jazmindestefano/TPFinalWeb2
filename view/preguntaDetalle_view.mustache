@@ -1,0 +1,43 @@
+{{> header}}
+<!-- The Band Section -->
+<link rel="stylesheet" href="../public/css/partida.css">
+
+<body >
+<div class='w3-container w3-center'
+     style='display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 10px 0'
+     id='band'>
+    <h3 class='w3-wide'>Pregunta</h3>
+<form action="/editor/" method="post" class="pregunta-form">
+
+    {{#pregunta}}
+        <div class="{{categoria}}">
+            <input style="font-weight: bold" value="{{pregunta}}"></input>
+        </div>
+        <select name="categoria" id="categoria" class="select-form" >
+            <option>{{categoria}}</option>
+            <option>Geografia</option>
+            <option>Futbol</option>
+            <option>Quimica</option>
+            <option>Biologia</option>
+        </select>
+
+    {{/pregunta}}
+    <ul class="pregunta-respuestas">
+        {{#respuestas}}
+
+            <li class="pregunta-form">
+                <input class="opcion-respuesta" value="{{respuesta}}">
+                <input type="radio" value="{{isCorrecto}}" {{#isCorrecto}}checked{{/isCorrecto}}>
+            </li>
+
+
+        {{/respuestas}}
+        <a href="/editor/editar&id_pregunta={{idPregunta}}"> <button type="submit" class="btn-gral">Aceptar</button></a>
+    </ul>
+</form>
+
+</div>
+
+</body>
+<!-- End Page Content -->
+
