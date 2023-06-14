@@ -12,6 +12,7 @@ include_once('model/PerfilModel.php');
 include_once('model/RankingModel.php');
 include_once('model/PreguntaModel.php');
 include_once('model/PartidaModel.php');
+include_once('model/EditorModel.php');
 
 include_once('controller/HomeController.php');
 include_once('controller/LoginController.php');
@@ -21,6 +22,7 @@ include_once('controller/LogoutController.php');
 include_once('controller/RankingController.php');
 include_once('controller/PreguntaController.php');
 include_once('controller/PartidaController.php');
+include_once('controller/EditorController.php');
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 
@@ -78,6 +80,15 @@ class Configuration
     {
         return new LoginController(
             new LoginModel($this->getDatabase()),
+            $this->getRenderer()
+        );
+    }
+
+
+    public function getEditorController()
+    {
+        return new EditorController(
+            new EditorModel($this->getDatabase()),
             $this->getRenderer()
         );
     }
