@@ -64,7 +64,7 @@ function verificarRespuesta(event) {
         contarAtras(tiempoRestante);
     }
      */
-console.log('verificar respuesta');
+console.log('verificar respuesta')
 
     // Resto de la lógica de verificación y acciones correspondientes
 }
