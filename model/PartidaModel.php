@@ -131,7 +131,7 @@
             $vecesRespondida = count($this->vecesRespondida($idDePregunta));
             $vecesAcertada = count($this->vecesAcertada($idDePregunta));
             if ($vecesAcertada != 0) {
-                $porcentaje = ($vecesRespondida / 100) * $vecesAcertada;
+                $porcentaje = ($vecesAcertada / $vecesRespondida) * 100;
             }
 
             if ($porcentaje < 35) {

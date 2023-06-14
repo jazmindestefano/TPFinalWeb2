@@ -16,16 +16,16 @@
         public function editor()
         {
 
-            $listaDePreguntas=$this->editorModel->listaDePreguntas();
-            $data= array("preguntas"=>$listaDePreguntas);
-            $this->renderer->render('vistaDelEditor',$data);
+            $listaDePreguntas = $this->editorModel->listaDePreguntas();
+            $data = array("preguntas" => $listaDePreguntas);
+            $this->renderer->render('vistaDelEditor', $data);
 
 
         }
 
         public function aprobar()
         {
-            $idPregunta=$_GET["id_pregunta"];
+            $idPregunta = $_GET["id_pregunta"];
             $this->editorModel->aprobarPregunta($idPregunta);
             header("Location: /editor/editor");
 
@@ -34,7 +34,7 @@
 
         public function desaprobar()
         {
-            $idPregunta=$_GET["id_pregunta"];
+            $idPregunta = $_GET["id_pregunta"];
             $this->editorModel->desaprobarPregunta($idPregunta);
             header("Location: /editor/editor");
 
@@ -44,7 +44,7 @@
 
         public function eliminar()
         {
-            $idPregunta=$_GET["id_pregunta"];
+            $idPregunta = $_GET["id_pregunta"];
             $this->editorModel->eliminarPregunta($idPregunta);
             header("Location: /editor/editor");
 
@@ -55,7 +55,7 @@
         public function filtrar()
         {
 
-            $filtro = $_GET['filtroEditor'];
+            $filtro = $_GET['filtro'];
 
             switch ($filtro) {
                 case 'aprobadas':

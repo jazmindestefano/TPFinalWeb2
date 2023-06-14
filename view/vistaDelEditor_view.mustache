@@ -6,8 +6,8 @@
 <main class="ranking-main">
     <br>
     <div class="ranking-filtro">
-        <label for="filtroEditor" class="flechas">&#129045;&#129047;</label>
-        <select class="ranking-select" id="filtroEditor" name="filtroEditor" onchange="filtrar()">
+        <label for="filtro" class="flechas">&#129045;&#129047;</label>
+        <select class="ranking-select" id="filtro" name="filtro" onchange="filtrar()">
             <option selected disabled>Filtrar por...</option>
             <option value="aprobadas">Aprobadas</option>
             <option value="reportadas">Reportadas</option>
@@ -27,10 +27,16 @@
         <tbody>
         {{#preguntas}}
             <tr>
-                <td><a href="/perfil/perfil&idUsuario={{idUsuario}}">{{pregunta}}</a></td>
+                <td><a href="#">{{pregunta}}</a></td>
                 <td><p>{{estado}}</p></td>
-                <td>  <a href="/editor/aprobar&id_pregunta={{idPregunta}}"> <button type="submit" class="btn-gral">Aprobar</button></a> <a href="/editor/desaprobar&id_pregunta={{idPregunta}}"> <button type="submit" class="btn-gral">desaprobar</button></a>
-                    <a href="/editor/eliminar&id_pregunta={{idPregunta}}"> <button type="submit" class="btn-gral">Eliminar</button></a> </td>
+                <td><a href="/editor/aprobar&id_pregunta={{idPregunta}}">
+                    <button type="submit" class="btn-gral">Aprobar</button>
+                    </a> <a href="/editor/desaprobar&id_pregunta={{idPregunta}}">
+                    <button type="submit" class="btn-gral">desaprobar</button>
+                    </a>
+                    <a href="/editor/eliminar&id_pregunta={{idPregunta}}">
+                    <button type="submit" class="btn-gral">Eliminar</button>
+                    </a> </td>
             </tr>
         {{/preguntas}}
         </tbody>
@@ -38,6 +44,6 @@
 </main>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="../public/js/ajaxRanking.js"></script>
+<script src="../public/js/ajaxEditor.js"></script>
 </body>
 </html>
