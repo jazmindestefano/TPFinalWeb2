@@ -27,14 +27,6 @@
             header("Location: /editor");
         }
 
-        public function desaprobar()
-        {
-            $idPregunta = $_GET["id_pregunta"];
-            $this->editorModel->desaprobarPregunta($idPregunta);
-            header("Location: /editor");
-
-        }
-
 
         public function eliminar()
         {
@@ -64,8 +56,6 @@
                 "respuestas" => $respuestas);
 
             $this->renderer->render('preguntaDetalle', $data);
-
-
         }
 
         public function filtrar()

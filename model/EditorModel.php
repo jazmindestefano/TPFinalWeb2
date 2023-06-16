@@ -23,12 +23,6 @@
             return $this->database->insert($query);
         }
 
-        public function desaprobarPregunta($idPregunta)
-        {
-            $query = "UPDATE preguntas SET estado='desaprobado' WHERE idPregunta='$idPregunta'";
-            return $this->database->insert($query);
-        }
-
 
         public function eliminarPregunta($idPregunta)
         {
