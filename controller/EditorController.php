@@ -28,8 +28,6 @@
             $idPregunta = $_GET["id_pregunta"];
             $this->editorModel->aprobarPregunta($idPregunta);
             header("Location: /editor");
-
-
         }
 
         public function desaprobar()
@@ -37,7 +35,6 @@
             $idPregunta = $_GET["id_pregunta"];
             $this->editorModel->desaprobarPregunta($idPregunta);
             header("Location: /editor");
-
 
         }
 
@@ -63,21 +60,19 @@
         public function preguntaDetalle()
         {
             $idPregunta = $_GET["idPregunta"];
-            $pregunta= $this->editorModel->getPreguntaById($idPregunta);
-            $respuestas=$this->editorModel->getRespuestasByIdDePregunta($idPregunta);
+            $pregunta = $this->editorModel->getPreguntaById($idPregunta);
+            $respuestas = $this->editorModel->getRespuestasByIdDePregunta($idPregunta);
 
-            $data= array("pregunta"=>$pregunta,
-                "respuestas"=>$respuestas);
+            $data = array("pregunta" => $pregunta,
+                "respuestas" => $respuestas);
 
             $this->renderer->render('preguntaDetalle', $data);
-
 
 
         }
 
         public function filtrar()
         {
-
             $filtro = $_GET['filtro'];
 
             switch ($filtro) {
@@ -94,7 +89,6 @@
                     $preguntas = $this->editorModel->getPreguntasByIdASC();
                     break;
             }
-
             $response = ['preguntas' => $preguntas];
 
             header('Content-Type: application/json');
