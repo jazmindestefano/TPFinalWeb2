@@ -2,8 +2,8 @@
 <main>
     <link rel="stylesheet" href="../public/css/perfil.css">
 <div class="header">
-    <img class="avatar" src="{{fotoDePerfil}}" alt="">
     {{#miPerfil}}
+        <img class="avatar" src="../public/images/{{username}}.png" alt="{{username}}">
         <h1 class="user-name"> {{username}}</h1>
         <p class="rol">Rol: {{rol}}</p>
     </div>
@@ -36,7 +36,7 @@
     {{/miPerfil}}
 
     {{#otroPerfil}}
-
+        <img class="avatar" src="../public/images/{{username}}.png" alt="{{username}}">
         <h1 class="user-name"> {{username}}</h1>
         <p class="rol">Rol: {{rol}}</p>
         </div>
