@@ -15,12 +15,9 @@
 
         public function list()
         {
-
             $listaDePreguntas = $this->editorModel->listaDePreguntas();
             $data = array("preguntas" => $listaDePreguntas);
             $this->renderer->render('vistaDelEditor', $data);
-
-
         }
 
         public function aprobar()
@@ -76,14 +73,14 @@
             $filtro = $_GET['filtro'];
 
             switch ($filtro) {
-                case 'aprobadas':
+                case 'aprobada':
                     $preguntas = $this->editorModel->getPreguntasPorAprobadas();
                     break;
-                case 'reportadas':
-                    $preguntas = $this->editorModel->getPreguntasPorDesaprobado();
+                case 'reportada':
+                    $preguntas = $this->editorModel->getPreguntasPorReportadas();
                     break;
-                case 'sugeridas':
-                    $preguntas = $this->editorModel->getPreguntasPorSugeridas();
+                case 'desaprobada':
+                    $preguntas = $this->editorModel->getPreguntasPorDesaprobados();
                     break;
                 default:
                     $preguntas = $this->editorModel->getPreguntasByIdASC();

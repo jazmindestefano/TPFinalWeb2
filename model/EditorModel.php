@@ -46,23 +46,23 @@
 
         public function getPreguntasPorAprobadas()
         {
-            $query = "SELECT * FROM preguntas where estado='aprobado' ";
+            $query = "SELECT * FROM preguntas where estado='aprobada'";
             $preguntas = $this->database->query($query);
 
             return $preguntas;
         }
 
-        public function getPreguntasPorDesaprobado()
+        public function getPreguntasPorReportadas()
         {
-            $query = "SELECT * FROM preguntas where estado='desaprobado' ";
+            $query = "SELECT * FROM preguntas where estado='reportada'";
             $preguntas = $this->database->query($query);
 
             return $preguntas;
         }
 
-        public function getPreguntasPorSugeridas()
+        public function getPreguntasPorDesaprobados()
         {
-            $query = "SELECT * FROM preguntas where estado='desaprobado' ";
+            $query = "SELECT * FROM preguntas where estado='desaprobada'";
             $preguntas = $this->database->query($query);
 
             return $preguntas;
