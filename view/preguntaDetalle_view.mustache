@@ -32,7 +32,7 @@
                 <!--<input type="text"  name="escorrecto[]"  value="{{isCorrecta}}">-->
                 <select name="escorrecto[]" id="categoria" class="select-form">
                     <option value="0">falsa</option>
-                    <option value="1">correcta</option>
+                    <option value="1" {{#isCorrecta}}selected{{/isCorrecta}}>correcta</option>
                 </select>
             </li>
 
