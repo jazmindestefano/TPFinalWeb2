@@ -17,11 +17,15 @@
         {
             if (empty($_GET['idUsuario'])) {
                 $idUser = $_SESSION['actualUser'];
-                $data["miPerfil"] = $this->perfilModel->getUserById($idUser);
+                $esEditor = false;
+                $miUser = $this->perfilModel->getUserById($idUser);
+                if($miUser[0]['rol'] === 'editor') {
+                    $esEditor = true;
+                }
+                $data = array("miPerfil" => $miUser, "esEditor" => $esEditor);
             } else {
                 $data["otroPerfil"] = $this->perfilModel->getUserById($_GET['idUsuario']);
             }
-
             $this->renderer->render('perfil', $data);
             exit();
 
