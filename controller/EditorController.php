@@ -28,14 +28,16 @@ class EditorController
     }
 
 
-    public function eliminar()
-    {
-        $idPregunta = $_GET["id_pregunta"];
-        $this->editorModel->eliminarPregunta($idPregunta);
-        header("Location: /editor");
+	public function eliminar()
+	{
 
+		$idPregunta = $_GET["id_pregunta"];
 
-    }
+		$this->editorModel->eliminarRespuestasDePregunta($idPregunta);
+		$this->editorModel->eliminarPreguntaById($idPregunta);
+
+		header("Location: /editor");
+	}
 
     public function editar()
     {

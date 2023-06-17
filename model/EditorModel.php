@@ -24,12 +24,19 @@
         }
 
 
-        public function eliminarPregunta($idPregunta)
-        {
-            $query = "DELETE FROM preguntas WHERE idPregunta='$idPregunta'";
-            return $this->database->insert($query);
-        }
+	    public function eliminarRespuestasDePregunta($idPregunta)
+	    {
 
+		    $query = "DELETE FROM respuestas WHERE idPregunta = '$idPregunta'";
+		    $this->database->insert($query);
+	    }
+
+	    public function eliminarPreguntaById($idPregunta)
+	    {
+
+		    $query = "DELETE FROM preguntas WHERE idPregunta = '$idPregunta'";
+		    $this->database->insert($query);
+	    }
 
         public function editarPregunta($idPregunta, $pregunta, $categoria)
         {

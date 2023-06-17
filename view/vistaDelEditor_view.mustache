@@ -29,11 +29,12 @@
             <tr>
                 <td><a href="/editor/preguntaDetalle&idPregunta={{idPregunta}}">{{pregunta}}</a></td>
                 <td><p>{{estado}}</p></td>
-                <td><a href="/editor/aprobar&id_pregunta={{idPregunta}}">
-                    <button type="submit" class="btn-gral">Aprobar</button>
+                <td>
+                    <a id="btn-aprobar" name="btn-aprobar" href="/editor/aprobar&id_pregunta={{idPregunta}}">
+                    <button id="btn-aprobar" name="btn-aprobar" type="submit" class="btn-gral">Aprobar</button>
                    
-                    <a href="/editor/eliminar&id_pregunta={{idPregunta}}">
-                    <button type="submit" class="btn-gral">Eliminar</button>
+                    <a id="btn-eliminar" name="btn-eliminar" href="/editor/eliminar&id_pregunta={{idPregunta}}">
+                    <button id="btn-eliminar" name="btn-eliminar" type="submit" class="btn-gral">Eliminar</button>
                     </a> </td>
             </tr>
         {{/preguntas}}
