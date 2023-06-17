@@ -89,4 +89,9 @@
             return $this->database->query($query);
         }
 
+        public function getCategoriaByIdPregunta($idPregunta) {
+            $query = "SELECT categoria FROM preguntas WHERE idPregunta= '$idPregunta' ";
+            return $this->database->query($query);
+        }
+
     }

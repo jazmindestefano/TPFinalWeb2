@@ -2,45 +2,53 @@
 <!-- The Band Section -->
 <link rel="stylesheet" href="../public/css/partida.css">
 
-<body >
+<body>
 <div class='w3-container w3-center'
      style='display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 10px 0'
      id='band'>
     <h3 class='w3-wide'>Pregunta</h3>
-<form action="/editor/editar" method="post" class="pregunta-form">
+    <form action="/editor/editar" method="post" class="pregunta-form">
 
-    {{#pregunta}}
-        <div class="{{categoria}}">
-            <input style="font-weight: bold" name="pregunta" value="{{pregunta}}">
-            <input type="hidden" value="{{idPregunta}}" name="idPregunta"/>
-        </div>
-        <select name="categoria" id="categoria" class="select-form" >
-            <option>Historia</option>
-            <option>Geografia</option>
-            <option>Futbol</option>
-            <option>Quimica</option>
-            <option>Biologia</option>
-        </select>
+        {{#pregunta}}
+            <div class="{{categoria}}">
+                <input style="font-weight: bold" name="pregunta" value="{{pregunta}}">
+                <input type="hidden" value="{{idPregunta}}" name="idPregunta"/>
+            </div>
+            <div>
+                <p>Categoria actual: {{categoria}}</p>
+            </div>
 
-    {{/pregunta}}
-    <ul class="pregunta-respuestas">
-        {{#respuestas}}
 
-            <li class="pregunta-form">
-                <input type="hidden" name="idRespuesta[]" value="{{idRespuesta}}" />
-                <input class="opcion-respuesta" name="respuesta[]" value="{{respuesta}}">
-                <!--<input type="text"  name="escorrecto[]"  value="{{isCorrecta}}">-->
-                <select name="escorrecto[]" id="categoria" class="select-form">
-                    <option value="0">falsa</option>
-                    <option value="1" {{#isCorrecta}}selected{{/isCorrecta}}>correcta</option>
+
+                <select name="categoria" id="categoria" class="select-form">
+            {{#categorias}}
+                <option value="{{.}}">{{.}}</option>
+            {{/categorias}}
                 </select>
-            </li>
 
 
-        {{/respuestas}}
-        <a href="/editor/editar&id_pregunta={{idPregunta}}"> <button type="submit" class="btn-gral">Aceptar</button></a>
-    </ul>
-</form>
+
+        {{/pregunta}}
+        <ul class="pregunta-respuestas">
+            {{#respuestas}}
+
+                <li class="pregunta-form">
+                    <input type="hidden" name="idRespuesta[]" value="{{idRespuesta}}"/>
+                    <input class="opcion-respuesta" name="respuesta[]" value="{{respuesta}}">
+                    <!--<input type="text"  name="escorrecto[]"  value="{{isCorrecta}}">-->
+                    <select name="escorrecto[]" id="categoria" class="select-form">
+                        <option value="0">falsa</option>
+                        <option value="1" {{#isCorrecta}}selected{{/isCorrecta}}>correcta</option>
+                    </select>
+                </li>
+
+
+            {{/respuestas}}
+            <a href="/editor/editar&id_pregunta={{idPregunta}}">
+            <button type="submit" class="btn-gral">Aceptar</button>
+            </a>
+        </ul>
+    </form>
 
 </div>
 
