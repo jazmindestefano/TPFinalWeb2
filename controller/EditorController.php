@@ -39,9 +39,41 @@
 
         public function editar()
         {
-            $idPregunta = $_GET["id_pregunta"];
-            $this->editorModel->editarPregunta($idPregunta);
-            header("Location: /editor");
+            $idPregunta = $_POST["idPregunta"];
+            $pregunta= $_POST["pregunta"];
+            $categoria= $_POST["categoria"];
+            $respuestas= $_POST["idRespuesta"];
+
+
+
+
+            $AIdRespuesta=$_POST["idRespuesta"][0];
+            $ARespuesta=$_POST["respuesta"][0];
+            $AEsCorrecta=$_POST["escorrecto"][0];
+
+
+            $BIdRespuesta=$_POST["idRespuesta"][1];
+            $BRespuesta=$_POST["respuesta"][1];
+            $BEsCorrecta=$_POST["escorrecto"][1];
+
+
+            $CIdRespuesta=$_POST["idRespuesta"][2];
+            $CRespuesta=$_POST["respuesta"][2];
+            $CEsCorrecta=$_POST["escorrecto"][2];
+
+
+            $DIdRespuesta=$_POST["idRespuesta"][3];
+            $DRespuesta=$_POST["respuesta"][3];
+            $DEsCorrecta=$_POST["escorrecto"][3];
+            
+
+
+           $this->editorModel->editarPregunta($idPregunta, $pregunta, $categoria);
+           $this->editorModel->editarRespuesta($AIdRespuesta, $ARespuesta, $AEsCorrecta);
+           $this->editorModel->editarRespuesta($BIdRespuesta, $BRespuesta, $BEsCorrecta);
+           $this->editorModel->editarRespuesta($CIdRespuesta, $CRespuesta, $CEsCorrecta);
+           $this->editorModel->editarRespuesta($DIdRespuesta, $DRespuesta, $DEsCorrecta);
+           header("Location: /editor");
 
 
         }

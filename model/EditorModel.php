@@ -31,9 +31,15 @@
         }
 
 
-        public function editarPregunta($idPregunta)
+        public function editarPregunta($idPregunta, $pregunta, $categoria)
         {
-            $query = "UPDATE preguntas SET  WHERE idPregunta='$idPregunta'";
+            $query = "UPDATE preguntas SET pregunta='$pregunta', categoria='$categoria' WHERE idPregunta='$idPregunta'";
+            return $this->database->insert($query);
+        }
+
+        public function editarRespuesta($idRespuesta, $respuesta, $esCorrecta)
+        {
+            $query = "UPDATE respuestas SET respuesta='$respuesta', isCorrecta='$esCorrecta' WHERE idRespuesta='$idRespuesta'";
             return $this->database->insert($query);
         }
 

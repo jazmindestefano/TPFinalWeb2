@@ -7,14 +7,15 @@
      style='display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 10px 0'
      id='band'>
     <h3 class='w3-wide'>Pregunta</h3>
-<form action="/editor/" method="post" class="pregunta-form">
+<form action="/editor/editar" method="post" class="pregunta-form">
 
     {{#pregunta}}
         <div class="{{categoria}}">
-            <input style="font-weight: bold" value="{{pregunta}}"></input>
+            <input style="font-weight: bold" name="pregunta" value="{{pregunta}}">
+            <input type="hidden" value="{{idPregunta}}" name="idPregunta"/>
         </div>
         <select name="categoria" id="categoria" class="select-form" >
-            <option>{{categoria}}</option>
+            <option>Historia</option>
             <option>Geografia</option>
             <option>Futbol</option>
             <option>Quimica</option>
@@ -26,8 +27,13 @@
         {{#respuestas}}
 
             <li class="pregunta-form">
-                <input class="opcion-respuesta" value="{{respuesta}}">
-                <input type="radio" value="{{isCorrecto}}" {{#isCorrecto}}checked{{/isCorrecto}}>
+                <input type="hidden" name="idRespuesta[]" value="{{idRespuesta}}" />
+                <input class="opcion-respuesta" name="respuesta[]" value="{{respuesta}}">
+                <!--<input type="text"  name="escorrecto[]"  value="{{isCorrecta}}">-->
+                <select name="escorrecto[]" id="categoria" class="select-form">
+                    <option value="0">falsa</option>
+                    <option value="1">correcta</option>
+                </select>
             </li>
 
 
