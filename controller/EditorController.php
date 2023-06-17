@@ -24,7 +24,8 @@ class EditorController
     {
         $idPregunta = $_GET["id_pregunta"];
         $this->editorModel->aprobarPregunta($idPregunta);
-        header("Location: /editor");
+	       header("Location: /editor");
+
     }
 
 
