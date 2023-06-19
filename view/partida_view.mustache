@@ -9,6 +9,7 @@
     <h3 class='w3-wide'>JUGA TU PARTIDA</h3>
 
     {{#preguntas}}
+        <a href="/partida/reportar&id={{idPregunta}}" class="opcion-respuesta">Reportar Pregunta</a>
         <h3 style="text-align: center">{{categoria}}</h3>
         <div class="{{categoria}}">
             <p style="font-weight: bold">{{pregunta}}</p>
@@ -16,11 +17,9 @@
     {{/preguntas}}
     <ul class="pregunta-respuestas">
         {{#respuestas}}
-
             <li class="pregunta-form">
                 <a href="/partida/validar&id={{idRespuesta}}" class="opcion-respuesta">{{respuesta}}</a>
             </li>
-
         {{/respuestas}}
     </ul>
 

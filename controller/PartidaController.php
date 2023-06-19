@@ -73,4 +73,12 @@
                 $this->renderer->render('partida', $data);
             }
         }
+
+        public function reportar() {
+            $idPreguntaReportada = $_GET['id'];
+            $this->partidaModel->marcarPreguntaComoReportada($idPreguntaReportada);
+            $pregunta = $this->partidaModel->getPregunta($idPreguntaReportada);
+            $data = array('pregunta' => $pregunta);
+            $this->renderer->render('reportar', $data);
+        }
     }

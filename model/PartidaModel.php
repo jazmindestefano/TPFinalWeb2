@@ -159,5 +159,9 @@
             return $this->database->query($query);
         }
 
+        public function marcarPreguntaComoReportada($idPreguntaReportada){
+            $update = "UPDATE preguntas SET estado = 'reportada' WHERE idPregunta = '$idPreguntaReportada'";
+            return $this->database->insert($update);
+        }
 
     }
