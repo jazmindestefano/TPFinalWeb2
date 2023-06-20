@@ -1,21 +1,28 @@
 {{> header}}
 <!-- The Band Section -->
+<html class="home">
 <link rel="stylesheet" href="../public/css/home.css">
-<div class='w3-container w3-center'
-     style='display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 10px 0'
-     id='band'>
-    <h2 class='w3-wide'>KnowItAll</h2>
+<div>
+<h2 class="home-title">KnowItAll</h2>
+<div class="general-home">
+<div class="img-home1">
+    <img class="brain-home" src="../public/images/brain2.png" alt="">
+</div>
+    <div class="buttons-home-cont">
     <br>
     {{#user}}
-    <p>Hola {{nombreCompleto}}! Tu puntaje total es de <span style="font-weight: bold">{{puntaje}}</span></p>
+    <p>Hola  <span style="font-weight: bold"> {{nombreCompleto}}</span>! Tu puntaje total es de <span style="font-weight: bold">{{puntaje}}</span></p>
         {{/user}}
     <a href="/partida/empezar" class="button-empezar">Jugar Partida</a>
     <br>
     <a href="/pregunta/crear" class="button-crear">Crear Pregunta</a>
-
+    </div>
+<div class="img-home2">
+    <img class="brain-home" src="../public/images/brain.png" alt="">
+</div>
 </div>
 
 <!-- End Page Content -->
 </div>
-
+</html>
 
