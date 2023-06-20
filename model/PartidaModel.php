@@ -67,12 +67,7 @@
 
         public function getPreguntaSinRepetir($idUsuario)
         {
-            $query = "SELECT p.*
-                        FROM Preguntas p
-                        WHERE p.idPregunta NOT IN (
-                             SELECT pr.idPregunta
-                              FROM preguntasRespondidas pr
-                            WHERE pr.idUsuario = $idUsuario)";
+            $query = "SELECT p.* FROM Preguntas p WHERE p.idPregunta NOT IN ( SELECT pr.idPregunta FROM preguntasRespondidas pr WHERE pr.idUsuario = $idUsuario ) AND (p.estado = 'aprobada' OR p.estado = 'reportada')";
             return $this->database->query($query);
         }
 
@@ -159,7 +154,8 @@
             return $this->database->query($query);
         }
 
-        public function marcarPreguntaComoReportada($idPreguntaReportada){
+        public function marcarPreguntaComoReportada($idPreguntaReportada)
+        {
             $update = "UPDATE preguntas SET estado = 'reportada' WHERE idPregunta = '$idPreguntaReportada'";
             return $this->database->insert($update);
         }
