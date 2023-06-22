@@ -3,10 +3,11 @@
     <link rel="stylesheet" href="../public/css/perfil.css">
 <div class="header">
     {{#miPerfil}}
-        <img class="avatar" src="../public/images/{{username}}.png" alt="{{username}}">
+        <img class="avatar" src="../public/images/{{fotoDePerfil}}.png" alt="{{fotoDePerfil}}">
         <h1 class="user-name"> {{username}}</h1>
-            <p class="rol">Rol: {{rol}}</p>
-            <a href="/editor/list" class="rol" style="cursor: pointer; {{^esEditor}} display: none; {{/esEditor}}" >Administrar preguntas</a>
+        <p class="rol">Rol: {{rol}}</p>
+        <a href="/editor/list" class="rol" style="cursor: pointer; {{^esEditor}} display: none; {{/esEditor}}">Administrar
+            preguntas</a>
     </div>
 
         <div class="data-profile">
