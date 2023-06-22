@@ -29,7 +29,7 @@
         }
 
 
-        public function getRespuestas($idPregunta)
+        public function getRespuestasByIdPregunta($idPregunta)
         {
             $query = "SELECT * FROM respuestas WHERE idPregunta= '$idPregunta' ";
             return $this->database->query($query);
@@ -41,7 +41,7 @@
             return $this->database->query($query);
         }
 
-        public function getPregunta($id)
+        public function getPreguntaByIdDePregunta($id)
         {
             $query = "SELECT * FROM preguntas WHERE idPregunta= '$id' ";
             return $this->database->query($query);
@@ -65,7 +65,7 @@
             return $this->database->query($query);
         }
 
-        public function getPreguntaSinRepetir($idUsuario)
+        public function getListaDePreguntasSinResponderByIdUsuario($idUsuario)
         {
             $query = "SELECT p.* FROM Preguntas p WHERE p.idPregunta NOT IN ( SELECT pr.idPregunta FROM preguntasRespondidas pr WHERE pr.idUsuario = $idUsuario ) AND (p.estado = 'aprobada' OR p.estado = 'reportada')";
             return $this->database->query($query);
@@ -84,13 +84,13 @@
         }
 
 
-        public function getPuntajeActualByIdUser($id)
+        public function getPuntajeTotalByIdUser($id)
         {
             $query = "SELECT puntaje FROM usuarios WHERE idUsuario = '$id'";
             return $this->database->query($query);
         }
 
-        public function getPartidasJugadas($id)
+        public function getCantidadPartidasJugadas($id)
         {
             $query = "SELECT partidasJugadas FROM usuarios WHERE idUsuario = '$id'";
             return $this->database->query($query);
