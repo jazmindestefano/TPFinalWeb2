@@ -75,7 +75,7 @@
         {
             $idPreguntaReportada = $_GET['id'];
             $this->partidaModel->marcarPreguntaComoReportada($idPreguntaReportada);
-            $pregunta = $this->partidaModel->getPregunta($idPreguntaReportada);
+            $pregunta = $this->partidaModel->getPreguntaByIdDePregunta($idPreguntaReportada);
             $data = array('pregunta' => $pregunta);
             $this->renderer->render('reportar', $data);
         }
