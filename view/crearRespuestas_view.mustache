@@ -6,9 +6,10 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Crear Respuestas</title>
+    <link rel="stylesheet" href="../public/css/crearRespuestas.css">
 </head>
 <body>
-<form action="/pregunta/insertarRespuestas" method="post">
+<form class="respuestas-form" action="/pregunta/insertarRespuestas" method="post">
     <input type="hidden" value="{{idPregunta}}" name="idPregunta" id="idPregunta"/>
     <div class="input-form">
         <label for="respuesta_a" id="respuesta_a">Respuesta A:</label>
@@ -37,7 +38,8 @@
             <option value="respuesta_d">Respuesta D</option>
         </select>
     </div>
-    <input type="submit" value="enviar">
+    <input class="btn-sub" type="submit" value="ENVIAR">
+
 </form>
 {{mensaje}}
 </body>
