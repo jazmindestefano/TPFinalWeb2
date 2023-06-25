@@ -72,7 +72,7 @@
 
         public function getListaDePreguntasSinResponderByIdUsuario($idUsuario)
         {
-            $dificultadUsuario = this->getDificultadDelUsuario($idUsuario);
+            $dificultadUsuario = $this->getDificultadDelUsuario($idUsuario);
             $query = "SELECT p.* FROM Preguntas p WHERE p.idPregunta NOT IN ( SELECT pr.idPregunta FROM preguntasRespondidas pr WHERE pr.idUsuario = $idUsuario ) AND p.dificultad = '$dificultadUsuario' AND (p.estado = 'aprobada' OR p.estado = 'reportada')";
             return $this->database->query($query);
         }
