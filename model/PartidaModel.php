@@ -67,13 +67,13 @@ class PartidaModel
 
     public function getDificultadDelUsuario($idUsuario)
     {
-        $query = "SELECT dificultad FROM usuarios WHERE idUsuario= '$idUsuario' ";
+        $query = "SELECT dificultad FROM usuarios WHERE idUsuario = '$idUsuario' ";
         return $this->database->query($query);
     }
 
-    public function getListaDePreguntasSinResponderByIdUsuario($idUsuario, $dificultadUsuario)
+    public function getListaDePreguntasSinResponderByIdUsuario($idUsuario, $dificultad)
     {
-        $query = "SELECT p.* FROM Preguntas p WHERE p.idPregunta NOT IN ( SELECT pr.idPregunta FROM preguntasRespondidas pr WHERE pr.idUsuario = $idUsuario ) AND p.dificultad = '$dificultadUsuario' AND (p.estado = 'aprobada' OR p.estado = 'reportada')";
+        $query = "SELECT p.* FROM Preguntas p WHERE p.idPregunta NOT IN ( SELECT pr.idPregunta FROM preguntasRespondidas pr WHERE pr.idUsuario = $idUsuario ) AND (p.estado = 'aprobada' OR p.estado = 'reportada') AND (p.dificultad = '$dificultad')";
         return $this->database->query($query);
     }
 
@@ -172,16 +172,47 @@ class PartidaModel
         return $this->database->query($query);
     }
 
-    public function setDificultadUsuario($idUsuario, $porcentaje)
+    public function updateDificultadUsuario($idUsuario, $porcentaje)
     {
-        $dificultad = 'facil';
-        if ($porcentaje >= 75) {
-            $dificultad = 'dificil';
-        } elseif ($porcentaje >= 35 && $porcentaje <= 75) {
+        $edadUsuario = $this->getEdadUsuario($idUsuario);
+
+        if ($edadUsuario < 18) {
+            $dificultad = 'facil';
+        } elseif ($edadUsuario >= 18 && $edadUsuario < 65) {
+            if ($porcentaje >= 75) {
+                $dificultad = 'dificil';
+            } elseif ($porcentaje >= 35 && $porcentaje < 75) {
+                $dificultad = 'media';
+            } else {
+                $dificultad = 'facil';
+            }
+        } else {
             $dificultad = 'media';
         }
-        $query = "UPDATE usuario SET dificultad = '$dificultad' WHERE idUsuario = '$idUsuario'";
+
+        $query = "UPDATE usuarios SET dificultad = '$dificultad' WHERE idUsuario = '$idUsuario'";
         return $this->database->insert($query);
+    }
+
+    public function getEdadUsuario($idUsuario)
+    {
+        // Obtener la fecha de nacimiento del usuario desde la base de datos
+        $query = "SELECT fechaDeNacimiento FROM usuarios WHERE idUsuario = '$idUsuario'";
+        $result = $this->database->query($query);
+
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $fechaNacimiento = $row['fechaDeNacimiento'];
+
+            // Calcular la edad en base a la fecha de nacimiento
+            $fechaNacimiento = new DateTime($fechaNacimiento);
+            $hoy = new DateTime();
+            $edad = $hoy->diff($fechaNacimiento)->y;
+
+            return $edad;
+        }
+
+        return 0;
     }
 
 }
