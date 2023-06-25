@@ -19,13 +19,20 @@ class AdministradorController
         $cantUsuariosMayores = $this->administradorModel->getCantidadDeUsuariosMayores()[0][0];
         $cantUsuariosJubilados = $this->administradorModel->getCantidadDeUsuariosJubilados()[0][0];
 
+        $cantUsuariosSexoFemenino = $this->administradorModel->getCantidadDeUsuariosPorSexoFemenino()[0][0];
+        $cantUsuariosSexoMasculino = $this->administradorModel->getCantidadDeUsuariosPorSexoMasculino()[0][0];
+        $cantUsuariosSexoOtro = $this->administradorModel->getCantidadDeUsuariosPorSexoOtro()[0][0];
 
 
         $data = array(
             "cantUsuariosMenores" => $cantUsuariosMenores,
             "cantUsuariosMayores" => $cantUsuariosMayores,
-            "cantUsuariosJubilados" => $cantUsuariosJubilados
+            "cantUsuariosJubilados" => $cantUsuariosJubilados,
+            "cantUsuariosSexoFemenino" =>$cantUsuariosSexoFemenino,
+            "cantUsuariosSexoMasculino" =>$cantUsuariosSexoMasculino,
+            "cantUsuariosSexoOtro" =>$cantUsuariosSexoOtro
         );
+
         $this->renderer->render('vistaDelAdministrador', $data);
     }
 

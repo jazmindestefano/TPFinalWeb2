@@ -51,9 +51,21 @@ class AdministradorModel
         return $this->database->query($query);
     }
 
-    public function getCantidadDeUsuariosPorSexo()
+    public function getCantidadDeUsuariosPorSexoFemenino()
     {
-        $query = "SELECT count(idUsuario), sexo FROM usuarios GROUP BY sexo";
+        $query = "SELECT count(idUsuario), sexo FROM usuarios WHERE sexo = 'femenino'";
+        return $this->database->query($query);
+    }
+
+    public function getCantidadDeUsuariosPorSexoMasculino()
+    {
+        $query = "SELECT count(idUsuario), sexo FROM usuarios WHERE sexo = 'masculino'";
+        return $this->database->query($query);
+    }
+
+    public function getCantidadDeUsuariosPorSexoOtro()
+    {
+        $query = "SELECT count(idUsuario), sexo FROM usuarios WHERE sexo = 'otro'";
         return $this->database->query($query);
     }
 

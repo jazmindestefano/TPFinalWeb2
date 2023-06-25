@@ -3,7 +3,11 @@
 <br>
 <h1 style="text-align: center">Graficas</h1>
 <main>
-    <div id="edadUsuariosChart" style="width: 900px; height: 500px;"></div>
+    <div style="display: flex; flex-direction: row;">
+        <div id="edadUsuariosChart" style="width: 900px; height: 500px;"></div>
+        <div id="sexoUsuariosChart" style="width: 900px; height: 500px;"></div>
+    </div>
+
 </main>
 
 
@@ -12,9 +16,10 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(edadUsersChart);
+    google.charts.setOnLoadCallback(sexoUsersChart);
 
-    function drawChart() {
+    function edadUsersChart() {
 
         var data = google.visualization.arrayToDataTable([
             ['Usuario', 'Cantidad'],
@@ -29,6 +34,25 @@
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('edadUsuariosChart'));
+
+        chart.draw(data, options);
+    }
+
+    function sexoUsersChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['Usuario', 'Cantidad'],
+            ['Femenino',     {{cantUsuariosSexoFemenino}}],
+            ['Masculino',     {{cantUsuariosSexoMasculino}}],
+            ['Otro',   {{cantUsuariosSexoOtro}}],
+
+        ]);
+
+        var options = {
+            title: 'Usuarios por Sexo'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('sexoUsuariosChart'));
 
         chart.draw(data, options);
     }
