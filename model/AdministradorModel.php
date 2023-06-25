@@ -41,7 +41,7 @@ class AdministradorModel
 
     public function getPorcentajeDePreguntasRespondidasCorrectamentePorUsuario()
     {
-        $query = "SELECT idUsuario, (COUNT(CASE WHEN acertada = 1 THEN 1 END) / COUNT(*)) * 100 AS porcentaje_correctas FROM preguntasrespondidas GROUP BY idUsuario";
+        $query = "SELECT idUsuario, (COUNT(CASE WHEN acertada = 1 THEN 1 END) / COUNT(*)) * 100 FROM preguntasrespondidas GROUP BY idUsuario";
         return $this->database->query($query);
     }
 

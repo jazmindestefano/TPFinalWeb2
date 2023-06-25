@@ -60,10 +60,12 @@
                 $puntajeTotal++;
                 $this->partidaModel->updatePreguntaRespondida($idDePregunta, $idUsuario);
                 $this->partidaModel->updatePuntajeTotal($idUsuario, $puntajeTotal);
+                $this->partidaModel->setDificultadUsuario($idUsuario);
                 $this->renderer->render('partida', $data);
             } else {
                 $cantidadpartidasJugadas++;
                 $this->partidaModel->updatePartidasJugadas($idUsuario, $cantidadpartidasJugadas);
+                $this->partidaModel->setDificultadUsuario($idUsuario);
                 $data = array('preguntas' => $preguntaRespondida,
                     'mensajeDeLaPartida' => $mensaje,
                     'puntaje' => $_SESSION['puntajeDePartida']);

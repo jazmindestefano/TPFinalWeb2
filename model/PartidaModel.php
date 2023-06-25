@@ -65,9 +65,15 @@
             return $this->database->query($query);
         }
 
+        public function getDificultadDelUsuario($idUsuario){
+            $query = "SELECT dificultad FROM usuarios WHERE idUsuario= '$idUsuario' ";
+            return $this->database->query($query);
+        }
+
         public function getListaDePreguntasSinResponderByIdUsuario($idUsuario)
         {
-            $query = "SELECT p.* FROM Preguntas p WHERE p.idPregunta NOT IN ( SELECT pr.idPregunta FROM preguntasRespondidas pr WHERE pr.idUsuario = $idUsuario ) AND (p.estado = 'aprobada' OR p.estado = 'reportada')";
+            $dificultadUsuario = this->getDificultadDelUsuario($idUsuario);
+            $query = "SELECT p.* FROM Preguntas p WHERE p.idPregunta NOT IN ( SELECT pr.idPregunta FROM preguntasRespondidas pr WHERE pr.idUsuario = $idUsuario ) AND p.dificultad = '$dificultadUsuario' AND (p.estado = 'aprobada' OR p.estado = 'reportada')";
             return $this->database->query($query);
         }
 
@@ -158,6 +164,24 @@
         {
             $update = "UPDATE preguntas SET estado = 'reportada' WHERE idPregunta = '$idPreguntaReportada'";
             return $this->database->insert($update);
+        }
+
+        public function getPorcentajeDePreguntasRespondidasCorrectamentePorUsuario($idUsuario)
+        {
+            $query = "SELECT (COUNT(CASE WHEN acertada = 1 THEN 1 END) / COUNT(*)) * 100 FROM preguntasrespondidas WHERE idUsuario = '$idUsuario'";
+            return $this->database->query($query);
+        }
+
+        public function setDificultadUsuario($idUsuario){
+            $porcentaje = $this->getPorcentajeDePreguntasRespondidasCorrectamentePorUsuario($idUsuario);
+            $dificultad = 'facil';
+            if($porcentaje >= 75) {
+                $dificultad = 'dificil';
+            } elseif($porcentaje >= 35 && $porcentaje <= 75) {
+                $dificultad = 'media';
+            }
+            $query = "UPDATE usuario SET dificultad = '$dificultad' WHERE idUsuario = '$idUsuario'";
+            return $this->database->insert($query);
         }
 
     }
