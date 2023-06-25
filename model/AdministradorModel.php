@@ -39,15 +39,37 @@ class AdministradorModel
         return $this->database->query($query);
     }
 
-    public function getPorcentajeDePreguntasRespondidasCorrectamentePorUsuario()
+    public function getProvinciaConMasUsuarios()
     {
-        $query = "SELECT idUsuario, (COUNT(CASE WHEN acertada = 1 THEN 1 END) / COUNT(*)) * 100 FROM preguntasrespondidas GROUP BY idUsuario";
+        $query = "SELECT COUNT(idUsuario) AS cantidadUsuarios, ubicacion 
+              FROM usuarios 
+              GROUP BY ubicacion 
+              HAVING COUNT(idUsuario) = (SELECT MAX(cantidadUsuarios) 
+                                       FROM (SELECT COUNT(idUsuario) AS cantidadUsuarios 
+                                             FROM usuarios 
+                                             GROUP BY ubicacion) AS subquery)
+              LIMIT 1";
         return $this->database->query($query);
     }
 
-    public function getCantidadDeUsuariosPorPais()
+    public function getSegundaProvinciaConMasUsuarios()
     {
-        $query = "SELECT count(idUsuario), ubicacion FROM usuarios GROUP BY ubicacion";
+        $query = "SELECT COUNT(idUsuario) AS cantidadUsuarios, ubicacion 
+              FROM usuarios 
+              GROUP BY ubicacion 
+              ORDER BY cantidadUsuarios DESC
+              LIMIT 1 OFFSET 1";
+        return $this->database->query($query);
+    }
+
+
+    public function getTerceraProvinciaConMasUsuarios()
+    {
+        $query = "SELECT COUNT(idUsuario) AS cantidadUsuarios, ubicacion 
+              FROM usuarios 
+              GROUP BY ubicacion 
+              ORDER BY cantidadUsuarios DESC
+              LIMIT 1 OFFSET 2";
         return $this->database->query($query);
     }
 
@@ -85,5 +107,34 @@ class AdministradorModel
         $query = "SELECT COUNT(idUsuario) FROM usuarios WHERE DATEDIFF(CURDATE(), fechaDeNacimiento) >= 23725";
         return $this->database->query($query);
     }
+
+    public function getUsuarioConMayorPorcentajeDePreguntasRespondidasCorrectamente()
+    {
+        $query = "SELECT idUsuario, (COUNT(CASE WHEN acertada = 1 THEN 1 END) / COUNT(*)) * 100 AS porcentaje
+              FROM preguntasrespondidas
+              LIMIT 1";
+        return $this->database->query($query);
+    }
+
+    public function getSegundoUsuarioConMayorPorcentajeDePreguntasRespondidasCorrectamente()
+    {
+        $query = "SELECT idUsuario, (COUNT(CASE WHEN acertada = 1 THEN 1 END) / COUNT(*)) * 100 AS porcentaje
+              FROM preguntasrespondidas
+              GROUP BY idUsuario
+              LIMIT 1 OFFSET 1";
+        return $this->database->query($query);
+    }
+
+    public function getTercerUsuarioConMayorPorcentajeDePreguntasRespondidasCorrectamente()
+    {
+        $query = "SELECT idUsuario, (COUNT(CASE WHEN acertada = 1 THEN 1 END) / COUNT(*)) * 100 AS porcentaje
+              FROM preguntasrespondidas
+              GROUP BY idUsuario
+              LIMIT 1 OFFSET 2";
+        return $this->database->query($query);
+    }
+
+
+
 
 }

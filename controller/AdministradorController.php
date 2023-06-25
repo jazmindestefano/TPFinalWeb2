@@ -23,6 +23,23 @@ class AdministradorController
         $cantUsuariosSexoMasculino = $this->administradorModel->getCantidadDeUsuariosPorSexoMasculino()[0][0];
         $cantUsuariosSexoOtro = $this->administradorModel->getCantidadDeUsuariosPorSexoOtro()[0][0];
 
+        $provConMasUsuarios = $this->administradorModel->getProvinciaConMasUsuarios();
+        $segProvConMasUsuarios = $this->administradorModel->getSegundaProvinciaConMasUsuarios();
+        $terProvConMasUsuarios = $this->administradorModel->getTerceraProvinciaConMasUsuarios();
+
+        $primeraProvincia = $provConMasUsuarios[0]['ubicacion'];
+        $cantidadUsersPrimeraProvincia = $provConMasUsuarios[0]['cantidadUsuarios'];
+
+        $segundaProvincia = $segProvConMasUsuarios[0]['ubicacion'];
+        $cantidadUsersSegundaProvincia = $segProvConMasUsuarios[0]['cantidadUsuarios'];
+
+        $terceraProvincia = $terProvConMasUsuarios[0]['ubicacion'];
+        $cantidadUsersTerceraProvincia = $terProvConMasUsuarios[0]['cantidadUsuarios'];
+
+        $UsuarioMasPreguntasRespondidas = $this->administradorModel->getUsuarioConMayorPorcentajeDePreguntasRespondidasCorrectamente();
+
+
+
 
         $data = array(
             "cantUsuariosMenores" => $cantUsuariosMenores,
@@ -30,7 +47,13 @@ class AdministradorController
             "cantUsuariosJubilados" => $cantUsuariosJubilados,
             "cantUsuariosSexoFemenino" =>$cantUsuariosSexoFemenino,
             "cantUsuariosSexoMasculino" =>$cantUsuariosSexoMasculino,
-            "cantUsuariosSexoOtro" =>$cantUsuariosSexoOtro
+            "cantUsuariosSexoOtro" =>$cantUsuariosSexoOtro,
+            "primeraProvincia" =>$primeraProvincia,
+            "cantidadUsersPrimeraProvincia" => $cantidadUsersPrimeraProvincia,
+            "segundaProvincia"=>$segundaProvincia,
+            "cantidadUsersSegundaProvincia" =>$cantidadUsersSegundaProvincia,
+            "terceraProvincia"=>$terceraProvincia,
+            "cantidadUsersTerceraProvincia"=>$cantidadUsersTerceraProvincia
         );
 
         $this->renderer->render('vistaDelAdministrador', $data);

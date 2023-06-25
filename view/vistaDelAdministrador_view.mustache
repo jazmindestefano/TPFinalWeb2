@@ -4,8 +4,9 @@
 <h1 style="text-align: center">Graficas</h1>
 <main>
     <div style="display: flex; flex-direction: row;">
-        <div id="edadUsuariosChart" style="width: 900px; height: 500px;"></div>
-        <div id="sexoUsuariosChart" style="width: 900px; height: 500px;"></div>
+        <div id="edadUsersChart" style="width: 900px; height: 500px;"></div>
+        <div id="sexoUsersChart" style="width: 900px; height: 500px;"></div>
+        <div id="paisUsersChart" style="width: 900px; height: 500px;"></div>
     </div>
 
 </main>
@@ -18,6 +19,7 @@
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(edadUsersChart);
     google.charts.setOnLoadCallback(sexoUsersChart);
+    google.charts.setOnLoadCallback(paisUsersChart);
 
     function edadUsersChart() {
 
@@ -33,7 +35,7 @@
             title: 'Usuarios por Edad'
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('edadUsuariosChart'));
+        var chart = new google.visualization.PieChart(document.getElementById('edadUsersChart'));
 
         chart.draw(data, options);
     }
@@ -52,7 +54,25 @@
             title: 'Usuarios por Sexo'
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('sexoUsuariosChart'));
+        var chart = new google.visualization.PieChart(document.getElementById('sexoUsersChart'));
+
+        chart.draw(data, options);
+    }
+
+    function paisUsersChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['Usuario', 'Pais'],
+            ['{{primeraProvincia}}', {{cantidadUsersPrimeraProvincia}}],
+            ['{{segundaProvincia}}', {{cantidadUsersSegundaProvincia}}],
+            ['{{terceraProvincia}}', {{cantidadUsersTerceraProvincia}}],
+        ]);
+
+        var options = {
+            title: 'Usuarios por Pais'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('paisUsersChart'));
 
         chart.draw(data, options);
     }
