@@ -58,6 +58,8 @@ class PartidaController
         $cantidadpartidasJugadas = $this->partidaModel->getCantidadPartidasJugadas($idUsuario)[0]['partidasJugadas'];
         $categoria = $this->partidaModel->getCategoriaByIdDePregunta($preguntaNueva[0])[0]["categoria"];
         $this->partidaModel->updateDificultadPregunta($idDePregunta);
+        $porcentajePreguntasRespondidasCorrectamente = $this->partidaModel->getPorcentajeDePreguntasRespondidasCorrectamentePorUsuario($idUsuario);
+
 
         if ($respuestaDelUsuario == $respuestaCorrecta) {
             $data = array('preguntas' => $preguntaNueva,
@@ -67,13 +69,10 @@ class PartidaController
             $puntajeTotal++;
             $this->partidaModel->updatePreguntaRespondida($idDePregunta, $idUsuario);
             $this->partidaModel->updatePuntajeTotal($idUsuario, $puntajeTotal);
-
             $this->renderer->render('partida', $data);
         } else {
             $cantidadpartidasJugadas++;
             $this->partidaModel->updatePartidasJugadas($idUsuario, $cantidadpartidasJugadas);
-
-
             $data = array('preguntas' => $preguntaRespondida,
                 'mensajeDeLaPartida' => $mensaje,
                 'puntaje' => $_SESSION['puntajeDePartida']);

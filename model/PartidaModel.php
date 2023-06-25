@@ -174,21 +174,14 @@ class PartidaModel
 
     public function updateDificultadUsuario($idUsuario, $porcentaje)
     {
-        $edadUsuario = $this->getEdadUsuario($idUsuario);
-
-        if ($edadUsuario < 18) {
-            $dificultad = 'facil';
-        } elseif ($edadUsuario >= 18 && $edadUsuario < 65) {
-            if ($porcentaje >= 75) {
-                $dificultad = 'dificil';
-            } elseif ($porcentaje >= 35 && $porcentaje < 75) {
-                $dificultad = 'media';
-            } else {
-                $dificultad = 'facil';
-            }
-        } else {
+        if (round($porcentaje) >= 75) {
+            $dificultad = 'dificil';
+        } elseif (round($porcentaje) >= 35 && round($porcentaje) < 75) {
             $dificultad = 'media';
+        } else {
+            $dificultad = 'facil';
         }
+
 
         $query = "UPDATE usuarios SET dificultad = '$dificultad' WHERE idUsuario = '$idUsuario'";
         return $this->database->insert($query);
