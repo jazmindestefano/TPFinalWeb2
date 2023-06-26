@@ -12,36 +12,15 @@ class PartidaController
         $this->renderer = $renderer;
     }
 
-    public function empezar()
-    {
-        $idUsuario = $_SESSION['actualUser'];
-        $_SESSION['puntajeDePartida'] = 0;
-        $dificultadUsuario = $this->partidaModel->getDificultadDelUsuario($idUsuario)[0]['dificultad'];
-
-
-        if (count($this->partidaModel->getListaDePreguntasSinResponderByIdUsuario($idUsuario,$dificultadUsuario)) == 0) {
-            $this->partidaModel->borrarPreguntasRespondidasByIdUsuario($idUsuario);
-        }
-
-        $preguntasSinResponder = $this->partidaModel->getListaDePreguntasSinResponderByIdUsuario($idUsuario,$dificultadUsuario);
-        $pregunta = $this->partidaModel->getPreguntaSinResponder($preguntasSinResponder);
-        $respuestas = $this->partidaModel->getRespuestasByIdPregunta($pregunta[0]);
-        $categoria = $this->partidaModel->getCategoriaByIdDePregunta($pregunta[0])[0]["categoria"];
-
-        $data = array('preguntas' => $pregunta,
-            'respuestas' => $respuestas,
-            'categoria' => $categoria);
-        $this->renderer->render('partida', $data);
-    }
 
     public function validar()
     {
         $idUsuario = $_SESSION['actualUser'];
-        $dificultadUsuario = $this->partidaModel->getDificultadDelUsuario($idUsuario)[0]['dificultad'];
-        $idDePregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($_GET['idRespuesta'])[0]['idPregunta'];
-        $preguntaRespondida = $this->partidaModel->getPreguntaByIdDePregunta($idDePregunta);
-        $respuestaDelUsuario = $this->partidaModel->getRespuestaPorId($_GET['idRespuesta'])[0]['respuesta'];
-        $respuestaCorrecta = $this->partidaModel->getRespuestaCorrectaByIdDePregunta($idDePregunta)[0]['respuesta'];
+        $dificultadUsuario = $this->partidaModel->getDificultadDelUsuario($idUsuario)[0]['dificultad'] ?? "";
+        $idDePregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($_GET['idRespuesta'])[0]['idPregunta'] ?? "";
+        $preguntaRespondida = $this->partidaModel->getPreguntaByIdDePregunta($idDePregunta) ?? "";
+        $respuestaDelUsuario = $this->partidaModel->getRespuestaPorId($_GET['idRespuesta'])[0]['respuesta'] ?? "";
+        $respuestaCorrecta = $this->partidaModel->getRespuestaCorrectaByIdDePregunta($idDePregunta)[0]['respuesta'] ?? "";
         $mensaje = $this->partidaModel->respuestaMensaje($respuestaCorrecta, $respuestaDelUsuario);
 
         $this->partidaModel->insertarPreguntaEnPreguntaRespondida($idDePregunta, $idUsuario);
@@ -93,6 +72,18 @@ class PartidaController
 
         return $resultado;
     }
+
+		public function tiempoTerminado() {
+			$idUsuario = $_SESSION['actualUser'];
+			$cantidadpartidasJugadas = $this->partidaModel->getCantidadPartidasJugadas($idUsuario)[0]['partidasJugadas'];
+			$porcentaje = $this->partidaModel->getPorcentajeDePreguntasRespondidasCorrectamentePorUsuario($idUsuario)[0][0];
+			$cantidadpartidasJugadas++;
+			$this->partidaModel->updatePartidasJugadas($idUsuario, $cantidadpartidasJugadas);
+			$this->partidaModel->updateDificultadUsuario($idUsuario, $porcentaje);
+			$data = array(
+				'puntaje' => $_SESSION['puntajeDePartida']);
+			$this->renderer->render('partida', $data);
+		}
 
     public function reportar()
     {

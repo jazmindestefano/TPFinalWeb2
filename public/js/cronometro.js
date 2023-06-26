@@ -38,7 +38,11 @@ function contarAtras(segundos) {
         } else {
             contador.textContent = "¡Tiempo terminado!";
             clearInterval(intervalo);
-           // redirigir();
+
+            setTimeout(() => {
+                redirigir();
+            }, 2000)
+
         }
         guardarTiempoRestante(tiempoRestante);
     }, 1000);
@@ -51,7 +55,7 @@ function iniciarNuevoContador() {
 
 function redirigir() {
     localStorage.removeItem("tiempoRestante"); // Elimina el tiempo restante al finalizar el contador
-    window.location.href = "https://www.ejemplo.com"; // Reemplaza la URL con la que desees redirigir
+    window.location.href = "http://localhost/partida/tiempoTerminado"; // Reemplaza la URL con la que desees redirigir
 }
 
 function verificarRespuesta(event) {
