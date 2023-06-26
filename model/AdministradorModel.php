@@ -110,8 +110,10 @@ class AdministradorModel
 
     public function getUsuarioConMayorPorcentajeDePreguntasRespondidasCorrectamente()
     {
-        $query = "SELECT idUsuario, (COUNT(CASE WHEN acertada = 1 THEN 1 END) / COUNT(*)) * 100 AS porcentaje
-              FROM preguntasrespondidas
+        $query = "SELECT u.username, (COUNT(CASE WHEN pr.acertada = 1 THEN 1 END) / COUNT(*)) * 100 AS porcentaje
+              FROM preguntasrespondidas pr
+              JOIN usuarios u ON pr.idUsuario = u.idUsuario
+              GROUP BY pr.idUsuario
               LIMIT 1";
         return $this->database->query($query);
     }
@@ -120,7 +122,6 @@ class AdministradorModel
     {
         $query = "SELECT idUsuario, (COUNT(CASE WHEN acertada = 1 THEN 1 END) / COUNT(*)) * 100 AS porcentaje
               FROM preguntasrespondidas
-              GROUP BY idUsuario
               LIMIT 1 OFFSET 1";
         return $this->database->query($query);
     }
@@ -129,7 +130,6 @@ class AdministradorModel
     {
         $query = "SELECT idUsuario, (COUNT(CASE WHEN acertada = 1 THEN 1 END) / COUNT(*)) * 100 AS porcentaje
               FROM preguntasrespondidas
-              GROUP BY idUsuario
               LIMIT 1 OFFSET 2";
         return $this->database->query($query);
     }

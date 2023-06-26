@@ -37,9 +37,11 @@ class AdministradorController
         $cantidadUsersTerceraProvincia = $terProvConMasUsuarios[0]['cantidadUsuarios'];
 
         $UsuarioMasPreguntasRespondidas = $this->administradorModel->getUsuarioConMayorPorcentajeDePreguntasRespondidasCorrectamente();
+        $SegundoUsuarioMasPreguntasRespondidas = $this->administradorModel->getSegundoUsuarioConMayorPorcentajeDePreguntasRespondidasCorrectamente();
+        $TercerUsuarioMasPreguntasRespondidas =  $this->administradorModel->getTercerUsuarioConMayorPorcentajeDePreguntasRespondidasCorrectamente();
 
-
-
+        $primerUser = $UsuarioMasPreguntasRespondidas[0]['username'];
+        $porcentajePrimerUser = $UsuarioMasPreguntasRespondidas[0]['porcentaje'];
 
         $data = array(
             "cantUsuariosMenores" => $cantUsuariosMenores,
