@@ -2,13 +2,14 @@
 <!-- The Band Section -->
 <link rel="stylesheet" href="../public/css/partida.css">
 
-<body >
+<body>
 <div class='w3-container w3-center'
      style='display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 10px 0'
      id='band'>
     <h3 class='w3-wide'>JUGA TU PARTIDA</h3>
 
     {{#preguntas}}
+        <a href="/partida/reportar&id={{idPregunta}}" class="opcion-respuesta">Reportar Pregunta</a>
         <h3 style="text-align: center">{{categoria}}</h3>
         <div class="{{categoria}}">
             <p style="font-weight: bold">{{pregunta}}</p>
@@ -16,11 +17,9 @@
     {{/preguntas}}
     <ul class="pregunta-respuestas">
         {{#respuestas}}
-
             <li class="pregunta-form">
-                <a href="/partida/validar&id={{idRespuesta}}" class="opcion-respuesta"  data-idRespuesta="{{idRespuesta}}">{{respuesta}}</a>
+                <a href="/partida/validar&idRespuesta={{idRespuesta}}" class="opcion-respuesta">{{respuesta}}</a>
             </li>
-
         {{/respuestas}}
     </ul>
 
@@ -30,13 +29,12 @@
 <div class="mensaje">
     {{#mensajeDeLaPartida}}
         <p style="text-align: center"> {{mensajeDePartida}}  </p>
-        <p style="text-align: center"> Tu puntaje alcanzado es de: <span style="font-weight: bold">{{puntaje}}</span> </p>
+        <p style="text-align: center"> Tu puntaje alcanzado es de: <span style="font-weight: bold">{{puntaje}}</span>
+        </p>
     {{/mensajeDeLaPartida}}
 
 
 </div>
-<script src="../public/js/cronometro.js"></script>
 </body>
 <!-- End Page Content -->
-</html>
 

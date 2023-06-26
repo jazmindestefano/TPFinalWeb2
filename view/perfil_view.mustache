@@ -2,10 +2,13 @@
 <main>
     <link rel="stylesheet" href="../public/css/perfil.css">
 <div class="header">
-    <img class="avatar" src="{{fotoDePerfil}}" alt="">
     {{#miPerfil}}
+        <img class="avatar" src="../public/images/{{fotoDePerfil}}.png" alt="{{fotoDePerfil}}">
         <h1 class="user-name"> {{username}}</h1>
         <p class="rol">Rol: {{rol}}</p>
+        <a href="/editor/list" class="rol" style="cursor: pointer; {{^esEditor}} display: none; {{/esEditor}}">Administrar
+            preguntas</a>
+        <a href="/administrador/list" class="rol" style="cursor: pointer; {{^esAdmin}} display: none; {{/esAdmin}}">Ver graficas</a>
     </div>
 
         <div class="data-profile">
@@ -36,7 +39,7 @@
     {{/miPerfil}}
 
     {{#otroPerfil}}
-
+        <img class="avatar" src="../public/images/{{username}}.png" alt="{{username}}">
         <h1 class="user-name"> {{username}}</h1>
         <p class="rol">Rol: {{rol}}</p>
         </div>

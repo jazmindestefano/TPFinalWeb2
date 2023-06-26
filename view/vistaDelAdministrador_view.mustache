@@ -1,0 +1,134 @@
+{{> header}}
+<body>
+<br>
+<h1 style="text-align: center">Graficas</h1>
+<main>
+    <div style="display: flex; flex-direction: row;" id="chart-container">
+        <div>Cantidad de jugadores que tiene el juego: {{cantidadDeUsuariosQueTieneElJuego}}</div>
+        <div>Cantidad de partidas jugadas: {{cantidadTotalDePartidasJugadas}}</div>
+        <div>Cantidad de preguntas creadas: {{cantidadDePreguntasCreadas}}</div>
+        <div>Cantidad de usuarios nuevos: {{usuariosNuevos}}</div>
+        <div id="edadUsersChart" style="width: 900px; height: 500px;"></div>
+        <div id="sexoUsersChart" style="width: 900px; height: 500px;"></div>
+        <div id="paisUsersChart" style="width: 900px; height: 500px;"></div>
+        <div id="porcentajePorUsuarioChart" style="width: 900px; height: 500px;"></div>
+    </div>
+    <button id="download-button">Descargar Gráfico en PDF</button>
+
+</main>
+
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.0/html2canvas.min.js"></script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(edadUsersChart);
+    google.charts.setOnLoadCallback(sexoUsersChart);
+    google.charts.setOnLoadCallback(paisUsersChart);
+    google.charts.setOnLoadCallback(porcentajeDeRespondidasPorUserChart);
+
+    function edadUsersChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['Usuario', 'Cantidad'],
+            ['Menores',     {{cantUsuariosMenores}}],
+            ['Mayores',     {{cantUsuariosMayores}}],
+            ['Jubilados',   {{cantUsuariosJubilados}}],
+
+        ]);
+
+        var options = {
+            title: 'Usuarios por Edad'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('edadUsersChart'));
+
+        chart.draw(data, options);
+    }
+
+    function sexoUsersChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['Usuario', 'Cantidad'],
+            ['Femenino',     {{cantUsuariosSexoFemenino}}],
+            ['Masculino',     {{cantUsuariosSexoMasculino}}],
+            ['Otro',   {{cantUsuariosSexoOtro}}],
+
+        ]);
+
+        var options = {
+            title: 'Usuarios por Sexo'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('sexoUsersChart'));
+
+        chart.draw(data, options);
+    }
+
+    function paisUsersChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['Usuario', 'Pais'],
+            ['{{primeraProvincia}}', {{cantidadUsersPrimeraProvincia}}],
+            ['{{segundaProvincia}}', {{cantidadUsersSegundaProvincia}}],
+            ['{{terceraProvincia}}', {{cantidadUsersTerceraProvincia}}],
+        ]);
+
+        var options = {
+            title: 'Usuarios por Pais'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('paisUsersChart'));
+
+        chart.draw(data, options);
+    }
+
+    function porcentajeDeRespondidasPorUserChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['Usuario', 'Porcentaje'],
+            ['{{primerUser}}', {{porcentajePrimerUser}}],
+            ['{{segundoUser}}', {{porcentajeSegundoUser}}],
+            ['{{tercerUser}}', {{porcentajeTercerUser}}],
+        ]);
+
+        var options = {
+            title: 'Porcentaje de preguntas respondidas por usuario'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('porcentajePorUsuarioChart'));
+
+        chart.draw(data, options);
+    }
+
+    document.getElementById('download-button').addEventListener('click', function() {
+        // Obtiene el elemento del gráfico de Google Charts
+        var chartElement = document.getElementById('chart-container');
+
+        // Utiliza la librería html2canvas para capturar el gráfico y convertirlo en una imagen
+        html2canvas(chartElement).then(function(canvas) {
+            // Convierte el canvas en una imagen base64
+            var imgData = canvas.toDataURL('image/png');
+
+            // Crea un objeto PDF usando pdfmake
+            var docDefinition = {
+                content: [
+                    {
+                        image: imgData,
+                        width: 300 // Ajusta el ancho de la imagen según tus necesidades
+                    }
+                ]
+            };
+
+            // Genera el archivo PDF
+            var pdfDocGenerator = pdfMake.createPdf(docDefinition);
+            pdfDocGenerator.download('grafico.pdf');
+        });
+    });
+</script>
+
+</html>

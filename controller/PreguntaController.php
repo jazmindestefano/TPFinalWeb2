@@ -72,7 +72,6 @@
                         $this->preguntaModel->setearTrue($respuesta_d, $idPregunta);
                         break;
                     default:
-                        //falta manejar bien los errores
                         $mensaje = "Elegi una pregunta correcta";
                         $data = array('mensaje' => $mensaje);
                         $this->renderer->render('crearRespuestas', $data);
@@ -80,7 +79,6 @@
                 }
                 header("Location: /");
             } else {
-                //falta manejar bien los errores
                 $mensaje = "no puede haber una respuesta vacia";
                 $data = array('mensaje' => $mensaje);
                 $this->renderer->render('crearRespuestas', $data);

@@ -33,6 +33,9 @@
 
             if (!empty($usuario) && $usuarioVerificado == 'true') {
                 $_SESSION['actualUser'] = $idUsuario;
+                if($usuario[0]['rol'] == 'editor'){
+                    $_SESSION['esEditor'] = true;
+                }
                 header('location: /');
                 exit();
             } else {
