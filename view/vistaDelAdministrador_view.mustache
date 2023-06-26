@@ -14,11 +14,14 @@
         <div id="porcentajePorUsuarioChart" style="width: 900px; height: 500px;"></div>
     </div>
 
+    <div>
+    <button id="download-button">Descargar Gráfico en PDF</button>
+    </div>
 </main>
 
 
 </body>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js" ></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
@@ -100,6 +103,30 @@
 
         chart.draw(data, options);
     }
+
+
+        document.getElementById('download-button').addEventListener('click', function() {
+
+            console.log('hola')
+        // Crea una instancia de jsPDF
+        var doc = new jsPDF();
+
+        // Obtiene el elemento del gráfico de Google Charts
+        var chartElement = document.getElementById('edadUsersChart');
+
+        // Utiliza la librería html2canvas para capturar el gráfico y convertirlo en una imagen
+        html2canvas(chartElement).then(function(canvas) {
+        // Convierte el canvas en una imagen base64
+        var imgData = canvas.toDataURL('image/png');
+
+        // Agrega la imagen al documento PDF
+        doc.addImage(imgData, 'PNG', 10, 10, 0, 0);
+
+        // Descarga el documento PDF
+        doc.save('grafico.pdf');
+    });
+    });
 </script>
+
 
 </html>
