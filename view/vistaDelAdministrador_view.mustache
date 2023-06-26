@@ -4,9 +4,14 @@
 <h1 style="text-align: center">Graficas</h1>
 <main>
     <div style="display: flex; flex-direction: row;">
+        <div>Cantidad de jugadores que tiene el juego: {{cantidadDeUsuariosQueTieneElJuego}}</div>
+        <div>Cantidad de partidas jugadas: {{cantidadTotalDePartidasJugadas}}</div>
+        <div>Cantidad de preguntas creadas: {{cantidadDePreguntasCreadas}}</div>
+        <div>Cantidad de usuarios nuevos: {{usuariosNuevos}}</div>
         <div id="edadUsersChart" style="width: 900px; height: 500px;"></div>
         <div id="sexoUsersChart" style="width: 900px; height: 500px;"></div>
         <div id="paisUsersChart" style="width: 900px; height: 500px;"></div>
+        <div id="porcentajePorUsuarioChart" style="width: 900px; height: 500px;"></div>
     </div>
 
 </main>
@@ -20,6 +25,7 @@
     google.charts.setOnLoadCallback(edadUsersChart);
     google.charts.setOnLoadCallback(sexoUsersChart);
     google.charts.setOnLoadCallback(paisUsersChart);
+    google.charts.setOnLoadCallback(porcentajeDeRespondidasPorUserChart);
 
     function edadUsersChart() {
 
@@ -73,6 +79,24 @@
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('paisUsersChart'));
+
+        chart.draw(data, options);
+    }
+
+    function porcentajeDeRespondidasPorUserChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['Usuario', 'Porcentaje'],
+            ['{{primerUser}}', {{porcentajePrimerUser}}],
+            ['{{segundoUser}}', {{porcentajeSegundoUser}}],
+            ['{{tercerUser}}', {{porcentajeTercerUser}}],
+        ]);
+
+        var options = {
+            title: 'Porcentaje de preguntas respondidas por usuario'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('porcentajePorUsuarioChart'));
 
         chart.draw(data, options);
     }

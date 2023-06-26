@@ -11,13 +11,13 @@ class AdministradorModel
 
     public function getCantidadTotalDeJugadores()
     {
-        $query = "SELECT count(idUsuario) FROM usuarios WHERE rol = 'jugador'";
+        $query = "SELECT count(idUsuario) AS cantidadDeJugadores FROM usuarios WHERE rol = 'jugador'";
         return $this->database->query($query);
     }
 
     public function getCantidadTotalDePartidasJugadas()
     {
-        $query = "SELECT SUM(partidasJugadas) FROM usuarios";
+        $query = "SELECT SUM(partidasJugadas) AS cantidadDePartidasJugadas FROM usuarios";
         return $this->database->query($query);
     }
 
@@ -29,13 +29,13 @@ class AdministradorModel
 
     public function getCantidadTotalDePreguntasCreadasPorUsuarios()
     {
-        $query = "SELECT count(idPregunta) FROM preguntas WHERE creadaPorUsuario = '1'";
+        $query = "SELECT count(idPregunta) AS cantidadDePreguntasCreadas FROM preguntas WHERE creadaPorUsuario = '1'";
         return $this->database->query($query);
     }
 
     public function getCantidadTotalDeUsuariosNuevos()
     {
-        $query = "SELECT count(idUsuario) FROM usuarios WHERE fechaDeRegistro > '2023-06-20'";
+        $query = "SELECT count(idUsuario) AS usuariosNuevos FROM usuarios WHERE fechaDeRegistro > '2023-06-20'";
         return $this->database->query($query);
     }
 
@@ -120,18 +120,22 @@ class AdministradorModel
 
     public function getSegundoUsuarioConMayorPorcentajeDePreguntasRespondidasCorrectamente()
     {
-        $query = "SELECT idUsuario, (COUNT(CASE WHEN acertada = 1 THEN 1 END) / COUNT(*)) * 100 AS porcentaje
-              FROM preguntasrespondidas
+	    $query = "SELECT u.username, (COUNT(CASE WHEN pr.acertada = 1 THEN 1 END) / COUNT(*)) * 100 AS porcentaje
+              FROM preguntasrespondidas pr
+              JOIN usuarios u ON pr.idUsuario = u.idUsuario
+              GROUP BY pr.idUsuario
               LIMIT 1 OFFSET 1";
-        return $this->database->query($query);
+	    return $this->database->query($query);
     }
 
     public function getTercerUsuarioConMayorPorcentajeDePreguntasRespondidasCorrectamente()
     {
-        $query = "SELECT idUsuario, (COUNT(CASE WHEN acertada = 1 THEN 1 END) / COUNT(*)) * 100 AS porcentaje
-              FROM preguntasrespondidas
+	    $query = "SELECT u.username, (COUNT(CASE WHEN pr.acertada = 1 THEN 1 END) / COUNT(*)) * 100 AS porcentaje
+              FROM preguntasrespondidas pr
+              JOIN usuarios u ON pr.idUsuario = u.idUsuario
+              GROUP BY pr.idUsuario
               LIMIT 1 OFFSET 2";
-        return $this->database->query($query);
+	    return $this->database->query($query);
     }
 
 

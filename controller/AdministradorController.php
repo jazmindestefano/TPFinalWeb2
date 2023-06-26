@@ -15,7 +15,8 @@ class AdministradorController
 
     public function list()
     {
-        $cantUsuariosMenores = $this->administradorModel->getCantidadDeUsuariosMenores()[0][0];
+
+				$cantUsuariosMenores = $this->administradorModel->getCantidadDeUsuariosMenores()[0][0];
         $cantUsuariosMayores = $this->administradorModel->getCantidadDeUsuariosMayores()[0][0];
         $cantUsuariosJubilados = $this->administradorModel->getCantidadDeUsuariosJubilados()[0][0];
 
@@ -43,6 +44,17 @@ class AdministradorController
         $primerUser = $UsuarioMasPreguntasRespondidas[0]['username'];
         $porcentajePrimerUser = $UsuarioMasPreguntasRespondidas[0]['porcentaje'];
 
+				$segundoUser = $SegundoUsuarioMasPreguntasRespondidas[0]['username'];
+        $porcentajeSegundoUser = $SegundoUsuarioMasPreguntasRespondidas[0]['porcentaje'];
+
+				$tercerUser = $TercerUsuarioMasPreguntasRespondidas[0]['username'];
+        $porcentajeTercerUser = $TercerUsuarioMasPreguntasRespondidas[0]['porcentaje'];
+
+				$cantidadDeUsuariosQueTieneElJuego = $this->administradorModel->getCantidadTotalDeJugadores()[0]["cantidadDeJugadores"];
+	      $cantidadTotalDePartidasJugadas = $this->administradorModel->getCantidadTotalDePartidasJugadas()[0]["cantidadDePartidasJugadas"];
+	      $cantidadDePreguntasCreadas = $this->administradorModel->getCantidadTotalDePreguntasCreadasPorUsuarios()[0]["cantidadDePreguntasCreadas"];
+	      $usuariosNuevos = $this->administradorModel->getCantidadTotalDeUsuariosNuevos()[0]["usuariosNuevos"];
+
         $data = array(
             "cantUsuariosMenores" => $cantUsuariosMenores,
             "cantUsuariosMayores" => $cantUsuariosMayores,
@@ -50,12 +62,23 @@ class AdministradorController
             "cantUsuariosSexoFemenino" =>$cantUsuariosSexoFemenino,
             "cantUsuariosSexoMasculino" =>$cantUsuariosSexoMasculino,
             "cantUsuariosSexoOtro" =>$cantUsuariosSexoOtro,
-            "primeraProvincia" =>$primeraProvincia,
+            "primeraProvincia" => $primeraProvincia,
             "cantidadUsersPrimeraProvincia" => $cantidadUsersPrimeraProvincia,
-            "segundaProvincia"=>$segundaProvincia,
-            "cantidadUsersSegundaProvincia" =>$cantidadUsersSegundaProvincia,
-            "terceraProvincia"=>$terceraProvincia,
-            "cantidadUsersTerceraProvincia"=>$cantidadUsersTerceraProvincia
+            "segundaProvincia" => $segundaProvincia,
+            "cantidadUsersSegundaProvincia" => $cantidadUsersSegundaProvincia,
+            "terceraProvincia" => $terceraProvincia,
+            "cantidadUsersTerceraProvincia" => $cantidadUsersTerceraProvincia,
+	          "primerUser" => $primerUser,
+	          "porcentajePrimerUser" => $porcentajePrimerUser,
+	          "segundoUser" => $segundoUser,
+	          "porcentajeSegundoUser" => $porcentajeSegundoUser,
+	          "tercerUser" => $tercerUser,
+	          "porcentajeTercerUser" => $porcentajeTercerUser,
+	          "cantidadDeUsuariosQueTieneElJuego" => $cantidadDeUsuariosQueTieneElJuego,
+	          "cantidadTotalDePartidasJugadas" => $cantidadTotalDePartidasJugadas,
+	          "cantidadDePreguntasCreadas" => $cantidadDePreguntasCreadas,
+	          "usuariosNuevos" => $usuariosNuevos,
+
         );
 
         $this->renderer->render('vistaDelAdministrador', $data);
