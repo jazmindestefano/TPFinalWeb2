@@ -2,14 +2,17 @@
 <!-- The Band Section -->
 <link rel="stylesheet" href="../public/css/partida.css">
 
-<body>
+<body class="partida-body">
 <div class='w3-container w3-center'
      style='display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 10px 0'
      id='band'>
     <h3 class='w3-wide'>JUGA TU PARTIDA</h3>
-
+    
     {{#preguntas}}
-        <a href="/partida/reportar&id={{idPregunta}}" class="opcion-respuesta">Reportar Pregunta</a>
+        <div style="width: 100%; position: absolute; left: 750px; top: 100px">
+            <a  href="/partida/reportar&id={{idPregunta}}" class="opcion-respuesta">Reportar Pregunta</a>
+        </div>
+
         <h3 style="text-align: center">{{categoria}}</h3>
         <div class="{{categoria}}">
             <p style="font-weight: bold">{{pregunta}}</p>
@@ -17,8 +20,8 @@
     {{/preguntas}}
     <ul class="pregunta-respuestas">
         {{#respuestas}}
-            <li class="pregunta-form">
-                <a href="/partida/validar&idRespuesta={{idRespuesta}}" class="opcion-respuesta">{{respuesta}}</a>
+            <li class="pregunta-form" >
+                <a href="/partida/validar&idRespuesta={{idRespuesta}}"class="opcion-respuesta">{{respuesta}}</a>
             </li>
         {{/respuestas}}
     </ul>

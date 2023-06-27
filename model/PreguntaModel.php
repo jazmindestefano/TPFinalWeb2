@@ -11,7 +11,7 @@
 
         public function crearPregunta($pregunta, $categoria)
         {
-            $sql = "INSERT INTO preguntas(pregunta, categoria) VALUES('$pregunta','$categoria')";
+            $sql = "INSERT INTO preguntas(pregunta, categoria, creadaPorUsuario) VALUES('$pregunta','$categoria', true)";
             return $this->database->insert($sql);
         }
 
