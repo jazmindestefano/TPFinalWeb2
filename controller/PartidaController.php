@@ -11,6 +11,10 @@ class PartidaController
         $this->partidaModel = $partidaModel;
         $this->renderer = $renderer;
     }
+    public function empezarPartida(){
+        $data = array();
+        $this->renderer->render('partida', $data);
+    }
 
 
     public function jugarPartida()

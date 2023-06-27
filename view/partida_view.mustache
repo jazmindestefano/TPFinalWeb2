@@ -2,45 +2,19 @@
 <!-- The Band Section -->
 <link rel="stylesheet" href="../public/css/partida.css">
 
-<body class="partida-body">
+<body class="partida-body" onload="jugarPartidaAjax()">
 <div class='w3-container w3-center' id="container-partida"
      style='display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 10px 0'
      id='band'>
     <h3 class='w3-wide'>JUGA TU PARTIDA</h3>
     
-    {{#preguntas}}
-        <div style="width: 100%; position: absolute; left: 750px; top: 100px">
-            <a  href="/partida/reportar&id={{idPregunta}}" class="opcion-respuesta">Reportar Pregunta</a>
-        </div>
-
-        <h3 style="text-align: center">{{categoria}}</h3>
-        <div class="{{categoria}}">
-            <p id="pregunta-partida" style="font-weight: bold">{{pregunta}}</p>
-        </div>
-    {{/preguntas}}
-    <ul class="pregunta-respuestas">
-        {{#respuestas}}
-            <li class="pregunta-form" >
-                <a href="#" onclick="jugarPartidaAjax({{idRespuesta}})" class="opcion-respuesta" id="respuesta-partida">{{respuesta}}</a>
-            </li>
-        {{/respuestas}}
-    </ul>
-
-
-</div>
-
-<div class="mensaje">
-    {{#mensajeDeLaPartida}}
-        <p style="text-align: center"> {{mensajeDePartida}}  </p>
-        <p style="text-align: center"> Tu puntaje alcanzado es de: <span style="font-weight: bold">{{puntaje}}</span>
-        </p>
-    {{/mensajeDeLaPartida}}
 
 
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../public/js/ajaxPartida.js"></script>
+
 </body>
 <!-- End Page Content -->
 

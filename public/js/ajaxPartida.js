@@ -1,4 +1,5 @@
-function jugarPartidaAjax(idRespuesta) {
+
+function jugarPartidaAjax() {
     $.ajax({
         url: 'http://localhost/partida/jugarPartida',
         method: 'GET',
@@ -11,7 +12,10 @@ function jugarPartidaAjax(idRespuesta) {
             console.log(pregunta)
 
             data.respuestas.map(respuesta => {
-                console.log(respuesta.respuesta)
+                let res= `
+                    <h3>${respuesta.respuesta}</h3>`
+
+                $("#container-partida").append(res);
             })
 
         },
