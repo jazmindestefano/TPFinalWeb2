@@ -16,7 +16,9 @@ class PartidaController
     public function jugarPartida()
     {
         $idUsuario = $_SESSION['actualUser'];
-        $_SESSION['puntajeDePartida'] = 0;
+        if (!isset($_SESSION['puntajeDePartida'])) {
+            $_SESSION['puntajeDePartida'] = 0;
+        }
         $_SESSION['RespuestaIncorrecta'] = false;
         $_SESSION['PrimerRender'] = true;
         $dificultadUsuario = $this->getDificultadUsuario($idUsuario);
