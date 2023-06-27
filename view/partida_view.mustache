@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="../public/css/partida.css">
 
 <body class="partida-body">
-<div class='w3-container w3-center'
+<div class='w3-container w3-center' id="container-partida"
      style='display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 10px 0'
      id='band'>
     <h3 class='w3-wide'>JUGA TU PARTIDA</h3>
@@ -15,13 +15,13 @@
 
         <h3 style="text-align: center">{{categoria}}</h3>
         <div class="{{categoria}}">
-            <p style="font-weight: bold">{{pregunta}}</p>
+            <p id="pregunta-partida" style="font-weight: bold">{{pregunta}}</p>
         </div>
     {{/preguntas}}
     <ul class="pregunta-respuestas">
         {{#respuestas}}
             <li class="pregunta-form" >
-                <a href="/partida/jugarPartida&idRespuesta={{idRespuesta}}"class="opcion-respuesta">{{respuesta}}</a>
+                <a href="#" onclick="jugarPartidaAjax({{idRespuesta}})" class="opcion-respuesta" id="respuesta-partida">{{respuesta}}</a>
             </li>
         {{/respuestas}}
     </ul>
@@ -38,6 +38,9 @@
 
 
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../public/js/ajaxPartida.js"></script>
 </body>
 <!-- End Page Content -->
 

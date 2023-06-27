@@ -53,7 +53,8 @@ class PartidaController
                         'respuestas' => $nuevaPregunta['respuestas'],
                         'categoria' => $nuevaPregunta['categoria']);
 
-                    $this->renderer->render('partida', $data);
+	                header('Content-Type: application/json');
+	                echo json_encode($data);
                 }
             } else {
                 $infoJugador['cantidadpartidasJugadas']++;
@@ -67,7 +68,8 @@ class PartidaController
                     $data = array('preguntas' => $insertarPregunta['preguntaRespondida'],
                         'mensajeDeLaPartida' => $insertarPregunta['mensaje'],
                         'puntaje' => $_SESSION['puntajeDePartida']);
-                    $this->renderer->render('partida', $data);
+	                header('Content-Type: application/json');
+	                echo json_encode($data);
                     unset($_SESSION['puntajeDePartida']);
                 }
             }
@@ -80,7 +82,8 @@ class PartidaController
                 'respuestas' => $primeraPregunta['respuestas'],
                 'categoria' => $primeraPregunta['categoria']);
 
-            $this->renderer->render('partida', $data);
+	        header('Content-Type: application/json');
+	        echo json_encode($data);
         }
     }
 
@@ -144,7 +147,7 @@ class PartidaController
             'preguntasSinResponder' => $preguntasSinResponder,
             'preguntaNueva' => $preguntaNueva,
             'respuestas' => $respuestas,
-            'categoria' => $preguntaNueva['preguntaNueva']['categoria']
+            'categoria' => $preguntaNueva['categoria']
         ];
 
         return $resultado;
