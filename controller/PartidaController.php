@@ -20,12 +20,10 @@
             if (count($this->partidaModel->getListaDePreguntasSinResponderByIdUsuario($idUsuario)) == 0) {
                 $this->partidaModel->borrarPreguntasRespondidasByIdUsuario($idUsuario);
             }
-
             $preguntasSinResponder = $this->partidaModel->getListaDePreguntasSinResponderByIdUsuario($idUsuario);
             $pregunta = $this->partidaModel->getPreguntaSinResponder($preguntasSinResponder);
             $respuestas = $this->partidaModel->getRespuestasByIdPregunta($pregunta[0]);
             $categoria = $this->partidaModel->getCategoriaByIdDePregunta($pregunta[0])[0]["categoria"];
-
             $data = array('preguntas' => $pregunta,
                 'respuestas' => $respuestas,
                 'categoria' => $categoria);
