@@ -26,12 +26,13 @@ class PartidaController
             $this->partidaModel->borrarPreguntasRespondidasByIdUsuario($idUsuario);
         }
 
-        //buscamos una pregunta nueva
+        //buscamos una primera pregunta nueva
         $primeraPregunta = $this->getNuevaPregunta($idUsuario, $dificultadUsuario);
 
         if (isset($_GET['idRespuesta'])) {
-            $idDePregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($_GET['idRespuesta'])[0]['idPregunta'];
-            $insertarPregunta = $this->insertarPreguntaEnPreguntasRespondidas($_GET['idRespuesta'], $idUsuario, $idDePregunta);
+            $idRespuesta = $_GET['idRespuesta'];
+            $idDePregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($idRespuesta)[0]['idPregunta'];
+            $insertarPregunta = $this->insertarPreguntaEnPreguntasRespondidas($idRespuesta, $idUsuario, $idDePregunta);
             $nuevaPregunta = $this->getNuevaPregunta($idUsuario, $dificultadUsuario);
 
             $infoJugador = $this->getInformacionJugador($idUsuario);
@@ -78,6 +79,15 @@ class PartidaController
 
             $this->renderer->render('partida', $data);
         }
+    }
+
+    public function reportar()
+    {
+        $idPreguntaReportada = $_GET['id'];
+        $this->partidaModel->marcarPreguntaComoReportada($idPreguntaReportada);
+        $pregunta = $this->partidaModel->getPreguntaByIdDePregunta($idPreguntaReportada);
+        $data = array('pregunta' => $pregunta);
+        $this->renderer->render('reportar', $data);
     }
 
     public function getInformacionJugador($idUsuario)
@@ -136,13 +146,6 @@ class PartidaController
         return $resultado;
     }
 
-    public function reportar()
-    {
-        $idPreguntaReportada = $_GET['id'];
-        $this->partidaModel->marcarPreguntaComoReportada($idPreguntaReportada);
-        $pregunta = $this->partidaModel->getPreguntaByIdDePregunta($idPreguntaReportada);
-        $data = array('pregunta' => $pregunta);
-        $this->renderer->render('reportar', $data);
-    }
+
 
 }
