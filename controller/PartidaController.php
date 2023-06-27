@@ -16,11 +16,11 @@ class PartidaController
     public function jugarPartida()
     {
         $idUsuario = $_SESSION['actualUser'];
+        $_SESSION['RespuestaIncorrecta'] = false;
+        $_SESSION['PrimerRender'] = true;
         if (!isset($_SESSION['puntajeDePartida'])) {
             $_SESSION['puntajeDePartida'] = 0;
         }
-        $_SESSION['RespuestaIncorrecta'] = false;
-        $_SESSION['PrimerRender'] = true;
         $dificultadUsuario = $this->getDificultadUsuario($idUsuario);
 
         //si el usuario no tiene mas preguntas para responder, reset tabla preguntas respondidas
@@ -68,6 +68,7 @@ class PartidaController
                         'mensajeDeLaPartida' => $insertarPregunta['mensaje'],
                         'puntaje' => $_SESSION['puntajeDePartida']);
                     $this->renderer->render('partida', $data);
+                    unset($_SESSION['puntajeDePartida']);
                 }
             }
 
@@ -82,6 +83,7 @@ class PartidaController
             $this->renderer->render('partida', $data);
         }
     }
+
 
     public function reportar()
     {
