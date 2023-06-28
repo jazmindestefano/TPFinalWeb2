@@ -60,7 +60,7 @@ class PartidaController
 	                header('Content-Type: application/json');
 	                echo json_encode($data);
                 }
-            } else {
+            } /*else {
                 $infoJugador['cantidadpartidasJugadas']++;
                 $this->partidaModel->updatePartidasJugadas($idUsuario, $infoJugador['cantidadpartidasJugadas']);
                 $this->partidaModel->updateDificultadUsuario($idUsuario, $infoJugador['porcentaje']);
@@ -72,11 +72,12 @@ class PartidaController
                     $data = array('preguntas' => $insertarPregunta['preguntaRespondida'],
                         'mensajeDeLaPartida' => $insertarPregunta['mensaje'],
                         'puntaje' => $_SESSION['puntajeDePartida']);
+	                unset($_SESSION['puntajeDePartida']);
 	                header('Content-Type: application/json');
 	                echo json_encode($data);
-                    unset($_SESSION['puntajeDePartida']);
+
                 }
-            }
+            } */
 
         }
 
@@ -114,6 +115,26 @@ class PartidaController
 
         return $resultado;
     }
+
+		public function finalizarPartida() {
+			$idUsuario = $_SESSION['actualUser'];
+			$infoJugador = $this->getInformacionJugador($idUsuario);
+			$infoJugador['cantidadpartidasJugadas']++;
+			$this->partidaModel->updatePartidasJugadas($idUsuario, $infoJugador['cantidadpartidasJugadas']);
+
+			$this->partidaModel->updateDificultadUsuario($idUsuario, $infoJugador['porcentaje']);
+
+			$idRespuesta = $_GET['idRespuesta'];
+			$idDePregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($idRespuesta)[0]['idPregunta'];
+			$insertarPregunta = $this->insertarPreguntaEnPreguntasRespondidas($idRespuesta, $idUsuario, $idDePregunta);
+
+			$data = array('preguntas' => $insertarPregunta['preguntaRespondida'],
+				'mensajeDeLaPartida' => $insertarPregunta['mensaje'],
+				'puntaje' => $_SESSION['puntajeDePartida']);
+
+			header('Content-Type: application/json');
+			echo json_encode($data);
+		}
 
     public function insertarPreguntaEnPreguntasRespondidas($idRespuesta, $idUsuario, $idPregunta)
     {
