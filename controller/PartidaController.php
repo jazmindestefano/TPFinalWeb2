@@ -12,6 +12,7 @@ class PartidaController
         $this->renderer = $renderer;
     }
     public function empezarPartida(){
+			$_SESSION['puntajeDePartida'] = 0;
         $data = array();
         $this->renderer->render('partida', $data);
     }
@@ -22,9 +23,6 @@ class PartidaController
         $idUsuario = $_SESSION['actualUser'];
         $_SESSION['RespuestaIncorrecta'] = false;
         $_SESSION['PrimerRender'] = true;
-        if (!isset($_SESSION['puntajeDePartida'])) {
-            $_SESSION['puntajeDePartida'] = 0;
-        }
         $dificultadUsuario = $this->getDificultadUsuario($idUsuario);
 
         //si el usuario no tiene mas preguntas para responder, reset tabla preguntas respondidas
@@ -45,14 +43,14 @@ class PartidaController
             $this->partidaModel->updateDificultadPregunta($idDePregunta);
 
             if ($insertarPregunta['respuestaDelUsuario'] == $insertarPregunta['respuestaCorrecta']) {
-                $_SESSION['puntajeDePartida']++;
                 $_SESSION['PrimerRender'] = false;
                 $infoJugador['puntajeTotal']++;
                 $this->partidaModel->updatePreguntaRespondida($idDePregunta, $idUsuario);
-                $this->partidaModel->updatePuntajeTotal($idUsuario, $infoJugador['puntajeTotal']);
+
 
                 // si la respuesta es correcta y no es el primer render
                 if (!$_SESSION['RespuestaIncorrecta'] && !$_SESSION['PrimerRender']) {
+
                     $data = array('preguntas' => $nuevaPregunta['preguntaNueva'],
                         'respuestas' => $nuevaPregunta['respuestas'],
                         'categoria' => $nuevaPregunta['categoria']);
@@ -60,29 +58,13 @@ class PartidaController
 	                header('Content-Type: application/json');
 	                echo json_encode($data);
                 }
-            } /*else {
-                $infoJugador['cantidadpartidasJugadas']++;
-                $this->partidaModel->updatePartidasJugadas($idUsuario, $infoJugador['cantidadpartidasJugadas']);
-                $this->partidaModel->updateDificultadUsuario($idUsuario, $infoJugador['porcentaje']);
-
-                $_SESSION['RespuestaIncorrecta'] = true;
-
-                //si la respuesta es incorrecta
-                if ($_SESSION['RespuestaIncorrecta']) {
-                    $data = array('preguntas' => $insertarPregunta['preguntaRespondida'],
-                        'mensajeDeLaPartida' => $insertarPregunta['mensaje'],
-                        'puntaje' => $_SESSION['puntajeDePartida']);
-	                unset($_SESSION['puntajeDePartida']);
-	                header('Content-Type: application/json');
-	                echo json_encode($data);
-
-                }
-            } */
+            }
 
         }
 
         // si la respuesta es correcta y es el primer render
         if (!$_SESSION['RespuestaIncorrecta'] && $_SESSION['PrimerRender']) {
+	        $_SESSION['puntajeDePartida']++;
             $data = array('preguntas' => $primeraPregunta['preguntaNueva'],
                 'respuestas' => $primeraPregunta['respuestas'],
                 'categoria' => $primeraPregunta['categoria']);
@@ -117,20 +99,30 @@ class PartidaController
     }
 
 		public function finalizarPartida() {
+
 			$idUsuario = $_SESSION['actualUser'];
-			$infoJugador = $this->getInformacionJugador($idUsuario);
-			$infoJugador['cantidadpartidasJugadas']++;
-			$this->partidaModel->updatePartidasJugadas($idUsuario, $infoJugador['cantidadpartidasJugadas']);
+			$porcentaje = $this->partidaModel->getPorcentajeDePreguntasRespondidasCorrectamentePorUsuario($idUsuario)[0][0];
 
-			$this->partidaModel->updateDificultadUsuario($idUsuario, $infoJugador['porcentaje']);
+			$idPregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($_GET['idRespuesta'])[0]['idPregunta'];
+			$preguntaRespondida = $this->partidaModel->getPreguntaByIdDePregunta($idPregunta);
+			$respuestaCorrecta = $this->partidaModel->getRespuestaCorrectaByIdDePregunta($idPregunta)[0]['respuesta'];
+			$respuestaDelUsuario = $this->partidaModel->getRespuestaPorId($_GET['idRespuesta'])[0]['respuesta'];
 
-			$idRespuesta = $_GET['idRespuesta'];
-			$idDePregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($idRespuesta)[0]['idPregunta'];
-			$insertarPregunta = $this->insertarPreguntaEnPreguntasRespondidas($idRespuesta, $idUsuario, $idDePregunta);
+			$cantidadpartidasJugadas = $this->partidaModel->getCantidadPartidasJugadas($idUsuario)[0]['partidasJugadas'];
+			$cantidadpartidasJugadas++;
+			$this->partidaModel->updatePartidasJugadas($idUsuario, $cantidadpartidasJugadas);
 
-			$data = array('preguntas' => $insertarPregunta['preguntaRespondida'],
-				'mensajeDeLaPartida' => $insertarPregunta['mensaje'],
-				'puntaje' => $_SESSION['puntajeDePartida']);
+			$this->partidaModel->updateDificultadUsuario($idUsuario, $porcentaje);
+
+			$puntajeTotal = $this->partidaModel->getPuntajeTotalByIdUser($idUsuario)[0]['puntaje'] + $_SESSION['puntajeDePartida'];
+			$this->partidaModel->updatePuntajeTotal($idUsuario, $puntajeTotal);
+
+			$mensaje = $this->partidaModel->respuestaMensaje($respuestaCorrecta, $respuestaDelUsuario);
+
+			$data = array(
+				"pregunta" => $preguntaRespondida,
+				"mensajeDeLaPartida" => $mensaje,
+				"puntaje" => $_SESSION['puntajeDePartida']);
 
 			header('Content-Type: application/json');
 			echo json_encode($data);

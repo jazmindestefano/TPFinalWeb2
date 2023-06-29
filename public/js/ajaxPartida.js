@@ -49,7 +49,7 @@ function validarPregunta(idRespuesta,isCorrecta) {
 
               data.respuestas.map(respuesta => {
 
-                  let res = `<a onclick="validarPregunta(${respuesta.isCorrecta})">${respuesta.respuesta}</a>`
+                  let res = `<a onclick="validarPregunta(${respuesta.idRespuesta}, ${respuesta.isCorrecta})">${respuesta.respuesta}</a>`
 
                   $("#container-partida").append(res);
               })
@@ -74,7 +74,7 @@ function preguntaIncorrecta(idRespuesta) {
 
             const mensajeDeLaPartida = data.mensajeDeLaPartida.mensajeDePartida;
             const puntaje = data.puntaje;
-            const pregunta = data.preguntas[0].pregunta;
+            const pregunta = data.pregunta[0].pregunta;
 
             let preg = `<p>${pregunta}</p>`
             let msj = `<p>${mensajeDeLaPartida}</p>`
