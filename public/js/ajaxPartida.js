@@ -27,13 +27,12 @@ function empezarPartida() {
     });
 }
 
-function validarPregunta(idRespuesta,isCorrecta) {
-
+function validarPregunta(idRespuesta = 0,isCorrecta) {
   if(isCorrecta) {
-      console.log(isCorrecta);
       $.ajax({
           url: 'http://localhost/partida/jugarPartida',
           method: 'GET',
+          data: {idRespuesta: idRespuesta},
           success: function (data) {
 
               const categoria = data.categoria;
@@ -70,7 +69,6 @@ function preguntaIncorrecta(idRespuesta) {
         method: 'GET',
         data: {idRespuesta: idRespuesta},
         success: function (data) {
-            console.log(data)
 
             const mensajeDeLaPartida = data.mensajeDeLaPartida.mensajeDePartida;
             const puntaje = data.puntaje;
