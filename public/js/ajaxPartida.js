@@ -7,7 +7,7 @@ function empezarPartida() {
             const categoria = data.categoria;
             const pregunta = data.preguntas.pregunta;
 
-            let cat= `<p>${categoria}</p>`
+            let cat= `<div class="${categoria}">${categoria}</div>`
             let preg= `<p>${pregunta}</p>`
 
             $("#container-partida").append(cat);
@@ -38,7 +38,7 @@ function validarPregunta(idRespuesta = 0,isCorrecta) {
               const categoria = data.categoria;
               const pregunta = data.preguntas.pregunta;
 
-              let cat = `<p>${categoria}</p>`
+              let cat = `<div class="${categoria}">${categoria}</div>`
               let preg = `<p>${pregunta}</p>`
 
               $("#container-partida").empty();
