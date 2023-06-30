@@ -2,18 +2,27 @@
 <body>
 <br>
 <h1 style="text-align: center">Graficas</h1>
+<link rel="stylesheet" href="../public/css/admin.css">
 <main>
-    <div style="display: flex; flex-direction: row;" id="chart-container">
-        <div>Cantidad de jugadores que tiene el juego: {{cantidadDeUsuariosQueTieneElJuego}}</div>
-        <div>Cantidad de partidas jugadas: {{cantidadTotalDePartidasJugadas}}</div>
-        <div>Cantidad de preguntas creadas: {{cantidadDePreguntasCreadas}}</div>
-        <div>Cantidad de usuarios nuevos: {{usuariosNuevos}}</div>
-        <div id="edadUsersChart" style="width: 900px; height: 500px;"></div>
-        <div id="sexoUsersChart" style="width: 900px; height: 500px;"></div>
-        <div id="paisUsersChart" style="width: 900px; height: 500px;"></div>
-        <div id="porcentajePorUsuarioChart" style="width: 900px; height: 500px;"></div>
+    <div class="grafico" id="chart-container">
+        <div class="graf-item" id="edadUsersChart" ></div>
+        <div class="graf-item" id="sexoUsersChart"></div>
+        <div class="graf-item" id="paisUsersChart" ></div>
+        <div class="graf-item" id="porcentajePorUsuarioChart"></div>
     </div>
-    <button id="download-button">Descargar Gráfico en PDF</button>
+    <div class="container">
+        <div class="stats">
+            <div class="stat-item">Cantidad de jugadores que tiene el juego: <b> {{cantidadDeUsuariosQueTieneElJuego}} </b></div>
+            <div class="stat-item">Cantidad de partidas jugadas:<b> {{cantidadTotalDePartidasJugadas}} </b></div>
+            <div class="stat-item">Cantidad de preguntas creadas:<b> {{cantidadDePreguntasCreadas}}</b></div>
+            <div class="stat-item">Cantidad de usuarios nuevos: <b>{{usuariosNuevos}}</b></div>
+            <button class="btn-gral" id="download-button">Descargar Gráfico en PDF</button>
+        </div>
+
+    </div>
+
+
+
 
 </main>
 
@@ -79,7 +88,7 @@
         ]);
 
         var options = {
-            title: 'Usuarios por Pais'
+            title: 'Usuarios por Provincia'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('paisUsersChart'));

@@ -35,7 +35,7 @@ class AdministradorModel
 
     public function getCantidadTotalDeUsuariosNuevos()
     {
-        $query = "SELECT count(idUsuario) AS usuariosNuevos FROM usuarios WHERE fechaDeRegistro > '2023-06-20'";
+        $query = "SELECT count(idUsuario) AS usuariosNuevos FROM usuarios WHERE fechaDeRegistro >= DATE_SUB(CURDATE(), INTERVAL 3 DAY);";
         return $this->database->query($query);
     }
 

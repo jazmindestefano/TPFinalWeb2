@@ -79,7 +79,7 @@ class PartidaModel
 
     public function insertarPreguntaEnPreguntaRespondida($idDePregunta, $idUsuario)
     {
-        $sql = "INSERT INTO `preguntasrespondidas` ( `idUsuario`, `idPregunta`) VALUES ( '$idUsuario', '$idDePregunta')";
+        $sql = "INSERT INTO preguntasrespondidas ( `idUsuario`, `idPregunta`) VALUES ( '$idUsuario', '$idDePregunta')";
         return $this->database->insert($sql);
     }
 

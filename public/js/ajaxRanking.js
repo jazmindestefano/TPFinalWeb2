@@ -6,6 +6,7 @@ function filtrar() {
             method: "GET",
             data: {filtro: filtro},
             success: function (response) {
+                console.log(response)
 
                 $("#ranking-table tbody").empty();
 
