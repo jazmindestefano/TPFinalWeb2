@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const preguntaElemento = document.querySelector('.w3-container .w3-wide');
-
+    //const preguntaElemento = document.querySelector('.w3-container .w3-center');
+    const preguntaElemento = document.querySelector('.cronometro');
     const contadorElemento = document.createElement("p");
     contadorElemento.id = "contador";
     preguntaElemento.insertAdjacentElement('afterend', contadorElemento);

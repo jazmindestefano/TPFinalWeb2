@@ -1,4 +1,28 @@
+document.addEventListener("DOMContentLoaded", function() {
+    //const preguntaElemento = document.querySelector('.w3-container .w3-center');
+    const preguntaElemento = document.querySelector('.cronometro');
+    const contadorElemento = document.createElement("p");
+    contadorElemento.id = "contador";
+    preguntaElemento.insertAdjacentElement('afterend', contadorElemento);
+
+    const tiempoRestante = obtenerTiempoRestante();
+    if (tiempoRestante > 0) {
+        contarAtras(tiempoRestante);
+    } else {
+        iniciarNuevoContador();
+    }
+
+    const opcionesRespuesta = document.querySelectorAll(".opcion-respuesta");
+    opcionesRespuesta.forEach(opcion => {
+        opcion.addEventListener("click", verificarRespuesta);
+    });
+});
+
+
+
+
 function empezarPartida() {
+
     $.ajax({
         url: 'http://localhost/partida/jugarPartida',
         method: 'GET',
@@ -7,9 +31,14 @@ function empezarPartida() {
             const categoria = data.categoria;
             const pregunta = data.preguntas.pregunta;
 
+
+            let text =`<h3 class='w3-wide'>JUGA TU PARTIDA</h3>`;
+            let cronometro = `<div class="cronometro"></div>`;
             let cat = `<div class="${categoria} partida-pregunta">${categoria}</div>`;
             let preg = `<p class="partida-pregunta">${pregunta}</p>`;
 
+            $("#container-partida").append(text);
+            $("#container-partida").append(cronometro);
             $("#container-partida").append(cat);
             $("#container-partida").append(preg);
 
@@ -31,6 +60,7 @@ function empezarPartida() {
 
 function validarPregunta(idRespuesta = 0, isCorrecta) {
     if (isCorrecta) {
+        iniciarNuevoContador()
         $.ajax({
             url: 'http://localhost/partida/jugarPartida',
             method: 'GET',
@@ -40,11 +70,15 @@ function validarPregunta(idRespuesta = 0, isCorrecta) {
                 const categoria = data.categoria;
                 const pregunta = data.preguntas.pregunta;
 
+
+                let cronometro = `<div class="cronometro"></div>`;
+                let text =`<h3 class='w3-wide'>JUGA TU PARTIDA</h3>`;
                 let cat = `<div class="${categoria} partida-pregunta">${categoria}</div>`;
                 let preg = `<p class="partida-pregunta">${pregunta}</p>`;
 
                 $("#container-partida").empty();
-
+                $("#container-partida").append(text);
+                $("#container-partida").append(cronometro);
                 $("#container-partida").append(cat);
                 $("#container-partida").append(preg);
 
@@ -93,4 +127,49 @@ function preguntaIncorrecta(idRespuesta) {
             alert('Error en la solicitud AJAX. Consulta la consola para más detalles.');
         }
     });
+}
+
+
+
+
+
+
+function obtenerTiempoRestante() {
+    const tiempoGuardado = localStorage.getItem("tiempoRestante");
+    return tiempoGuardado ? parseInt(tiempoGuardado) : 0;
+}
+
+function guardarTiempoRestante(tiempoRestante) {
+    localStorage.setItem("tiempoRestante", tiempoRestante.toString());
+}
+
+function contarAtras(segundos) {
+    const contador = document.getElementById("contador");
+    let tiempoRestante = segundos;
+
+    const intervalo = setInterval(() => {
+        if (tiempoRestante > 0) {
+            contador.textContent = tiempoRestante;
+            tiempoRestante--;
+        } else {
+            contador.textContent = "¡Tiempo terminado!";
+            clearInterval(intervalo);
+
+            setTimeout(() => {
+                redirigir();
+            }, 2000)
+
+        }
+        guardarTiempoRestante(tiempoRestante);
+    }, 1000);
+}
+
+function iniciarNuevoContador() {
+    guardarTiempoRestante(100); // Establece el tiempo inicial en 10 segundos
+    contarAtras(10);
+}
+
+function redirigir() {
+    localStorage.removeItem("tiempoRestante"); // Elimina el tiempo restante al finalizar el contador
+    window.location.href = "http://localhost/partida/tiempoTerminado"; // Reemplaza la URL con la que desees redirigir
 }
