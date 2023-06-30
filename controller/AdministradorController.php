@@ -16,7 +16,7 @@ class AdministradorController
     public function list()
     {
 
-				$cantUsuariosMenores = $this->administradorModel->getCantidadDeUsuariosMenores()[0][0];
+        $cantUsuariosMenores = $this->administradorModel->getCantidadDeUsuariosMenores()[0][0];
         $cantUsuariosMayores = $this->administradorModel->getCantidadDeUsuariosMayores()[0][0];
         $cantUsuariosJubilados = $this->administradorModel->getCantidadDeUsuariosJubilados()[0][0];
 
