@@ -110,10 +110,10 @@ require 'vendor/autoload.php';
 			return $data ?? "";
 		}
 
-		public function userRegistration($username, $nombreCompleto, $fechaDeNacimiento, $sexo, $password, $confirmPassword,$ubicacion, $email, $foto, $rol,$verify_token) {
+		public function userRegistration($username, $nombreCompleto, $fechaDeNacimiento, $sexo, $password, $confirmPassword,$ubicacion, $email, $foto, $rol, $fechaDeRegistro ,$verify_token) {
 
-			$sql = "INSERT INTO usuarios (username, nombreCompleto, fechaDeNacimiento, sexo, password, ubicacion, mail, fotoDePerfil, rol,   verify_token)
-            VALUES ('$username', '$nombreCompleto', '$fechaDeNacimiento', '$sexo', '$password', '$ubicacion', '$email', '$foto', '$rol', '$verify_token')";
+			$sql = "INSERT INTO usuarios (username, nombreCompleto, fechaDeNacimiento, sexo, password, ubicacion, mail, fotoDePerfil, rol, fechaDeRegistro , verify_token)
+            VALUES ('$username', '$nombreCompleto', '$fechaDeNacimiento', '$sexo', '$password', '$ubicacion', '$email', '$foto', '$rol', '$fechaDeRegistro' ,'$verify_token')";
             $this->sendemail_verify($nombreCompleto,$email,$verify_token);
             return $this->database->insert($sql);
 		}
@@ -152,5 +152,9 @@ require 'vendor/autoload.php';
             return $duplicado;
         }
 
+				public function getFechaDeRegistro() {
+						$sql = "SELECT CURDATE() AS fechaDeRegistro";
+					return $this->database->query($sql);
+				}
 
 	}
