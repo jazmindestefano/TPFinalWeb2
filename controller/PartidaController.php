@@ -56,7 +56,7 @@
 			$idPregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($_GET['idRespuesta'])[0]['idPregunta'];
 			$preguntaRespondida = $this->partidaModel->getPreguntaByIdDePregunta($idPregunta);
 			$respuestaCorrecta = $this->partidaModel->getRespuestaCorrectaByIdDePregunta($idPregunta)[0]['respuesta'];
-			$respuestaDelUsuario = $this->partidaModel->getRespuestaPorId($_GET['idRespuesta'])[0]['respuesta'];
+            $respuestaDelUsuario = $this->partidaModel->getRespuestaPorId($_GET['idRespuesta'])[0]['respuesta'];
 
 			$cantidadpartidasJugadas = $this->partidaModel->getCantidadPartidasJugadas($idUsuario)[0]['partidasJugadas'];
 			$cantidadpartidasJugadas++;
@@ -66,6 +66,7 @@
 
 			$puntajeTotal = $this->partidaModel->getPuntajeTotalByIdUser($idUsuario)[0]['puntaje'] + $_SESSION['puntajeDePartida'];
 			$this->partidaModel->updatePuntajeTotal($idUsuario, $puntajeTotal);
+
 
 			$mensaje = $this->partidaModel->respuestaMensaje($respuestaCorrecta, $respuestaDelUsuario);
 
@@ -104,4 +105,16 @@
 		}
 
 
+        public function terminoSinResponder(){
+            $idUsuario = $_SESSION['actualUser'];
+            $puntajeTotal = $this->partidaModel->getPuntajeTotalByIdUser($idUsuario)[0]['puntaje'] + $_SESSION['puntajeDePartida'];
+            $this->partidaModel->updatePuntajeTotal($idUsuario, $puntajeTotal);
+
+            $data = array(
+                "puntaje" => $_SESSION['puntajeDePartida']);
+
+            header('Content-Type: application/json');
+            echo json_encode($data);
+
+        }
 	}
