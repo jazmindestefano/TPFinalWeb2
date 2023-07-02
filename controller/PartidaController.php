@@ -1,5 +1,6 @@
 <?php
 
+
     class PartidaController
     {
 
@@ -12,87 +13,70 @@
             $this->renderer = $renderer;
         }
 
-        public function empezar()
+        public function empezarPartida()
         {
-            $idUsuario = $_SESSION['actualUser'];
             $_SESSION['puntajeDePartida'] = 0;
-            $dificultadUsuario = $this->partidaModel->getDificultadDelUsuario($idUsuario)[0]['dificultad'];
-
-
-            if (count($this->partidaModel->getListaDePreguntasSinResponderByIdUsuario($idUsuario, $dificultadUsuario)) == 0) {
-                $this->partidaModel->borrarPreguntasRespondidasByIdUsuario($idUsuario);
-            }
-
-            $preguntasSinResponder = $this->partidaModel->getListaDePreguntasSinResponderByIdUsuario($idUsuario, $dificultadUsuario);
-            $pregunta = $this->partidaModel->getPreguntaSinResponder($preguntasSinResponder);
-            $respuestas = $this->partidaModel->getRespuestasByIdPregunta($pregunta[0]);
-            $categoria = $this->partidaModel->getCategoriaByIdDePregunta($pregunta[0])[0]["categoria"];
-
-
-            $data = array('preguntas' => $pregunta,
-                'respuestas' => $respuestas,
-                'categoria' => $categoria);
+            $data = array();
             $this->renderer->render('partida', $data);
         }
 
-        public function validar()
+
+        public function jugarPartida()
         {
             $idUsuario = $_SESSION['actualUser'];
             $dificultadUsuario = $this->partidaModel->getDificultadDelUsuario($idUsuario)[0]['dificultad'];
-            $idDePregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($_GET['idRespuesta'])[0]['idPregunta'];
-            $preguntaRespondida = $this->partidaModel->getPreguntaByIdDePregunta($idDePregunta);
-            $respuestaDelUsuario = $this->partidaModel->getRespuestaPorId($_GET['idRespuesta'])[0]['respuesta'];
-            $respuestaCorrecta = $this->partidaModel->getRespuestaCorrectaByIdDePregunta($idDePregunta)[0]['respuesta'];
-            $mensaje = $this->partidaModel->respuestaMensaje($respuestaCorrecta, $respuestaDelUsuario);
 
-            $this->partidaModel->insertarPreguntaEnPreguntaRespondida($idDePregunta, $idUsuario);
-
-            if (count($this->partidaModel->getListaDePreguntasSinResponderByIdUsuario($idUsuario, $dificultadUsuario)) == 0) {
+            if (count($this->partidaModel->getListaDePreguntasSinResponderByIdUsuario($idUsuario, $dificultadUsuario)) == 1) {
                 $this->partidaModel->borrarPreguntasRespondidasByIdUsuario($idUsuario);
             }
 
-            $preguntasSinResponder = $this->partidaModel->getListaDePreguntasSinResponderByIdUsuario($idUsuario, $dificultadUsuario);
-            $preguntaNueva = $this->partidaModel->getPreguntaSinResponder($preguntasSinResponder);
-            $respuestas = $this->partidaModel->getRespuestasByIdPregunta($preguntaNueva[0]);
-
-            $puntajeTotal = $this->partidaModel->getPuntajeTotalByIdUser($idUsuario)[0]['puntaje'];
-            $cantidadpartidasJugadas = $this->partidaModel->getCantidadPartidasJugadas($idUsuario)[0]['partidasJugadas'];
-            $categoria = $this->partidaModel->getCategoriaByIdDePregunta($preguntaNueva[0])[0]["categoria"];
-            $this->partidaModel->updateDificultadPregunta($idDePregunta);
-            $porcentaje = $this->partidaModel->getPorcentajeDePreguntasRespondidasCorrectamentePorUsuario($idUsuario)[0][0];
-
-            if ($respuestaDelUsuario == $respuestaCorrecta) {
-                $data = array('preguntas' => $preguntaNueva,
-                    'respuestas' => $respuestas,
-                    'categoria' => $categoria);
-                $_SESSION['puntajeDePartida']++;
-                $puntajeTotal++;
-                $this->partidaModel->updatePreguntaRespondida($idDePregunta, $idUsuario);
-                $this->partidaModel->updatePuntajeTotal($idUsuario, $puntajeTotal);
-                $this->renderer->render('partida', $data);
-            } else {
-                $cantidadpartidasJugadas++;
-                $this->partidaModel->updatePartidasJugadas($idUsuario, $cantidadpartidasJugadas);
-                $this->partidaModel->updateDificultadUsuario($idUsuario, $porcentaje);
-                $data = array('preguntas' => $preguntaRespondida,
-                    'mensajeDeLaPartida' => $mensaje,
-                    'puntaje' => $_SESSION['puntajeDePartida']);
-                $this->renderer->render('partida', $data);
+            if (isset($_GET["idRespuesta"])) {
+                $idPregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($_GET["idRespuesta"])[0]['idPregunta'];
+                $this->partidaModel->insertarPreguntaEnPreguntaRespondida($idPregunta, $idUsuario);
+                $this->partidaModel->updatePreguntaRespondida($idPregunta, $idUsuario);
             }
+
+            $pregunta = $this->getNuevaPregunta($idUsuario, $dificultadUsuario);
+            $_SESSION['puntajeDePartida']++;
+
+            $data = array('preguntas' => $pregunta['preguntaNueva'],
+                'respuestas' => $pregunta['respuestas'],
+                'categoria' => $pregunta['categoria']);
+
+            header('Content-Type: application/json');
+            echo json_encode($data);
+
         }
 
-        public function getNuevaPregunta($idUsuario, $dificultadUsuario)
+        public function finalizarPartida()
         {
-            $preguntasSinResponder = $this->partidaModel->getListaDePreguntasSinResponderByIdUsuario($idUsuario, $dificultadUsuario);
-            $preguntaNueva = $this->partidaModel->getPreguntaSinResponder($preguntasSinResponder);
-            $respuestas = $this->partidaModel->getRespuestasByIdPregunta($preguntaNueva[0]);
-            $resultado = [
-                'preguntasSinResponder' => $preguntasSinResponder,
-                'preguntaNueva' => $preguntaNueva,
-                'respuestas' => $respuestas
-            ];
 
-            return $resultado;
+            $idUsuario = $_SESSION['actualUser'];
+            $porcentaje = $this->partidaModel->getPorcentajeDePreguntasRespondidasCorrectamentePorUsuario($idUsuario)[0][0];
+
+            $idPregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($_GET['idRespuesta'])[0]['idPregunta'];
+            $preguntaRespondida = $this->partidaModel->getPreguntaByIdDePregunta($idPregunta);
+            $respuestaCorrecta = $this->partidaModel->getRespuestaCorrectaByIdDePregunta($idPregunta)[0]['respuesta'];
+            $respuestaDelUsuario = $this->partidaModel->getRespuestaPorId($_GET['idRespuesta'])[0]['respuesta'];
+
+            $cantidadpartidasJugadas = $this->partidaModel->getCantidadPartidasJugadas($idUsuario)[0]['partidasJugadas'];
+            $cantidadpartidasJugadas++;
+            $this->partidaModel->updatePartidasJugadas($idUsuario, $cantidadpartidasJugadas);
+
+            $this->partidaModel->updateDificultadUsuario($idUsuario, $porcentaje);
+
+            $puntajeTotal = $this->partidaModel->getPuntajeTotalByIdUser($idUsuario)[0]['puntaje'] + $_SESSION['puntajeDePartida'];
+            $this->partidaModel->updatePuntajeTotal($idUsuario, $puntajeTotal);
+
+            $mensaje = $this->partidaModel->respuestaMensaje($respuestaCorrecta, $respuestaDelUsuario);
+
+            $data = array(
+                "pregunta" => $preguntaRespondida,
+                "mensajeDeLaPartida" => $mensaje,
+                "puntaje" => $_SESSION['puntajeDePartida']);
+
+            header('Content-Type: application/json');
+            echo json_encode($data);
         }
 
         public function reportar()
@@ -103,4 +87,23 @@
             $data = array('pregunta' => $pregunta);
             $this->renderer->render('reportar', $data);
         }
+
+
+        public function getNuevaPregunta($idUsuario, $dificultadUsuario)
+        {
+            $preguntasSinResponder = $this->partidaModel->getListaDePreguntasSinResponderByIdUsuario($idUsuario, $dificultadUsuario);
+            $preguntaNueva = $this->partidaModel->getPreguntaSinResponder($preguntasSinResponder);
+            $respuestas = $this->partidaModel->getRespuestasByIdPregunta($preguntaNueva[0]);
+            $resultado = [
+                'preguntasSinResponder' => $preguntasSinResponder,
+                'preguntaNueva' => $preguntaNueva,
+                'respuestas' => $respuestas,
+                'categoria' => $preguntaNueva['categoria']
+            ];
+
+            return $resultado;
+        }
+
+
     }
+

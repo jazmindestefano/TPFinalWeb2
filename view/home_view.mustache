@@ -2,6 +2,7 @@
 <!-- The Band Section -->
 <html class="home">
 <link rel="stylesheet" href="../public/css/home.css">
+<body>
 <div>
 <h2 class="home-title">KnowItAll</h2>
 <div class="general-home">
@@ -13,7 +14,7 @@
     {{#user}}
     <p>Hola  <span style="font-weight: bold"> {{nombreCompleto}}</span>! Tu puntaje total es de <span style="font-weight: bold">{{puntaje}}</span></p>
         {{/user}}
-    <a href="/partida/empezar" class="button-empezar">Jugar Partida</a>
+    <a href="/partida/empezarPartida" class="button-empezar">Jugar Partida</a>
     <br>
     <a href="/pregunta/crear" class="button-crear">Crear Pregunta</a>
     </div>
@@ -24,5 +25,8 @@
 
 <!-- End Page Content -->
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../public/js/ajaxPartida.js"></script>
+</body>
 </html>
 
