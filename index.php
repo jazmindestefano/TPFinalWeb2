@@ -20,6 +20,11 @@ if ($module === 'editor' && !$_SESSION['esEditor']) {
     exit();
 }
 
+if ($module === 'admin' && !$_SESSION['esAdmin']) {
+    header('Location: /');
+    exit();
+}
+
 $router->route($module, $method);
 
 
