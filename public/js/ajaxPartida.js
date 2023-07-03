@@ -111,6 +111,7 @@ function validarPregunta(idRespuesta = 0, isCorrecta) {
             success: function (data) {
                 const categoria = data.categoria;
                 const pregunta = data.preguntas.pregunta;
+                const idPregunta = data.preguntas.idPregunta;
 
                 if (paginaRecargada === 1) {
                     console.log("La página fue recargada validar pregunta");
@@ -121,10 +122,12 @@ function validarPregunta(idRespuesta = 0, isCorrecta) {
                 idRespuestaLET = idRespuesta;
                 let cat = `<div class="${categoria} partida-pregunta">${categoria}</div>`;
                 let preg = `<p class="partida-pregunta">${pregunta}</p>`;
-
+                let reportar = `<a href="http://localhost/partida/reportar?idPregunta=${idPregunta}" class="">Reportar pregunta</a>`;
                 $("#container-partida").empty();
                 $("#container-partida").append(cat);
+                $("#container-partida").append(reportar);
                 $("#container-partida").append(preg);
+
 
                 data.respuestas.map(respuesta => {
 
