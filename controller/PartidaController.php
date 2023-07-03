@@ -1,6 +1,5 @@
 <?php
 
-
     class PartidaController
     {
 
@@ -31,13 +30,23 @@
             }
 
             if (isset($_GET["idRespuesta"])) {
+
+                $timestamp = time();
+
+                $diferencia = $_SESSION['timestampPregunta'] - $timestamp;
+
+                if ($diferencia < -10) {
+                    $this->finalizarPartida();
+                }
+
                 $idPregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($_GET["idRespuesta"])[0]['idPregunta'];
                 $this->partidaModel->insertarPreguntaEnPreguntaRespondida($idPregunta, $idUsuario);
                 $this->partidaModel->updatePreguntaRespondida($idPregunta, $idUsuario);
+                $_SESSION['puntajeDePartida']++;
             }
 
             $pregunta = $this->getNuevaPregunta($idUsuario, $dificultadUsuario);
-            $_SESSION['puntajeDePartida']++;
+
 
             $data = array('preguntas' => $pregunta['preguntaNueva'],
                 'respuestas' => $pregunta['respuestas'],
@@ -50,10 +59,8 @@
 
         public function finalizarPartida()
         {
-
             $idUsuario = $_SESSION['actualUser'];
             $porcentaje = $this->partidaModel->getPorcentajeDePreguntasRespondidasCorrectamentePorUsuario($idUsuario)[0][0];
-
             $idPregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($_GET['idRespuesta'])[0]['idPregunta'];
             $preguntaRespondida = $this->partidaModel->getPreguntaByIdDePregunta($idPregunta);
             $respuestaCorrecta = $this->partidaModel->getRespuestaCorrectaByIdDePregunta($idPregunta)[0]['respuesta'];
@@ -67,6 +74,7 @@
 
             $puntajeTotal = $this->partidaModel->getPuntajeTotalByIdUser($idUsuario)[0]['puntaje'] + $_SESSION['puntajeDePartida'];
             $this->partidaModel->updatePuntajeTotal($idUsuario, $puntajeTotal);
+
 
             $mensaje = $this->partidaModel->respuestaMensaje($respuestaCorrecta, $respuestaDelUsuario);
 
@@ -89,21 +97,49 @@
         }
 
 
+        public function preguntaActual()
+        {
+            $data = array('preguntas' => $_SESSION['preguntaActual'],
+                'respuestas' => $_SESSION['respuestasActuales'],
+                'categoria' => $_SESSION['categoriaActual']);
+
+            header('Content-Type: application/json');
+            echo json_encode($data);
+        }
+
+
         public function getNuevaPregunta($idUsuario, $dificultadUsuario)
         {
             $preguntasSinResponder = $this->partidaModel->getListaDePreguntasSinResponderByIdUsuario($idUsuario, $dificultadUsuario);
             $preguntaNueva = $this->partidaModel->getPreguntaSinResponder($preguntasSinResponder);
             $respuestas = $this->partidaModel->getRespuestasByIdPregunta($preguntaNueva[0]);
+            $_SESSION['preguntaActual'] = $preguntaNueva;
+            $_SESSION['respuestasActuales'] = $respuestas;
+            $_SESSION['categoriaActual'] = $preguntaNueva['categoria'];
+            $timestamp = time();
+            $_SESSION['timestampPregunta'] = $timestamp;
             $resultado = [
                 'preguntasSinResponder' => $preguntasSinResponder,
                 'preguntaNueva' => $preguntaNueva,
                 'respuestas' => $respuestas,
-                'categoria' => $preguntaNueva['categoria']
+                'categoria' => $preguntaNueva['categoria'],
             ];
 
             return $resultado;
         }
 
 
-    }
+        public function terminoSinResponder()
+        {
+            $idUsuario = $_SESSION['actualUser'];
+            $puntajeTotal = $this->partidaModel->getPuntajeTotalByIdUser($idUsuario)[0]['puntaje'] + $_SESSION['puntajeDePartida'];
+            $this->partidaModel->updatePuntajeTotal($idUsuario, $puntajeTotal);
 
+            $data = array(
+                "puntaje" => $_SESSION['puntajeDePartida']);
+
+            header('Content-Type: application/json');
+            echo json_encode($data);
+
+        }
+    }
