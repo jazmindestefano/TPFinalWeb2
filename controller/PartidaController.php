@@ -14,7 +14,7 @@
 
 		public function empezarPartida()
 		{
-			$_SESSION['puntajeDePartida'] = 0;
+            $_SESSION['puntajeDePartida'] = 0;
 			$data = array();
 			$this->renderer->render('partida', $data);
 		}
@@ -59,10 +59,8 @@
 
 		public function finalizarPartida()
 		{
-
 			$idUsuario = $_SESSION['actualUser'];
 			$porcentaje = $this->partidaModel->getPorcentajeDePreguntasRespondidasCorrectamentePorUsuario($idUsuario)[0][0];
-
 			$idPregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($_GET['idRespuesta'])[0]['idPregunta'];
 			$preguntaRespondida = $this->partidaModel->getPreguntaByIdDePregunta($idPregunta);
 			$respuestaCorrecta = $this->partidaModel->getRespuestaCorrectaByIdDePregunta($idPregunta)[0]['respuesta'];

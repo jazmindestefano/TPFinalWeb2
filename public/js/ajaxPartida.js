@@ -31,7 +31,6 @@ function empezarPartida() {
                 const pregunta = data.preguntas.pregunta;
 
                 if (paginaRecargada === 1) {
-                    console.log("La página fue recargada");
                     paginaRecargada = 0;
                 } else {
                     iniciarNuevoContador()
@@ -63,9 +62,15 @@ function empezarPartida() {
             url: 'http://localhost/partida/jugarPartida',
             method: 'GET',
             success: function (data) {
-
+                paginaRecargada = 0;
                 const categoria = data.categoria;
                 const pregunta = data.preguntas.pregunta;
+
+                if (paginaRecargada === 1) {
+                    paginaRecargada = 0;
+                } else {
+                    iniciarNuevoContador()
+                }
 
                 let cat = `<div class="${categoria} partida-pregunta">${categoria}</div>`;
                 let preg = `<p class="partida-pregunta">${pregunta}</p>`;
@@ -102,7 +107,7 @@ function validarPregunta(idRespuesta = 0, isCorrecta) {
                 const pregunta = data.preguntas.pregunta;
 
                 if (paginaRecargada === 1) {
-                    console.log("La página fue recargada");
+                    console.log("La página fue recargada validar pregunta");
                 } else {
                     iniciarNuevoContador()
                 }
