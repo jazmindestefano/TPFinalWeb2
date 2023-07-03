@@ -29,6 +29,7 @@ function empezarPartida() {
 
                 const categoria = data.categoria;
                 const pregunta = data.preguntas.pregunta;
+                const idPregunta = data.preguntas.idPregunta;
 
                 if (paginaRecargada === 1) {
                     paginaRecargada = 0;
@@ -37,9 +38,11 @@ function empezarPartida() {
                 }
 
                 let cat = `<div class="${categoria} partida-pregunta">${categoria}</div>`;
+                let reportar = `<a href="http://localhost/partida/reportar?idPregunta=${idPregunta}" class="">Reportar pregunta</a>`;
                 let preg = `<p class="partida-pregunta">${pregunta}</p>`;
 
                 $("#container-partida").append(cat);
+                $("#container-partida").append(reportar);
                 $("#container-partida").append(preg);
 
                 data.respuestas.map(respuesta => {
@@ -65,6 +68,7 @@ function empezarPartida() {
                 paginaRecargada = 0;
                 const categoria = data.categoria;
                 const pregunta = data.preguntas.pregunta;
+                const idPregunta = data.preguntas.idPregunta;
 
                 if (paginaRecargada === 1) {
                     paginaRecargada = 0;
@@ -74,8 +78,10 @@ function empezarPartida() {
 
                 let cat = `<div class="${categoria} partida-pregunta">${categoria}</div>`;
                 let preg = `<p class="partida-pregunta">${pregunta}</p>`;
+                let reportar = `<a href="http://localhost/partida/reportar?idPregunta=${idPregunta}" class="">Reportar pregunta</a>`;
 
                 $("#container-partida").append(cat);
+                $("#container-partida").append(reportar);
                 $("#container-partida").append(preg);
 
                 data.respuestas.map(respuesta => {

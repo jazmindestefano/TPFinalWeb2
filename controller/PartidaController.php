@@ -87,9 +87,10 @@
             echo json_encode($data);
         }
 
+
         public function reportar()
         {
-            $idPreguntaReportada = $_GET['id'];
+            $idPreguntaReportada = $_GET['idPregunta'];
             $this->partidaModel->marcarPreguntaComoReportada($idPreguntaReportada);
             $pregunta = $this->partidaModel->getPreguntaByIdDePregunta($idPreguntaReportada);
             $data = array('pregunta' => $pregunta);
