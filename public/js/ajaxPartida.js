@@ -1,20 +1,3 @@
-/*
-document.addEventListener("DOMContentLoaded", function() {
-    //const preguntaElemento = document.querySelector('.w3-container .w3-center');
-    const preguntaElemento = document.querySelector('.cronometro');
-    const contadorElemento = document.createElement("p");
-    contadorElemento.id = "contador";
-    preguntaElemento.insertAdjacentElement('afterend', contadorElemento);
-
-    const tiempoRestante = obtenerTiempoRestante();
-    if (tiempoRestante > 0) {
-        contarAtras(tiempoRestante);
-    }
-    const opcionesRespuesta = document.querySelectorAll(".opcion-respuesta");
-    opcionesRespuesta.forEach(opcion => {
-        opcion.addEventListener("click", verificarRespuesta);
-    });
-});*/
 let intervaloContador;
 let idRespuestaLET;
 document.addEventListener("DOMContentLoaded", function() {
@@ -31,16 +14,15 @@ document.addEventListener("DOMContentLoaded", function() {
     opcionesRespuesta.forEach(opcion => {
         opcion.addEventListener("click", verificarRespuesta);
     });
+
 });
 
-// Resto del código...
-
-
-
-
-
 function empezarPartida() {
-    iniciarNuevoContador()
+    if (performance.navigation.type === 1) {
+        console.log("La página fue recargada");
+    } else {
+        iniciarNuevoContador()
+    }
     $.ajax({
         url: 'http://localhost/partida/jugarPartida',
         method: 'GET',
@@ -48,7 +30,6 @@ function empezarPartida() {
 
             const categoria = data.categoria;
             const pregunta = data.preguntas.pregunta;
-
 
 
             let cat = `<div class="${categoria} partida-pregunta">${categoria}</div>`;
@@ -75,7 +56,6 @@ function empezarPartida() {
 
 function validarPregunta(idRespuesta = 0, isCorrecta) {
     if (isCorrecta) {
-
         $.ajax({
             url: 'http://localhost/partida/jugarPartida',
             method: 'GET',
@@ -84,7 +64,11 @@ function validarPregunta(idRespuesta = 0, isCorrecta) {
                 const categoria = data.categoria;
                 const pregunta = data.preguntas.pregunta;
 
-                iniciarNuevoContador()
+                if (performance.navigation.type === 1) {
+                    console.log("La página fue recargada");
+                } else {
+                    iniciarNuevoContador()
+                }
                 idRespuestaLET=idRespuesta;
                 let cat = `<div class="${categoria} partida-pregunta">${categoria}</div>`;
                 let preg = `<p class="partida-pregunta">${pregunta}</p>`;
@@ -104,7 +88,8 @@ function validarPregunta(idRespuesta = 0, isCorrecta) {
 
             },
             error: function () {
-                alert('Error en la solicitud AJAX jugar');
+                terminoSinResponder();
+                detenerContador();
             }
         });
     } else {
@@ -115,8 +100,6 @@ function validarPregunta(idRespuesta = 0, isCorrecta) {
 
 function preguntaIncorrecta(idRespuesta) {
     detenerContador();
-
-
     $.ajax({
         url: 'http://localhost/partida/finalizarPartida',
         method: 'GET',
@@ -174,7 +157,6 @@ function obtenerTiempoRestante() {
 }
 
 function guardarTiempoRestante(tiempoRestante) {
-
     localStorage.setItem("tiempoRestante", tiempoRestante.toString());
 }
 
@@ -188,11 +170,10 @@ function contarAtras(segundos) {
             contador.textContent = tiempoRestante;
             tiempoRestante--;
         } else {
+            $("#container-partida").empty();
             contador.textContent = "¡Tiempo terminado!";
             detenerContador();
-            console.log(idRespuestaLET)
             preguntaIncorrecta(idRespuestaLET);
-
         }
         guardarTiempoRestante(tiempoRestante);
     }, 1000);

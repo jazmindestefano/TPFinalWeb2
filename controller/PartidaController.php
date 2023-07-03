@@ -30,9 +30,19 @@
 			}
 
 			if(isset($_GET["idRespuesta"])) {
+
+                $timestamp = time();
+
+                $diferencia = $_SESSION['timestampPregunta'] - $timestamp;
+
+                if($diferencia < -10){
+                    $this->finalizarPartida();
+                }
+
 				$idPregunta = $this->partidaModel->getIdPreguntaByIdRespuesta($_GET["idRespuesta"])[0]['idPregunta'];
 				$this->partidaModel->insertarPreguntaEnPreguntaRespondida($idPregunta, $idUsuario);
 				$this->partidaModel->updatePreguntaRespondida($idPregunta, $idUsuario);
+
 			}
 
 			$pregunta = $this->getNuevaPregunta($idUsuario, $dificultadUsuario);
@@ -40,7 +50,7 @@
 
 			$data = array('preguntas' => $pregunta['preguntaNueva'],
 				'respuestas' => $pregunta['respuestas'],
-				'categoria' => $pregunta['categoria']);
+				'categoria' => $pregunta['categoria'],);
 
 			header('Content-Type: application/json');
 			echo json_encode($data);
@@ -94,11 +104,13 @@
 			$preguntasSinResponder = $this->partidaModel->getListaDePreguntasSinResponderByIdUsuario($idUsuario, $dificultadUsuario);
 			$preguntaNueva = $this->partidaModel->getPreguntaSinResponder($preguntasSinResponder);
 			$respuestas = $this->partidaModel->getRespuestasByIdPregunta($preguntaNueva[0]);
+            $timestamp = time();
+            $_SESSION['timestampPregunta'] = $timestamp;
 			$resultado = [
 				'preguntasSinResponder' => $preguntasSinResponder,
 				'preguntaNueva' => $preguntaNueva,
 				'respuestas' => $respuestas,
-				'categoria' => $preguntaNueva['categoria']
+				'categoria' => $preguntaNueva['categoria'],
 			];
 
 			return $resultado;
