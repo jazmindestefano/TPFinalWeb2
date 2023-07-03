@@ -1,6 +1,6 @@
 let intervaloContador;
 let idRespuestaLET;
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const preguntaElemento = document.querySelector('.cronometro');
     const contadorElemento = document.createElement("p");
     contadorElemento.id = "contador";
@@ -17,41 +17,78 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
+
+let paginaRecargada = 1;
+
 function empezarPartida() {
     if (performance.navigation.type === 1) {
-        console.log("La página fue recargada");
+        $.ajax({
+            url: 'http://localhost/partida/preguntaActual',
+            method: 'GET',
+            success: function (data) {
+
+                const categoria = data.categoria;
+                const pregunta = data.preguntas.pregunta;
+
+                if (paginaRecargada === 1) {
+                    console.log("La página fue recargada");
+                    paginaRecargada = 0;
+                } else {
+                    iniciarNuevoContador()
+                }
+
+                let cat = `<div class="${categoria} partida-pregunta">${categoria}</div>`;
+                let preg = `<p class="partida-pregunta">${pregunta}</p>`;
+
+                $("#container-partida").append(cat);
+                $("#container-partida").append(preg);
+
+                data.respuestas.map(respuesta => {
+
+                    let res = `<a onclick="setearIdRespuesta(${respuesta.idRespuesta},${respuesta.isCorrecta})" class="opcion-respuesta">${respuesta.respuesta}</a>`;
+
+                    $("#container-partida").append(res);
+                })
+
+                $(".opcion-respuesta").css("margin", "10px 0");
+
+            },
+            error: function () {
+                alert('Error en la solicitud AJAX empezar');
+            }
+        });
     } else {
         iniciarNuevoContador()
+        $.ajax({
+            url: 'http://localhost/partida/jugarPartida',
+            method: 'GET',
+            success: function (data) {
+
+                const categoria = data.categoria;
+                const pregunta = data.preguntas.pregunta;
+
+                let cat = `<div class="${categoria} partida-pregunta">${categoria}</div>`;
+                let preg = `<p class="partida-pregunta">${pregunta}</p>`;
+
+                $("#container-partida").append(cat);
+                $("#container-partida").append(preg);
+
+                data.respuestas.map(respuesta => {
+
+                    let res = `<a onclick="setearIdRespuesta(${respuesta.idRespuesta},${respuesta.isCorrecta})" class="opcion-respuesta">${respuesta.respuesta}</a>`;
+
+                    $("#container-partida").append(res);
+                })
+
+                $(".opcion-respuesta").css("margin", "10px 0");
+
+            },
+            error: function () {
+                alert('Error en la solicitud AJAX empezar');
+            }
+        });
     }
-    $.ajax({
-        url: 'http://localhost/partida/jugarPartida',
-        method: 'GET',
-        success: function (data) {
 
-            const categoria = data.categoria;
-            const pregunta = data.preguntas.pregunta;
-
-
-            let cat = `<div class="${categoria} partida-pregunta">${categoria}</div>`;
-            let preg = `<p class="partida-pregunta">${pregunta}</p>`;
-
-            $("#container-partida").append(cat);
-            $("#container-partida").append(preg);
-
-            data.respuestas.map(respuesta => {
-
-                let res = `<a onclick="setearIdRespuesta(${respuesta.idRespuesta},${respuesta.isCorrecta})" class="opcion-respuesta">${respuesta.respuesta}</a>`;
-
-                $("#container-partida").append(res);
-            })
-
-            $(".opcion-respuesta").css("margin", "10px 0");
-
-        },
-        error: function () {
-            alert('Error en la solicitud AJAX empezar');
-        }
-    });
 }
 
 function validarPregunta(idRespuesta = 0, isCorrecta) {
@@ -59,17 +96,18 @@ function validarPregunta(idRespuesta = 0, isCorrecta) {
         $.ajax({
             url: 'http://localhost/partida/jugarPartida',
             method: 'GET',
-            data: { idRespuesta: idRespuesta },
+            data: {idRespuesta: idRespuesta},
             success: function (data) {
                 const categoria = data.categoria;
                 const pregunta = data.preguntas.pregunta;
 
-                if (performance.navigation.type === 1) {
+                if (paginaRecargada === 1) {
                     console.log("La página fue recargada");
                 } else {
                     iniciarNuevoContador()
                 }
-                idRespuestaLET=idRespuesta;
+
+                idRespuestaLET = idRespuesta;
                 let cat = `<div class="${categoria} partida-pregunta">${categoria}</div>`;
                 let preg = `<p class="partida-pregunta">${pregunta}</p>`;
 
@@ -103,7 +141,7 @@ function preguntaIncorrecta(idRespuesta) {
     $.ajax({
         url: 'http://localhost/partida/finalizarPartida',
         method: 'GET',
-        data: { idRespuesta: idRespuesta },
+        data: {idRespuesta: idRespuesta},
         success: function (data) {
 
             const mensajeDeLaPartida = data.mensajeDeLaPartida.mensajeDePartida ?? "";
@@ -128,7 +166,7 @@ function preguntaIncorrecta(idRespuesta) {
 }
 
 
-function terminoSinResponder(){
+function terminoSinResponder() {
     $.ajax({
         url: 'http://localhost/partida/terminoSinResponder',
         method: 'GET',
@@ -136,7 +174,7 @@ function terminoSinResponder(){
 
             const puntaje = data.puntaje;
 
-           let punt = `<p style="text-align: center">Tu puntaje alcanzado es de: <span style="font-weight: bold">${puntaje}</span></p>`;
+            let punt = `<p style="text-align: center">Tu puntaje alcanzado es de: <span style="font-weight: bold">${puntaje}</span></p>`;
 
             $("#container-partida").empty();
             $("#contador").empty();
@@ -148,7 +186,6 @@ function terminoSinResponder(){
         }
     });
 }
-
 
 
 function obtenerTiempoRestante() {
@@ -180,7 +217,6 @@ function contarAtras(segundos) {
 }
 
 
-
 function iniciarNuevoContador() {
     detenerContador();
     guardarTiempoRestante(10); // Establece el tiempo inicial en 10 segundos
@@ -198,7 +234,7 @@ function detenerContador() {
     }
 }
 
-function setearIdRespuesta(idRespuesta, isCorrecta){
+function setearIdRespuesta(idRespuesta, isCorrecta) {
     validarPregunta(idRespuesta, isCorrecta)
-    idRespuestaLET= idRespuesta;
+    idRespuestaLET = idRespuesta;
 }
