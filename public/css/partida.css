@@ -112,3 +112,12 @@
     background-color: #b9b9b9;
 }
 
+
+.report{
+    background: red;
+    padding:0.8rem;
+    text-decoration: none;
+    border-radius: 10px;
+    color:white;
+}
+

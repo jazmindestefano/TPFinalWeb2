@@ -38,7 +38,7 @@ function empezarPartida() {
                 }
 
                 let cat = `<div class="${categoria} partida-pregunta">${categoria}</div>`;
-                let reportar = `<a href="http://localhost/partida/reportar?idPregunta=${idPregunta}" class="">Reportar pregunta</a>`;
+                let reportar = `<a href="http://localhost/partida/reportar?idPregunta=${idPregunta}" class="report">Reportar pregunta</a>`;
                 let preg = `<p class="partida-pregunta">${pregunta}</p>`;
 
                 $("#container-partida").append(cat);
